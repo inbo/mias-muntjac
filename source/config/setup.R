@@ -20,9 +20,9 @@ pkgs <- c(
   "cyclocomp",
   "quarto",
   "INBOtheme"
-  )
+)
 pkgs_installed <- pkgs %in% rownames(installed.packages())
-if(any(pkgs_installed == FALSE)){
+if (any(pkgs_installed == FALSE)) {
   install.packages(pkgs[!pkgs_installed])
 }
 #

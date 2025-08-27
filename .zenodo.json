@@ -1,0 +1,37 @@
+{
+  "access_right": "open",
+  "title": "Monitoring invasive alien species of Union concern: Chinese muntjac",
+  "description": "<p>Replace this with a short description of the project. It becomes the abstract of the project in the citation information. And the project description at https://zenodo.org<\/p>",
+  "keywords": [
+    "invasive alien species",
+    "monitoring programs",
+    "chinese muntjac"
+  ],
+  "upload_type": "software",
+  "license": "CC-BY-4.0",
+  "language": "eng",
+  "contributors": [
+    {
+      "name": "Adolf, Janne",
+      "affiliation": "Research Institute for Nature and Forest (INBO)",
+      "orcid": "0000-0001-6064-9803",
+      "type": "contactperson"
+    },
+    {
+      "name": "Research Institute for Nature and Forest (INBO)",
+      "type": "rightsholder"
+    }
+  ],
+  "creators": [
+    {
+      "name": "Adolf, Janne",
+      "affiliation": "Research Institute for Nature and Forest (INBO)",
+      "orcid": "0000-0001-6064-9803"
+    }
+  ],
+  "communities": [
+    {
+      "identifier": "inbo"
+    }
+  ]
+}

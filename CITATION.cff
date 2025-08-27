@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using these metadata.
+title: "Monitoring invasive alien species of Union concern: Chinese muntjac"
+authors:
+- given-names: Janne
+  family-names: Adolf
+  affiliation: Research Institute for Nature and Forest (INBO)
+  orcid: 0000-0001-6064-9803
+keywords:
+- invasive alien species
+- monitoring programs
+- chinese muntjac
+contact:
+- given-names: Janne
+  family-names: Adolf
+  affiliation: Research Institute for Nature and Forest (INBO)
+  orcid: 0000-0001-6064-9803
+doi: ~
+license: CC-BY-4.0
+repository-code: https://github.com/inbo/mias-muntjac/
+type: software
+abstract: "Replace this with a short description of the project.\nIt becomes the abstract
+  of the project in the citation information.\nAnd the project description at https://zenodo.org"
