@@ -30,5 +30,8 @@ if (any(pkgs_installed == FALSE)) {
 # write renv lockfile
 renv::snapshot()
 #
+# update packages
+if (FALSE) renv::update()
+#
 # author information can be adapted manually via
 # C:\Users\janne_adolf\AppData\Roaming\R\data\R\checklist
