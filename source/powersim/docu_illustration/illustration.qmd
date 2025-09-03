@@ -1,0 +1,618 @@
+---
+title: "Illustration power simulation for chinese muntjac"
+format: 
+  html:
+    toc: true
+    toc-location: right-body
+    toc-depth: 3
+    toc-expand: true
+    theme: yeti
+    number-sections: true
+    number-depth: 3
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+lightbox: true
+bibliography: ../../../media/MIAS.bib
+execute: 
+  eval: true
+  echo: true
+  cache: false
+---
+
+The following documents deals with 2 monitoring scopes:
+
+- Abundance under management: Track (changes in) population size in relation to sustained eradication measures in distribution area
+- Detection under management: Detect potential spread into buffer area around distribution area in relation to sustained eradication measures in distribution area
+
+For now we mainly focus on the first scope.
+
+The document summarizes some thoughts on the following components of a simulation-based power analysis:
+
+- Sampling: How could data look like?
+- Data-generation: What is an as-complex-as-necessary / as-simple-as-possible data-generating model?
+- Modeling: What is an as-complex-as-necessary / as-simple-as-possible data-analysis model?
+- Simulation: Initial thoughts on design and implementation
+
+
+## Sampling
+
+
+### Define the sample frame
+
+To define the **sample frame** per monitoring scope, we take the following 2 preparatory steps:
+
+1. Get map layers: 
+  - Flanders' municipalities (as distribution is currently tied to specific municipalities)
+  - Flanders' habitat area (e.g., forest)
+
+
+```{r sampling-get-map-layers}
+#| include: true
+#| results: 'hide'
+
+# --- get map layers---------------------------------------------
+
+# municipalities
+map_mun <- inbospatial::get_feature_wfs(
+  wfs = "https://geo.api.vlaanderen.be/VRBG/wfs",
+  layer = "VRBG:Refgem"
+)
+# https://www.vlaanderen.be/datavindplaats/catalogus/
+# voorlopig-referentiebestand-gemeentegrenzen-
+# toestand-01-01-2025-correctie-11-02-2025
+#
+# check CRS
+if (FALSE) sf::st_crs(map_mun)$Name # EPSG:31370
+
+# habitat
+map_hab <- sf::st_read("../../../data/gis/inbo_boskartering/bosvl2001.shp")
+# get forest map (vector?)
+# raster: https://www.vlaanderen.be/datavindplaats/catalogus/
+# digitale-boswijzer-vlaanderen-2021
+# raster: https://www.vlaanderen.be/datavindplaats/catalogus/
+# groenkaart-vlaanderen-2021
+#
+# check CRS
+if (FALSE) sf::st_crs(map_hab)$Name # EPSG:31370
+
+
+```
+
+2. Process map layers:
+  - Select relevant municipalities (i.e., distribution area): Schoten, Brasschaat, Wuustwezel
+  - Get buffer area of width $u$ meters around distribution area (here $u = 2000$)
+    - Alternative: Get buffer area around habitat regions within distribution area?
+  - Get habitat regions within distribution area (e.g., Forests)
+  - Get habitat regions within buffer area
+
+```{r sampling-process-map-layers}
+#| include: true
+#| cache: true
+#| results: 'hide'
+#| warning: false
+
+# TO DO: check warnings
+
+# --- process map layers ---------------------------------------------
+
+# select relevant municipalities
+map_mun_antw <- map_mun |>
+  dplyr::filter(
+    grepl("Schoten|Brasschaat|Wuustwezel", NAAM)
+  )
+
+# extract polygons from multisurface to enable further processing
+# (mapview and intersection)
+lapply(1:nrow(map_mun_antw),
+       function (i) {
+         assertthat::are_equal(
+           sf::st_as_text(map_mun_antw$SHAPE[i]) |> grep("POLYGON", x = _),
+           1
+         )
+         })
+map_mun_antw <- sf::st_cast(map_mun_antw, "GEOMETRYCOLLECTION") |>
+  sf::st_collection_extract("POLYGON")
+if (FALSE) mapview::mapview(map_mun_antw)
+
+# create buffer around municipalities
+u = 2000
+map_mun_antw_merged <- map_mun_antw |>
+  dplyr::summarise()
+tmp_buff <- map_mun_antw_merged |>
+  sf::st_buffer(
+    dist = u # meters, since Belgian Lambert
+    )
+map_mun_antw_buff <- sf::st_difference(
+  tmp_buff,
+  map_mun_antw_merged
+)
+if (FALSE) mapview::mapview(map_mun_antw_buff)
+
+# quickly check municipality maps
+if (FALSE) {
+  mapview::mapview(
+    list(map_mun_antw, map_mun_antw_buff),
+    col.regions = list("blue", "red"),
+    alpha.regions = .3
+  )
+}
+
+# intersect habitat with municipality maps
+map_hab <- sf::st_transform(x = map_hab, crs = "EPSG:31370")
+map_mun_antw_hab <- sf::st_intersection(
+  map_mun_antw,
+  map_hab
+  )
+mapview::mapview(map_mun_antw_hab)
+map_mun_antw_buff_hab <- sf::st_intersection(
+  map_mun_antw_buff,
+  map_hab
+)
+if (FALSE) mapview::mapview(map_mun_antw_buff_hab)
+
+```
+
+After these 2 steps we get the following maps.
+
+```{r fig-plot-dist-buff-area}
+#| include: true
+#| cache: true
+#| results: 'hide'
+#| message: false
+#| fig-cap: "Map of distribution and surrounding buffer area (both in yellow) and enclosed habitat regions (both in green). The distribution area is highlighted in lighter colors." 
+#| out-width: 150%
+#| layout-ncol: 1 
+
+# transform: pseudo-mercator, which is CRS of map tile 
+# (unless map tile - in pseudo-mercator - is first layer)
+mapnames <-   c(
+    "map_mun_antw",
+    "map_mun_antw_hab",
+    "map_mun_antw_buff",
+    "map_mun_antw_buff_hab",
+    "map_mun_antw_merged"
+  )
+maplist <- lapply(
+  mapnames,
+  \(i){
+    tmpmap <- sf::st_transform(x = get(i), crs = "EPSG:3857")
+  }
+) 
+names(maplist) <- paste0(mapnames, "_3857")
+# check transformation
+lapply(maplist, \(x) sf::st_crs(x)$Name)
+
+# base plot
+plot_base <- ggplot2::ggplot(
+  data = maplist$map_mun_antw_3857 # warning if wgs84 is used
+) +
+  ggspatial::annotation_map_tile(
+    type = "cartolight", zoom = 12, cachedir = tempdir(), alpha = .5 
+  ) 
+plot_names <- ggplot2::geom_sf_text(
+    ggplot2::aes(
+      label = NAAM
+    ),
+    size = 5,
+    color = INBOtheme::vl_black,
+    check_overlap = TRUE
+  )
+
+# plot distribution area
+geoms_dist <- list(
+  ggplot2::geom_sf(fill = INBOtheme::vl_yellow, 
+                   alpha = .6),
+  ggplot2::geom_sf(data = maplist$map_mun_antw_hab_3857, 
+                   fill = INBOtheme::vl_lightgreen, 
+                   color = INBOtheme::vl_lightgreen,
+                   alpha = .6) 
+)
+plot_dist <- plot_base + geoms_dist + plot_names
+
+# plot buffer area
+geoms_buffer <- list(
+    ggplot2::geom_sf(data = maplist$map_mun_antw_buff_3857, 
+                     fill = INBOtheme::vl_darkyellow, 
+                     alpha = .6),
+  ggplot2::geom_sf(data = maplist$map_mun_antw_buff_hab_3857, 
+                   fill = INBOtheme::vl_darkgreen, 
+                   color = INBOtheme::vl_darkgreen,
+                   alpha = .6)
+)
+plot_buff <- plot_base + geoms_buffer + plot_names
+
+# combined plot
+plot_dist_buff <- plot_base + geoms_dist + geoms_buffer +   plot_names +
+  # emphasize dist
+  ggplot2::geom_sf(data = maplist$map_mun_antw_merged_3857, 
+                   fill = NA, 
+                   color = INBOtheme::vl_black, 
+                   linewidth = 1) 
+plot_dist_buff
+
+```
+
+
+#### Monitoring scope 'abundance under management'
+
+On the basis of these, we define the **sample frame for the monitoring scope 'abundance under management'** as the habitat regions within the distribution area.
+
+We focus on the first monitoring scope in the remainder of this document.
+
+#### Monitoring scope 'detection under management'
+
+The **sample frame for the monitoring scope 'detection under management'** is defined as the habitat regions within the buffer area.  
+
+
+
+### Draw a sample
+
+For this illustration, we draw a **naive random sample**.
+To this end, we take the following steps:
+
+1. Tessellation of the sample frame:
+  - Overlay distribution area with spatial grid consisting of quadratic cells of dimension $p \times p$ meters [here $p = 250$; cf. @bollen_gebruik_nodate]
+  - Extract grid cells that show $q%$ overlap with habitat regions within distribution area (here $q > 0$) 
+
+```{r sampling-create-grid}
+#| include: true
+#| cache: true
+#| results: 'hide'
+
+# create grid over bounding box around distribution area
+p = 250
+grid_box <- sf::st_make_grid(
+  map_mun_antw_merged,
+  cellsize = p # meters, since Belgian Lambert
+) |>
+  sf::st_sf()
+if (FALSE) mapview::mapview(list(map_mun_antw_merged, grid_box))
+
+# extract grid cells that overlap with habitat polygons
+grid_hab <- sf::st_filter(
+  grid_box,
+  map_mun_antw_hab
+  #,.predicate = sf::st_within
+)
+if (FALSE) mapview::mapview(list(map_mun_antw_hab, grid_hab))
+
+```
+
+2. Draw random sample of $C$ grid cells extracted in the previous step (here $C = 100$)
+
+```{r sampling-draw-random-sample}
+#| include: true
+#| cache: true
+#| results: 'hide'
+
+# --- draw naive random sample ---------------------------------------------
+
+# sample size
+ncell <- 100
+assertthat::assert_that(ncell < nrow(grid_hab))
+
+# sample
+grid_sample <- grid_hab |>
+  dplyr::sample_n(tbl = _, size = ncell)
+
+# GRTS
+# https://inbo.github.io/grtsdb/articles/basic.html
+# implementation?
+
+```
+
+The following plot visualizes the grid and the sample drawn.
+
+```{r fig-plot-sample}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Visualization of the sampled (filled) vs. not sampled (empty) grid cells"
+#| out-width: 150%
+
+# transform: pseudo-mercator
+grid_hab_3857 <- sf::st_transform(x = grid_hab, crs = "EPSG:3857")
+grid_sample_3857 <- sf::st_transform(x = grid_sample, crs = "EPSG:3857")
+
+
+
+# sample from sampling frame distribution area
+plot_dist_sample1 <- plot_dist +
+  ggplot2::geom_sf(data = grid_hab_3857, color = INBOtheme::vl_lightred, alpha = .3) +
+  ggplot2::geom_sf(data = grid_sample_3857, color = NA, fill = INBOtheme::vl_lightred) +
+  plot_names
+
+plot_dist_sample1
+
+```
+
+
+3. Select location in sampled grid cells (not clear how this was done in e.g. @bollen_gebruik_nodate;
+"Vervolgens plaatsten we in elk van de geselecteerde cellen twee keer per jaar gedurende telkens één maand een camera: één keer in de lente-zomer en één keer in de herfst-winter. Op die manier verzamelen we er maandelijks 32 deployments.")
+
+A better alternative to drawing a naive random sample would be to e.g. use the GRTS-method to draw a **spatially balanced random sample**.
+
+Stratification is an additional aspect that is however not considered in this illustration.
+
+
+::: {.callout-note icon=false}
+### ?
+Applications that use R package *grtsdb* in a similar setting to draw a sample?
+:::
+
+
+## Data generation
+
+### Data-generating model
+
+We thinking about a possible data-generating model in the context of the generalized linear mixed modeling framework.
+Also, whether the model is feasible to implement as a data-analysis model matters, to not complicate things.
+
+For the variables occuring in the model we have the following dimensions:
+
+- $c = 1, ..., C$ grid cells 
+- $i = 1, ..., I$ sampling locations (here $i = c$ for all $i$ and $c$, so dimensions not separable; index $c$ left out for readability)
+- $d = 1, ..., D$ days per measurement season (more precisely: $d_{s,t}$; here the same for all $t$)
+- $s = 1, ..., S$ measurement seasons per year (more precisely: $s_t$; here the same for all $t$)
+- $t = 1, ..., T$ years
+
+
+#### Local population size - true vs. observed
+
+For a start we have:
+
+- $\nu_{i,d,s,t}$: *true* population size at location $i$, day $d$, season $s$, year $t$ (in the following also 'local population size' in short)
+- $n_{i,d,s,t}$: observed population size at location $i$, day $d$, season $s$, year $t$ (in the following also 'observed local population size' i short)
+
+In the simplest case, we can directly observe this variable, so that
+
+$$
+n_{i,d,s,t} = \nu_{i,d,s,t} 
+$$
+
+In a more realistic scenario, we cannot directly observe this variable, so, it can be that $n_{i,d,s,t} \neq \nu_{i,d,s,t}$.
+Attempting to link the observed to the true local population size, we can for instance assume $n_{i,d,s,t}$ to be the number of successes in a sequence of $\nu_{.}$ Bernoulli trials with success (here: detection) probability $p$ (cf. "N-mixture" models; @madsen_review_2023):
+
+$$
+n_{i,d,s,t} \sim Binom(\nu_{.}, p)
+$$
+
+It is usually assumed that the true local population size shows some short-term stability, e.g., is invariant across days (i.e., $\nu_{.} = \nu_{i,s,t}$, so index $d$ is dropped; 'population closure' in time).
+Other forms of stability should be possible (e.g., $\nu_{.}$ changes over days, but with strong carry-over effects), but also complicate things.
+
+Implied seems also the assumption that $n_{i,d,s,t}$ does not contain repeated observations of the same animals (FIX: for a given day).
+So, within a day, every observation is assumed to come from a distinct individual.
+(Or: $n_{i,d,s,t} < \nu_{i,s,t}$ only because of $p < 1$, but not, because individuals are observed multiple times.)
+
+::: {.callout-note icon=false}
+### Assumptions
+
+- time-invariance within seasons: plausible enough if measured before/after management action?
+- unique observations within days: plausible? 
+  - a-priori correction possible in theory, but difficult in practice, as muntjac are not 'naturally marked'
+:::
+
+In addition, a stable (i.e., time- and location-invariant) detection probability $p$ is assumed.
+Seems not too implausible to begin with, although these stability restrictions can probably again be relaxed to some extent.
+
+#### Linking local population size to its expectation
+
+Following the GLM-logic, we assume that the local population size represents a draw from the Poisson distribution, i.e.:
+
+$$
+\nu_{i,s,t} \sim Pois(\mu_{i,s,t})
+$$ {#eq-2}
+
+with 
+
+- $\nu_{i,s,t}$: population size at location $i$, season $s$, year $t$ (invariant across days)
+  - the total population size across all locations would be: $N_{s,t} = \sum_{i = 1}^I\nu_{i,s,t}$ (FIX: move up together with assumption)
+- $\mu_{i,s,t}$: expected population size at location $i$, season $s$, year $t$ (invariant across days)
+
+Given that the total population size is calculated as the sum of the local population sizes, these need to be independent.
+In other words, there is no overlap between locations, observations are assumed to come from distinct individuals between locations ('population closure' in space).
+
+::: {.callout-note icon=false}
+### Assumption
+- no population-overlap between locations: plausible enough?
+  - a-priori correction based on expected size of range of individuals?
+:::
+
+
+Possible extensions / alternatives for @eq-2 might account for:
+
+- over-dispersion if, e.g., the negative binomial distribution is used instead of the Poisson distribution
+- zero-inflation if we assume there is an additional process (rather than just small expected population sizes) producing zeros 
+
+
+#### Decomposing / predicting the expected local population size
+
+In the GLM-context, we assume:
+
+$$
+log(\mu_{i,s,t}) = \eta_{i,s,t}
+$$
+with:
+
+- $log(\cdot)$: log-link function
+- $\eta_{i,s,t}$: linear predictor
+
+The linear predictor is assumed to be linearly decomposable into a number of effects.
+In our case the following equations form a starting point.
+
+At level 1 (within locations) we assume:
+
+$$
+\eta_{i,s,t} = \beta_{0,i} + \beta_{1,i} \, \text{season*} + \beta_{2, i} \, \text{year*}
+$$
+
+At level 2 (between locations) we assume:
+
+\begin{align}
+\beta_{0,i} &= \gamma_{00} + u_{0i}  \\
+\beta_{1,i} &= \gamma_{10} + u_{1i}  \\ 
+\beta_{2,i} &= \gamma_{20} + u_{2i}  \\
+\end{align}
+
+
+with:
+
+- $\gamma_{00}$: fixed part of intercept; mean of linear predictor across locations if $season^*$ and $year^*$ are zero
+- $ u_{0i}$: random part of intercept capturing locations-specific deviations from the fixed intercept
+- $\gamma_{10}$: fixed part of effect of $season^*$ (mean effect across locations), which is some deterministic function of season (i.e., $season^* = g(season)$)
+- $ u_{1i}$: random part of effect of $season^*$ capturing locations-specific deviations from the above fixed slope
+- $\gamma_{20}$: fixed part of effect of $year^*$, which is some deterministic function of year (i.e., $year^* = h(year)$)
+- $ u_{2i}$: random part of effect of $year^*$ capturing locations-specific deviations from the above fixed slope
+
+Random effects/components are usually assumed to be multivariate normally distributed with zero mean vector and valid covariance matrix. 
+
+::: {.callout-note icon=false}
+### Terminology...
+
+...can be confusing between different literatures, it seems.
+For instance, year is not included as a random effect, rather as having a random effect, varying across locations.
+The random effect of year random not in the sense of varying across years, but in the sense of varying across locations.
+Year is a fixed predictor.
+...
+
+:::
+
+Including an effect of season allows to have seasonal effects that deviate from the long-term trend (e.g., more individuals in autumn than winter/effect of winter).
+It should be distinguishable from the intercept and effect of year once there are more than 2 years of data (?).
+
+For the long-term trend, different shapes are possible in principle:
+- linear? 
+- exponential decay? 
+- other non-linear trends? 
+- mixture of trends (population growth and decline due to control; but control adapted to momentary population size)
+
+The following figure illustrates a few shapes for the linear predictor as well as for the expected local population size (i.e., for $log(\mu_{i,s,t})$ and $\mu_{i,s,t}$).
+
+```{r fig-shape-trend}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Visualization of different shapes of long-term trends"
+#| out-width: 150%
+
+
+data_trend <- data.frame(
+  shape = c(
+    "linear", 
+    "exponential decay", 
+    "doubly exponential decay"
+    )
+) |>
+  tidyr::crossing(
+   t = seq(1,10)
+) |>
+  dplyr::mutate(
+    eta = 
+      dplyr::case_when(
+        shape == "linear" ~ -.9 * t + 10,
+        shape == "exponential decay" ~ exp(-.4 * t),
+        shape == "doubly exponential decay" ~ exp(exp(-.4 * t)),
+          ),
+    mu = exp(eta)
+    ) |>
+  tidyr::pivot_longer(
+    cols = tidyselect::all_of(c("eta", "mu")),
+    names_to = "out_name",
+    values_to = "out_value"
+  )
+
+ggplot2::ggplot(
+  data = data_trend, 
+  mapping = ggplot2::aes(x = t, y = out_value, group = out_name)
+  ) + 
+  ggplot2::facet_wrap(shape ~ out_name, scales = "free_y", ncol = 2) + 
+  ggplot2::geom_line() +
+  ggplot2::theme_bw()
+
+  
+
+```
+
+
+::: {.callout-note icon=false}
+### Non-linearity
+To stay within the GLM framework (holding model-estimation in mind), the model for the linear predictor should be linear in parameters. 
+:::
+
+
+
+Possible extensions:
+
+- temporal dependencies taking temporal distance into account; carry-over effects in time
+- spatial dependencies taking spatial distance into account; carry-over effects in space
+
+
+::: {.callout-note icon=false}
+### ?
+How are such carry-over effects in space / time usually implemented, e.g. in *brms*?
+:::
+
+
+### Mapping data on sampled locations
+
+- ...
+
+## Modeling
+
+### Analysis model
+
+Some thoughts:
+
+- start from data-generating model, but possibly simplify (e.g., random intercept but fixed slopes)
+- two-stage approach to estimate detection probability? (first estimate detection probability, then use estimates in regression model)
+- do not necessarily estimate non-linear trend over multiple years, but also just difference between subsequent years (initial population size matters)
+
+
+### Implementation
+
+Some thoughts:
+
+- rely as much as possible on existing implementations 
+- options
+  - R packages for 'N-mixture' modeling (however: no random effects?)
+  - R packages for generalized linear mixed effects modeling (freq./Bayes; however: no latent outcomes?)
+  - R packages for generalized linear SEM?
+  - existing custom implementation in e.g. stan?
+
+## Simulation study
+
+
+### Design
+
+Some thoughts:
+
+- number of sampling locations / sample size: vary 
+- days of recording per location: vary optionally, keep fixed initially
+- if both are varied, possibility to look at trade-off effects (in terms of power, but also costs)
+
+::: {.callout-note icon=false}
+### ?
+Where to get plausible population-level parameter values from?
+
+- Analysis of existing data?
+- Expert judgement?
+:::
+
+
+### Implementation
+
+- again, make use of helpers:
+  - simr
+  - mlpwr (to later include budget constraints or cost trade-offs between design parameters)
+  - simDesign
+
+
+
+
+## References
+
+::: {#refs}
+:::
