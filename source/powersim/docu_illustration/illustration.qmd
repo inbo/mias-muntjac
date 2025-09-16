@@ -1,5 +1,5 @@
 ---
-title: "Illustration power simulation for chinese muntjac"
+title: "Power analyses for chinese muntjac"
 format: 
   html:
     toc: true
@@ -20,27 +20,68 @@ execute:
   cache: false
 ---
 
-The following documents deals with 2 monitoring scopes:
-
-- Abundance under management: Track (changes in) population size in relation to sustained eradication measures in distribution area
-- Detection under management: Detect potential spread into buffer area around distribution area in relation to sustained eradication measures in distribution area
-
-For now we mainly focus on the first scope.
-
-The document summarizes some thoughts on the following components of a simulation-based power analysis:
-
-- Sampling: How could data look like?
-- Data-generation: What is an as-complex-as-necessary / as-simple-as-possible data-generating model?
-- Modeling: What is an as-complex-as-necessary / as-simple-as-possible data-analysis model?
-- Simulation: Initial thoughts on design and implementation
+```{r setup}
 
 
-## Sampling
 
 
-### Define the sample frame
+```
 
-To define the **sample frame** per monitoring scope, we take the following 2 preparatory steps:
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- Overview ----------------------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+
+# Overview
+
+The present documents illustrates simulation approaches for the following **monitoring scopes**:
+
+- A: Abundance under management - status
+  - Determine population size under sustained eradication measures in distribution area in province of Antwerp
+  - ...
+- B: Abundance under management - trend
+  - Estimate changes in population size in relation to sustained eradication measures in above distribution area
+  - Can concern changes in absolute or relative abundance, depending on the assumptions we are willing to make
+  - Will reveal a minimal sample size required for detecting a certain effect with a certain statistical power, 
+  or minimal effects that can be detected with certain sample sizes
+- C: Detection under management - status
+  - Detect potential spread into buffer area around above distribution area in relation to sustained eradication measures in distribution area
+- D: Detection after management - status
+  - Detect potential left-over animals in above distribution area after eradication has been completed 
+
+
+For these scopes, the document summarizes some thoughts on the following components of a simulation-based power analysis:
+
+- Sampling
+  - How do (simulated) data map onto geographical locations?
+- Power / precision analysis
+  - What is an appropriate data-generating model?
+  - Thoughts on a possible analysis setup
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- Sampling ----------------------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+# Sampling
+
+Thinking about sampling is useful as it answers the question: 
+How do (simulated) data map onto geographical locations?
+
+This
+
+  - is needed to visualize the data collection-side under different scenario's
+  - helps judging whether assumptions during data generation are more or less realistic
+  - helps determining the range of realistic sample sizes
+
+The following sections in this chapter deal with
+
+- the definition of a sample frame
+- the drawing of a random sample of locations
+- the mapping of future simulated data on the random sample of locations
+
+
+## Define the sample frame
+
+To define the sample frame, we take the following 2 preparatory steps:
 
 1. Get map layers: 
   - Flanders' municipalities (as distribution is currently tied to specific municipalities)
@@ -79,10 +120,9 @@ if (FALSE) sf::st_crs(map_hab)$Name # EPSG:31370
 
 ```
 
-2. Process map layers:
-  - Select relevant municipalities (i.e., distribution area): Schoten, Brasschaat, Wuustwezel
-  - Get buffer area of width $u$ meters around distribution area (here $u = 2000$)
-    - Alternative: Get buffer area around habitat regions within distribution area?
+2. Define relevant areas:
+  - Get distribution area by selecting the relevant municipalities: Schoten, Brasschaat, Wuustwezel
+  - Get buffer area of width $u$ m around distribution area (here $u = 2000$ m)
   - Get habitat regions within distribution area (e.g., Forests)
   - Get habitat regions within buffer area
 
@@ -153,14 +193,14 @@ if (FALSE) mapview::mapview(map_mun_antw_buff_hab)
 
 ```
 
-After these 2 steps we get the following maps.
+After these 2 steps we get the following map.
 
 ```{r fig-plot-dist-buff-area}
 #| include: true
 #| cache: true
 #| results: 'hide'
 #| message: false
-#| fig-cap: "Map of distribution and surrounding buffer area (both in yellow) and enclosed habitat regions (both in green). The distribution area is highlighted in lighter colors." 
+#| fig-cap: "Map of distribution and surrounding buffer area (both in yellow) and enclosed habitat regions (both in green). The distribution area is highlighted by lighter colors and a solid contour." 
 #| out-width: 150%
 #| layout-ncol: 1 
 
@@ -228,32 +268,58 @@ plot_dist_buff <- plot_base + geoms_dist + geoms_buffer +   plot_names +
   ggplot2::geom_sf(data = maplist$map_mun_antw_merged_3857, 
                    fill = NA, 
                    color = INBOtheme::vl_black, 
-                   linewidth = 1) 
+                   linewidth = 0.8) 
 plot_dist_buff
 
 ```
 
+On the basis of these, we define the sample frame (NL: *steekproefkader*) for the monitoring scopes targeting the distribution (and at the same time management) area, i.e., scopes A, B, and D, as the habitat regions within the distribution area.
 
-#### Monitoring scope 'abundance under management'
-
-On the basis of these, we define the **sample frame for the monitoring scope 'abundance under management'** as the habitat regions within the distribution area.
-
-We focus on the first monitoring scope in the remainder of this document.
-
-#### Monitoring scope 'detection under management'
-
-The **sample frame for the monitoring scope 'detection under management'** is defined as the habitat regions within the buffer area.  
+The sample frame for monitoring scope C, which targets a buffer area around the distribution area is defined as the habitat regions within the buffer area. 
 
 
+::: {.callout-note icon=false}
+##### Specifications
 
-### Draw a sample
+- Define distribution area
+  - which area?
+    - [x] known municipalities
+    - [ ] most recent (clustered) GBIF data
+  - include (smaller) buffer area?
+    - [ ] yes, namely ...
+    - [x] no
+- Define habitat area
+  - which land cover/use?
+    - [x] forest polygons from *Boskartering 2001*
+    - [ ] forest on the basis of OpenStreetMap information (cf. [sample frame partridge](https://zenodo.org/records/8084777))
+    - [ ] forest based on [Vito's land use data base](https://geodynamix.eu/land-use-database) 
+  - take spatial clustering into account?
+    - [ ] yes, namely ...
+    - [x] no
+- Define buffer area
+  - around which area?
+    - [x] distribution area as a whole
+    - [ ] habitat areas within distribution area
+  - which width (i.e., $u$)?
+    - [x] arbitrary value for illustration purposes
+    - [ ] value based on expected daily range of species
+- Define sample frame
+  - how to define intersection with distribution/buffer area?
+    - [x] habitat regions overlap with distribution/buffer area 
+    - [ ] overlap at least $x \gg 0$ %
+  
+:::
 
-For this illustration, we draw a **naive random sample**.
+
+
+## Draw a sample
+
+For this illustration, we draw a naive random sample of locations.
 To this end, we take the following steps:
 
 1. Tessellation of the sample frame:
-  - Overlay distribution area with spatial grid consisting of quadratic cells of dimension $p \times p$ meters [here $p = 250$; cf. @bollen_gebruik_nodate]
-  - Extract grid cells that show $q%$ overlap with habitat regions within distribution area (here $q > 0$) 
+  - Overlay distribution / buffer area with spatial grid consisting of quadratic cells of dimension $p \times p$ m [here $100 \times 100$ m for illustrational purposes]
+  - Extract grid cells that show $q$ % overlap with habitat regions within distribution area (here $q > 0$) 
 
 ```{r sampling-create-grid}
 #| include: true
@@ -261,7 +327,7 @@ To this end, we take the following steps:
 #| results: 'hide'
 
 # create grid over bounding box around distribution area
-p = 250
+p = 100
 grid_box <- sf::st_make_grid(
   map_mun_antw_merged,
   cellsize = p # meters, since Belgian Lambert
@@ -277,9 +343,13 @@ grid_hab <- sf::st_filter(
 )
 if (FALSE) mapview::mapview(list(map_mun_antw_hab, grid_hab))
 
+# extract grid cells that overlap with habitat polygons
+# https://github.com/r-spatial/sf/issues/1125
+
+
 ```
 
-2. Draw random sample of $C$ grid cells extracted in the previous step (here $C = 100$)
+2. Draw random sample of $C$ grid cells extracted in the previous step (here $100$ grid cells)
 
 ```{r sampling-draw-random-sample}
 #| include: true
@@ -289,7 +359,7 @@ if (FALSE) mapview::mapview(list(map_mun_antw_hab, grid_hab))
 # --- draw naive random sample ---------------------------------------------
 
 # sample size
-ncell <- 100
+ncell <- 500
 assertthat::assert_that(ncell < nrow(grid_hab))
 
 # sample
@@ -317,7 +387,6 @@ grid_hab_3857 <- sf::st_transform(x = grid_hab, crs = "EPSG:3857")
 grid_sample_3857 <- sf::st_transform(x = grid_sample, crs = "EPSG:3857")
 
 
-
 # sample from sampling frame distribution area
 plot_dist_sample1 <- plot_dist +
   ggplot2::geom_sf(data = grid_hab_3857, color = INBOtheme::vl_lightred, alpha = .3) +
@@ -329,290 +398,484 @@ plot_dist_sample1
 ```
 
 
-3. Select location in sampled grid cells (not clear how this was done in e.g. @bollen_gebruik_nodate;
-"Vervolgens plaatsten we in elk van de geselecteerde cellen twee keer per jaar gedurende telkens één maand een camera: één keer in de lente-zomer en één keer in de herfst-winter. Op die manier verzamelen we er maandelijks 32 deployments.")
+Within each sampled grid cell, a camera trap is assumed to be placed following a certain strategy (e.g., placement in center or corner of grid cell). 
 
-A better alternative to drawing a naive random sample would be to e.g. use the GRTS-method to draw a **spatially balanced random sample**.
-
-Stratification is an additional aspect that is however not considered in this illustration.
+The total number of grid cells associated with the sample frame forms the upper bound of sample sizes to consider in a power / precision analysis.
 
 
 ::: {.callout-note icon=false}
-### ?
-Applications that use R package *grtsdb* in a similar setting to draw a sample?
+##### Specifications / Extensions
+
+- Determine grid
+  - cell size?
+    - [ ] value from literature (250 m; cf. @bollen_gebruik_nodate)
+    - [ ] value based on camera angle/radius (usually $< 10$ m?)
+    - [x] smallish value to keep things visible
+    - [ ] value based on habitat parameters (e.g., forest density; to make sure a grid cell contains suitable areas for camera placement)
+  - how to define intersection with habitat areas?
+    - [x] grid cell overlaps with habitat areas 
+    - [ ] overlap at least $q \gg 0$ %
+- Draw a random sample
+  - strategy?
+    - [x] naive random sample
+    - [ ] spatially balanced random sample via the GRTS method (INBO R package *grtsdb*)
+
 :::
 
 
-## Data generation
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- Simulation ---------------------------------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------------------------------------->
+
+# Power / precision analysis
+
+## Some general remarks
+
+For the variables occurring in any of the following data-generating / analysis models we can distinguish the following dimensions:
+
+- $i = 1, ..., I$ sampling locations
+- $d = 1, ..., D$ days per measurement period (more precisely: $d_{t}$; here the same for all $t$, so subscript $t$ is left out)
+- $t = 1, ..., T$ years, with one measurement period per year
+
+Note that we here do not consider the case of multiple measurement periods per year.
+In that case, differences between periods within years could be allowed in the model, capturing seasonal deviations from a longer-term (i.e., year-level) trend (e.g., more individuals before than after winter).
+For now, we however simply assume that the optimal period per year is used to obtain measurements.
+Optimality is for instance tied to a maximal detection probability, the absence of complicating factors such as ongoing control actions during measurement and so on.
+
+We can think about possible data-generating models in the context of the generalized linear (mixed) modeling framework.
+Sticking to the not-too-complex model variants, we can rely on well-known properties/behavior and existing implementations for both data generation and model estimation. 
+(Whether the model is feasible to implement as a data-analysis model should be considered already at this stage to not complicate things later.)
+We do this for abundances.
+For presences, we revert to a simpler option.
+For now we generally assume that we use the same model for data generation as we use for data-analysis.
+
+
+## Monitoring scopes A & B 
 
 ### Data-generating model
 
-We thinking about a possible data-generating model in the context of the generalized linear mixed modeling framework.
-Also, whether the model is feasible to implement as a data-analysis model matters, to not complicate things.
+#### Data-generating distribution
 
-For the variables occuring in the model we have the following dimensions:
-
-- $c = 1, ..., C$ grid cells 
-- $i = 1, ..., I$ sampling locations (here $i = c$ for all $i$ and $c$, so dimensions not separable; index $c$ left out for readability)
-- $d = 1, ..., D$ days per measurement season (more precisely: $d_{s,t}$; here the same for all $t$)
-- $s = 1, ..., S$ measurement seasons per year (more precisely: $s_t$; here the same for all $t$)
-- $t = 1, ..., T$ years
-
-
-#### Local population size - true vs. observed
-
-For a start we have:
-
-- $\nu_{i,d,s,t}$: *true* population size at location $i$, day $d$, season $s$, year $t$ (in the following also 'local population size' in short)
-- $n_{i,d,s,t}$: observed population size at location $i$, day $d$, season $s$, year $t$ (in the following also 'observed local population size' i short)
-
-In the simplest case, we can directly observe this variable, so that
+Monitoring scopes A and B (abundance under management - status & trend) concern abundances of animals as outcomes (i.e., numbers of individuals per location), so we will rely on the **Poisson distribution** for these cases, with the parameter of focus being the expected number of observed animals:
 
 $$
-n_{i,d,s,t} = \nu_{i,d,s,t} 
-$$
+nobs_{i,d,t} \sim Pois(\mu_{i,t})
+$$ {#eq-1}
+with
 
-In a more realistic scenario, we cannot directly observe this variable, so, it can be that $n_{i,d,s,t} \neq \nu_{i,d,s,t}$.
-Attempting to link the observed to the true local population size, we can for instance assume $n_{i,d,s,t}$ to be the number of successes in a sequence of $\nu_{.}$ Bernoulli trials with success (here: detection) probability $p$ (cf. "N-mixture" models; @madsen_review_2023):
+- $nobs_{i,d,t} \in \{0,1,2,3, ...\}$: number of observations of animals at location $i$, day $d$, year $t$
+- $\mu_{i,t} \in (0, \infty)$: expected number of observations of animals at location $i$, year $t$ 
+  - within a location and year, measurements from different days are treated as replicates, all independent realizations from the same Poisson distribution 
+  - this reflects assumption of some stability over time (the alternative would be to assume variations across days and have day enter a regression model in some way (e.g., random effect, temporal trend of some shape))
 
-$$
-n_{i,d,s,t} \sim Binom(\nu_{.}, p)
-$$
+When looking at status, we can assume we are looking at one specific year, so $t = t'$.
 
-It is usually assumed that the true local population size shows some short-term stability, e.g., is invariant across days (i.e., $\nu_{.} = \nu_{i,s,t}$, so index $d$ is dropped; 'population closure' in time).
-Other forms of stability should be possible (e.g., $\nu_{.}$ changes over days, but with strong carry-over effects), but also complicate things.
-
-Implied seems also the assumption that $n_{i,d,s,t}$ does not contain repeated observations of the same animals (FIX: for a given day).
-So, within a day, every observation is assumed to come from a distinct individual.
-(Or: $n_{i,d,s,t} < \nu_{i,s,t}$ only because of $p < 1$, but not, because individuals are observed multiple times.)
-
-::: {.callout-note icon=false}
-### Assumptions
-
-- time-invariance within seasons: plausible enough if measured before/after management action?
-- unique observations within days: plausible? 
-  - a-priori correction possible in theory, but difficult in practice, as muntjac are not 'naturally marked'
-:::
-
-In addition, a stable (i.e., time- and location-invariant) detection probability $p$ is assumed.
-Seems not too implausible to begin with, although these stability restrictions can probably again be relaxed to some extent.
-
-#### Linking local population size to its expectation
-
-Following the GLM-logic, we assume that the local population size represents a draw from the Poisson distribution, i.e.:
+In the case of @eq-1, we assume that $\mu_{i,t}$ is linked to the expected true population size / the true abundance at location $i$, year $t$, $\nu_{i,t}$.^[Following the logic of N-mixture modeling, or latent variable modeling, one would rather assume that $nobs_{i,d,t}$ is linked to the true population size at location $i$, year $t$, $n_{i,t}$; if the link holds at that level then it should also be implied at the level of expectations, but not the reverse.]
+For simplicity, we assume a linear relationship that is invariant across all dimensions considered (i.e., space and time), but also across abundance itself:
 
 $$
-\nu_{i,s,t} \sim Pois(\mu_{i,s,t})
+\mu_{i,t} = a * \nu_{i,t}
 $$ {#eq-2}
 
-with 
+In an ideal case $a = 1$, which means we can make statements about absolute abundances over space, time and abundance.
+If $a \neq 1$, then we can still make statements about relative abundances over space, time and abundance *without having to know* $a$.
+Reasons for $a \neq 1$ can be: an imperfect detection probability; animals being recorded more than once within a day. 
 
-- $\nu_{i,s,t}$: population size at location $i$, season $s$, year $t$ (invariant across days)
-  - the total population size across all locations would be: $N_{s,t} = \sum_{i = 1}^I\nu_{i,s,t}$ (FIX: move up together with assumption)
-- $\mu_{i,s,t}$: expected population size at location $i$, season $s$, year $t$ (invariant across days)
-
-Given that the total population size is calculated as the sum of the local population sizes, these need to be independent.
-In other words, there is no overlap between locations, observations are assumed to come from distinct individuals between locations ('population closure' in space).
-
-::: {.callout-note icon=false}
-### Assumption
-- no population-overlap between locations: plausible enough?
-  - a-priori correction based on expected size of range of individuals?
-:::
+However, this assumption might be problematic if animals are very territorial, with no or little overlap between territories.
+Then we are most likely only observing one to a few individuals and the number of observations is more related to their activity during that day.
+In that case, we would need to find another approach to generate and analyse abundances.
+One option could be the logistic regression model (see notes later), if abundances are basically one at this geographical scale, then we are dealing with data of presence and absence.
 
 
-Possible extensions / alternatives for @eq-2 might account for:
+#### Regression model under monitoring scope B
 
-- over-dispersion if, e.g., the negative binomial distribution is used instead of the Poisson distribution
-- zero-inflation if we assume there is an additional process (rather than just small expected population sizes) producing zeros 
-
-
-#### Decomposing / predicting the expected local population size
-
-In the GLM-context, we assume:
+In the case of both monitoring scopes A & B (abundance under management - status & trend), we can rely on the **Poisson regression model**. Starting from the distributional assumption in @eq-1, we linearly decompose $\mu_{i,t}$, the parameter of the Poisson distribution, after applying the log-link function:
 
 $$
-log(\mu_{i,s,t}) = \eta_{i,s,t}
-$$
+log(\mu_{i,t}) = \eta_{i,t} \\
+\Leftrightarrow \\
+\mu_{i,t} = exp(\eta_{i,t})
+$$ {#eq-5}
 with:
 
-- $log(\cdot)$: log-link function
-- $\eta_{i,s,t}$: linear predictor
+- $log(\cdot)$: natural logarithm, here the log-link function
+- $\eta_{i,t}$: linear predictor, which is some linear function of a set of predictor variables
+- $exp(\cdot)$: exponential (i.e., inverse of log-link) function
 
-The linear predictor is assumed to be linearly decomposable into a number of effects.
-In our case the following equations form a starting point.
-
-At level 1 (within locations) we assume:
+The most simple model variant under monitoring scope B (abundance under management - trend) includes an intercept and a linear effect of year, both location unspecific, so index $i$ is dropped:
 
 $$
-\eta_{i,s,t} = \beta_{0,i} + \beta_{1,i} \, \text{season*} + \beta_{2, i} \, \text{year*}
-$$
+\eta_{t} = \beta_{0} + \beta_{1} \, year_t^*
+$$ {#eq-6}
+with:
 
-At level 2 (between locations) we assume:
+- $\beta_{0}$: intercept; linear predictor if $year_t^*= 0$
+- $\beta_{1}$: slope associated with $year_t*$, which is some linear function of year
+
+The **parameter of interest** - corresponding to our monitoring target 'trend' - is obviously the **slope**, $\beta_{1}$.
+It's interpretation in terms of the linear predictor, $\eta$, is the one we are familiar with from simple linear regression:
+$\beta_1$ reflects the absolute change in linear predictor values given a one-unit change in year*.
+
+The interpretation in terms of the expected number of observed animals, $\mu$, needs to incorporate the link-function used:
+Here, $exp(\beta_1)$ reflects the relative difference (ratio) in expected numbers of observations given a 1-unit difference in year*.
+We can derive this as (leaving out subscript $t$):
 
 \begin{align}
-\beta_{0,i} &= \gamma_{00} + u_{0i}  \\
-\beta_{1,i} &= \gamma_{10} + u_{1i}  \\ 
-\beta_{2,i} &= \gamma_{20} + u_{2i}  \\
+log(\mu)|(year^*_1 + 1) - log(\mu)|year^*_1 &= \beta_1 \quad\quad|\;exp(\cdot) \\
+exp(log(\mu)|(year^*_1 + 1) - log(\mu)|year^*_1) &= exp(\beta_1) \\
+\frac{exp(log(\mu)|(year^*_1 + 1))}{exp(log(\mu)|year^*_1)} &= exp(\beta_1) \\
+\frac{\mu|(year^*_1 + 1))}{\mu|year^*_1} &= exp(\beta_1)
 \end{align}
 
+So, $exp(\beta_1)$ is the factor by which $\mu$ changes given a one-unit change in year
+($\mu|(year^*_1 + 1) = exp(\beta_1)*\mu|year^*_1$),
+and $(exp(\beta_1)-1)*100$ is the percentage change in $\mu$ associated with a one-unit change in year.
 
-with:
+The following figure shows a number of different trends implied by different sizes of $\beta_1$ for both $\nu$ and $\mu$.
 
-- $\gamma_{00}$: fixed part of intercept; mean of linear predictor across locations if $season^*$ and $year^*$ are zero
-- $ u_{0i}$: random part of intercept capturing locations-specific deviations from the fixed intercept
-- $\gamma_{10}$: fixed part of effect of $season^*$ (mean effect across locations), which is some deterministic function of season (i.e., $season^* = g(season)$)
-- $ u_{1i}$: random part of effect of $season^*$ capturing locations-specific deviations from the above fixed slope
-- $\gamma_{20}$: fixed part of effect of $year^*$, which is some deterministic function of year (i.e., $year^* = h(year)$)
-- $ u_{2i}$: random part of effect of $year^*$ capturing locations-specific deviations from the above fixed slope
-
-Random effects/components are usually assumed to be multivariate normally distributed with zero mean vector and valid covariance matrix. 
-
-::: {.callout-note icon=false}
-### Terminology...
-
-...can be confusing between different literatures, it seems.
-For instance, year is not included as a random effect, rather as having a random effect, varying across locations.
-The random effect of year random not in the sense of varying across years, but in the sense of varying across locations.
-Year is a fixed predictor.
-...
-
-:::
-
-Including an effect of season allows to have seasonal effects that deviate from the long-term trend (e.g., more individuals in autumn than winter/effect of winter).
-It should be distinguishable from the intercept and effect of year once there are more than 2 years of data (?).
-
-For the long-term trend, different shapes are possible in principle:
-- linear? 
-- exponential decay? 
-- other non-linear trends? 
-- mixture of trends (population growth and decline due to control; but control adapted to momentary population size)
-
-The following figure illustrates a few shapes for the linear predictor as well as for the expected local population size (i.e., for $log(\mu_{i,s,t})$ and $\mu_{i,s,t}$).
-
-```{r fig-shape-trend}
+```{r fig-size-trend}
 #| include: true
 #| cache: true
 #| message: false
 #| results: 'hide'
-#| fig-cap: "Visualization of different shapes of long-term trends"
+#| fig-cap: "Visualization of different effect sizes of beta_1"
 #| out-width: 150%
 
-
 data_trend <- data.frame(
-  shape = c(
-    "linear", 
-    "exponential decay", 
-    "doubly exponential decay"
-    )
+  # size of linear effect of year
+  effect_size = -seq(0, 2, 0.2)
 ) |>
   tidyr::crossing(
-   t = seq(1,10)
+   year_star = seq(0,9)
 ) |>
   dplyr::mutate(
-    eta = 
-      dplyr::case_when(
-        shape == "linear" ~ -.9 * t + 10,
-        shape == "exponential decay" ~ exp(-.4 * t),
-        shape == "doubly exponential decay" ~ exp(exp(-.4 * t)),
-          ),
-    mu = exp(eta)
+    eta =  effect_size*year_star + 2,
+    mu = exp(eta),
+    effect_size = factor(effect_size) |> forcats::fct_rev()
     ) |>
   tidyr::pivot_longer(
     cols = tidyselect::all_of(c("eta", "mu")),
     names_to = "out_name",
     values_to = "out_value"
   )
-
 ggplot2::ggplot(
   data = data_trend, 
-  mapping = ggplot2::aes(x = t, y = out_value, group = out_name)
+  mapping = ggplot2::aes(x = year_star, y = out_value, group = effect_size)
   ) + 
-  ggplot2::facet_wrap(shape ~ out_name, scales = "free_y", ncol = 2) + 
-  ggplot2::geom_line() +
+  ggplot2::geom_line(ggplot2::aes(color = effect_size), linewidth = 1.2) +
+  ggplot2::facet_wrap(~ out_name, scales = "free_y", ncol = 2) + 
+  ggplot2::labs(x = "year*", y = "outcome", color = "size beta1") +
+  ggplot2::scale_x_continuous(breaks = data_trend$year_star |> unique()) + 
+  ggplot2::scale_colour_viridis_d(direction = -1) + 
   ggplot2::theme_bw()
 
+```
+
+In case $\beta_1 = 0$, we have `r round((exp(0)-1)*100, digits = 0)` %,
+if $\beta_1 = -0.2$, we have around `r round((exp(0.2)-1)*100, digits = 0)` %, 
+if $\beta_1 = -0.4$, we have around `r round((exp(0.4)-1)*100, digits = 0)` %, 
+if $\beta_1 = -1$, we have around `r round((exp(1)-1)*100, digits = 0)` % decrease per year. 
+
+
+#### Regression model under monitoring scope A 
+
+For monitoring scope A (abundance under management - status), we could consider a special case of the model specified for monitoring scope B. 
+Specifically, we could further simplify the above regression model (@eq-6) to an intercept-only model to estimate expected local population size at year $t=t'$.
+The following thoughts on analysis setup for monitoring scope B then apply analogously to scope A.
+
+Alternatively, we might instead of a somewhat artificial regression model just use a Poisson test (see later elaborations on the Binomial test).
+
+### Analysis setup
+
+Based on the simple model specified above (@eq-6), we can now either
+
+- determine a few minimal trend sizes of interest, and analyse how statistical power to detect those effects varies with the number of locations 
+- determine a few interesting numbers of locations, and analyse how the size of the minimal effect that can be detected with a certain statistical power varies
+
+In addition, we can also extend the above data-generation model in a number of ways, the most obvious ones being
+
+- the inclusion of location-specific effects (e.g., a random intercept and/or a random slope) 
+- the accommodation of a non-perfect detection probability
+
+Such additional complexities could be included in both the data-generating and analysis model (case 1),
+only the data-generating model (case 2),
+only the analysis model (case 3, which we discard as not realistic),
+or in none of the models (case 4, which we are in now).
+In case 1, we expect that simulating and modeling additional complexities will lead to additional estimation variance,
+which will lead to larger sample sizes being required to keep statistical power at the desired level.
+In case 2, we expect that simulating but not modeling additional complexities will most often lead to estimation bias, which will also affect power, albeit in less predictable ways. 
+Investigating the effects of missspecification is also a bit of a different question and should maybe not be of central interest for the present power analysis (or maybe it should).
+However, for a relevant special case, neglected imperfect detection probability, we can form an expectation:
+Here a trend will like be underestimated lowering statistical power to detect it.
+In general, analyses under cases 1 and 2 will reflect more realistic scenarios, but the simple case 4 can function as a lower bound estimate (i.e., it probably won't get better than this). 
+
+Another direction for extensions concerns sample size as multi-dimensional:
+Until now it was implicit that we assumed the number of days to be fixed (e.g., at 30; cf. @bollen_gebruik_nodate), while they could also be varied.
+In the simple model above, we should see a one-to-one trade-off effect of days and locations (adding one day at one location should have the same effect as adding one location for one day), which is why we can keep days as well fixed.
+This situation changes when costs are considered, where different dimensions can have very different contributions to the overall costs (e.g., leaving an existing camera trap in the field for some more time is cheaper than placing an additional new one).
+So, if costs become an additional optimization criterion next to statistical power, then it would make sense to vary sample size along multiple dimensions to investigate trade-offs.
+(Also when location-specific effects and/or detection probabilities are estimated, sample size dimension trade-off effects will become more interesting and should probably be added to the picture.) 
+
+
+## Monitoring scopes C & D
+
+### Data-generating model
+
+#### Data-generating distributions
+
+Monitoring scopes C and D (detection under & after management - status) concern presence of animals as outcomes. Here we have 2 options.
+If we consider presence per location, we can rely on the **Bernoulli distribution**, with the parameter of focus being the probability of presence:
+
+$$
+obs_{i,d,t=t'} \sim Bern(\psi_{i,t=t'})
+$$ {#eq-3}
+
+
+- $obs_{i,d,t=t'}  \in \{0,1\}$: observation of animals at location $i$, day $d$, year $t'$
+- $\psi_{i,d,t=t'}  \in [0,1]$: probability of presence at location $i$, year $t'$
+  - within a location and year, measurements from different days are again treated as independent realizations from one Bernoulli distribution 
+ - this again reflects assumption of some stability over time
+
+Alternatively, we can focus on the number of locations at which animal might be present, relying on the **Binomial distribution** and, again, the probability of presence:
+
+$$
+nobs_{d,t=t'} \sim Binom(\psi_{t=t'}, I)
+$$ {#eq-4}
+
+
+- $nobs_{d,t=t'}  \in \{0,1,2,3, ...\}$: number of observations of animals summed across all locations, at day $d$, year $t'$
+- $\psi_{t=t'}  \in [0,1]$: probability of presence at time $t = t'$, which is assumed invariant across all locations
+  - within a year, measurements from different days are again treated as independent realizations from the same Binomial distribution
+- $I$: the total number of locations
+
+The first angle (@eq-3) makes sense if we want draw on the logistic regression model to include location-specific effects (and spatial dependencies) in our analysis.
+The second angle (@eq-4) is more of an aggregate approach.
+We discuss the potential benefits of including location-specific effects later on.
+
+In analogy to @eq-2, we can here think of the probability of presence featuring in both @eq-3 and @eq-4 as being an observed one, which, again, 
+should be linked to a true probability of presence.
+Ideally the link is a one-to-one link.
+Again, an imperfect detection probability can weaken the link.
+The same animals being present multiple times or multiple animals being present should not be an issue and can be accommodated by thinking of $\psi$ as the probability of at least one animal being present.
+
+Under monitoring scopes C & D (detection under & after management - status) we start even simpler than under scope B:
+The data-generating model simply is the Binomial distribution presented in @eq-4.
+Two analysis options are sketched in the following section.
+These are based on existing work of Thierry's.
+
+### Analysis setup
+
+#### Scenario 1: Focus on the minimal detectable deviation from a target
+
+Starting from a specific target value for the probability of presence (say 5% is some sort of critical threshold from an ecological perspective), we can investigate how the minimal deviation detectable with a desired statistical power changes with the sample size.
+
+We do this in the context of the binomial test.^[Note that we analyse one date per location. These could be from a single day, or aggregated across days. The probability of presence has different interpretations in both cases: In the first case, it is the probability that at least one animal was present at at least one moment during the recording; in the second case, it is the probability that at least one animal was present at at least one of the days. It is important to know for which we want to set a critical value. If it is the first probability, then the number of days should be added into the analysis.]
+The binomial test can be used to determine whether a proportion of successes (sightings) in a number of Bernoulli trials (sampling locations) differs from an expected proportion of successes (critical value). 
+The test statistic is the binomial distribution (@eq-4).
+
+The following figure visualizes for 100 trials (sampling locations) how much statistical power we have to detect deviations of two different sizes from a certain target (h_a1 and h_a2, relative to h_0).
+
+
+```{r fig-plot-binomial-power}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Power of the binomial test"
+#| out-width: 150%
+
+n = 100 # number of trials
+psi_0 = 0.05 # probability of succes under h_0
+psi_a1 = 0.1 # probability of succes under h_a1
+psi_a2 = 0.15 # probability of succes under h_a2
+successes = seq_len(n + 1) - 1 # all potential events for full probability mass distribution
+alpha = 0.05 # type 1 error
+
+data_binom <- data.frame(
+  n,
+  successes
+) |> tidyr::crossing(
+  hypothesis = c("h_0", "h_a1", "h_a2")
+) |>
+  dplyr::mutate(
+    psi = dplyr::case_match(
+      hypothesis,
+      "h_0" ~ psi_0,
+      "h_a1" ~ psi_a1,
+      "h_a2" ~ psi_a2
+    ),
+    probmass = dbinom(
+      x = successes,
+      size = n,
+      prob = psi
+    ),
+    quant_h0 = qbinom(
+      p = alpha,
+      size = n,
+      prob = psi_0,
+      lower.tail = FALSE # P(X > x)
+    ),
+    decision = dplyr::case_when(
+      successes > quant_h0 ~ "reject h_0",
+      successes <= quant_h0 ~ "retain h_0"
+    )
+  ) |>
+  dplyr::mutate(
+    power = dplyr::case_when(
+      decision == "reject h_0" ~ sum(probmass),
+    ),
+    .by = c(hypothesis, decision)
+  ) |>
+  dplyr::mutate(
+    decision = paste0(decision, " (alpha = ",alpha,")"),
+    lab_hypothesis = paste0(hypothesis, " (psi = ", psi, ")")
+    ) 
+  
+ggplot2::ggplot(
+  data = data_binom,
+  ggplot2::aes(
+    x = successes,
+    y = probmass,
+    group = hypothesis
+  )) + 
+  ggplot2::geom_vline(xintercept = data_binom$quant_h0 + 1) +
+  ggplot2::geom_segment(
+    ggplot2::aes(
+      y = 0,
+      yend = probmass,
+      color = decision
+    ),
+    linewidth = 1.1
+  ) + 
+  ggplot2::geom_line(linetype = "dashed") + 
+  ggplot2::geom_point(size = 1.5) + 
+  ggplot2::xlim(c(0,100)) +
+  ggplot2::theme_bw() + 
+  ggplot2::labs(
+    x = "Number of successes",
+    y = "Probability"
+  ) +
+  ggplot2::facet_wrap(
+    ggplot2::vars(lab_hypothesis),
+    ncol = 1
+  ) 
+
+if (FALSE){
+  p <- binom.test(
+    x = successes[10],
+    n = n, # number of trials
+    p = psi_0, # h_0
+    alternative = "greater"
+  )$p.value
+  
+  qbinom(
+    p = p, 
+    size = n,
+    prob = psi_0,
+    lower.tail = FALSE 
+  )
+}
+
+```
+
+<!---why is curve smooth for psi_0 = 0? ---->
+
+We can now do this for a whole range of sampling locations and each time determine the deviation that is detected with (at least) the desired power.
+This is the minimal detectable deviation given the desired power.
+The following figure illustrates how this minimally detectable deviation decreases with sample size for two different target values and testing strategies (one- and two-sided). 
+
+
+```{r fig-minimal-deviation}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Minimal detectable deviation from target"
+#| out-width: 150%
+
+source("../power_binomial.R")
+
+plot_power + 
+  ggplot2::labs(
+    title = NULL
+  )
+
+```
+
+
+We can further complement this by taking estimation precision into account:
+For each sample size, we can for all possible sample configurations (all possible numbers of sightings) obtain the observable effects (probability of presence estimates), especially their confidence interval (CI) estimates.
+Based on width and position of the CIs with respect to the target and the minimally detectable effect, we can categorize each observable effect according to the [effectclass-logic](https://inbo.github.io/effectclass/articles/visualisation.html#format_ci-and-classification).
+The following figure illustrates this and shows which interpretations we can afford given different sample sizes and probabilities of success (figure requires some adjustments).
+
+<!--- fix threshold issue ---->
+<!--- use points ---->
+
+
+```{r fig-classification}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Classification of observable effects with respect to target and minimal detectable effect"
+#| out-width: 150%
+
+plot_classification + 
+  ggplot2::labs(
+    title = NULL
+  )
   
 
 ```
 
 
-::: {.callout-note icon=false}
-### Non-linearity
-To stay within the GLM framework (holding model-estimation in mind), the model for the linear predictor should be linear in parameters. 
-:::
+#### Scenario 2: Focus on case of zero sightings
+
+<!---also link to power? ---->
+
+The alternative is to just consider the case in which we observe zero animals:
+If at least one observation of an animal is made, action has to be taken anyway.
+If zero observations are made across locations, however, we can guess that there are no animals
+(i.e., the (maximum likelihood) point estimate of the probability of presence is zero).
+The precision associated with this guess however depends on the number of sampling locations.
+Intuitively, we will trust our guess more having 100 locations without sighting as compared to 10 locations without sighting.
+The more locations without sightings, the less likely/plausible probabilities of presence estimates larger than zero become.
+We can formalize this by looking at the confidence interval estimate we get for increasing numbers of zero sightings.
+For 72 locations, the CI estimate excludes a probability of presence of 5%, which might be a critical threshold from an ecological perspective. 
+A probability of presence of 1% is however still included in the interval. 
+We desire the sample size for which the interval does not include a minimal critical value (which needs to be defined against the relevant ecological background) / does only include uncritical values.^[Interpreting single confidence interval estimates is tricky, and I need to double check whether this interpretation is admissible (enough); for now based on Lakens:https://lakens.github.io/statistical_inferences/07-CI.html]
 
 
+```{r fig-plot-binomial-ci}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Confidence interval binomial test"
+#| out-width: 150%
 
-Possible extensions:
+source("../../_functions/sim_binom_ci.R")
 
-- temporal dependencies taking temporal distance into account; carry-over effects in time
-- spatial dependencies taking spatial distance into account; carry-over effects in space
+tmp <- sim_binom_ci(
+    n_max = 500, # max number of trials
+    n_min = 0, # min number of trials
+    successes = 0, # number of successes
+    psi_0 = 0, # probability of success under h_0 - does not matter for ci
+    alternative = "two.sided", # does matter for CI,
+    alpha = 0.05 
+)
+tmp$plot_ci + 
+  ggplot2::labs(
+    x = "Number of sampling locations",
+    y = "Probability of presence"
+  )
 
-
-::: {.callout-note icon=false}
-### ?
-How are such carry-over effects in space / time usually implemented, e.g. in *brms*?
-:::
-
-
-### Mapping data on sampled locations
-
-- ...
-
-## Modeling
-
-### Analysis model
-
-Some thoughts:
-
-- start from data-generating model, but possibly simplify (e.g., random intercept but fixed slopes)
-- two-stage approach to estimate detection probability? (first estimate detection probability, then use estimates in regression model)
-- do not necessarily estimate non-linear trend over multiple years, but also just difference between subsequent years (initial population size matters)
-
-
-### Implementation
-
-Some thoughts:
-
-- rely as much as possible on existing implementations 
-- options
-  - R packages for 'N-mixture' modeling (however: no random effects?)
-  - R packages for generalized linear mixed effects modeling (freq./Bayes; however: no latent outcomes?)
-  - R packages for generalized linear SEM?
-  - existing custom implementation in e.g. stan?
-
-## Simulation study
+```
 
 
-### Design
-
-Some thoughts:
-
-- number of sampling locations / sample size: vary 
-- days of recording per location: vary optionally, keep fixed initially
-- if both are varied, possibility to look at trade-off effects (in terms of power, but also costs)
-
-::: {.callout-note icon=false}
-### ?
-Where to get plausible population-level parameter values from?
-
-- Analysis of existing data?
-- Expert judgement?
-:::
-
-
-### Implementation
-
-- again, make use of helpers:
-  - simr
-  - mlpwr (to later include budget constraints or cost trade-offs between design parameters)
-  - simDesign
-
-
-
-
-## References
+# References
 
 ::: {#refs}
 :::
