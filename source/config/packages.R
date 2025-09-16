@@ -1,8 +1,6 @@
-# INBO related packages
+# checklist
 library(checklist)
-
-# checklist suggests
-library(cyclocomp)
+library(cyclocomp) # checklist suggests
 
 # tidyverse
 library(tidyverse)
@@ -14,6 +12,9 @@ library(ggspatial)
 library(prettymapr)
 library(inbospatial)
 library(grtsdb)
+
+# visualization
+library(effectclass)
 
 # reporting
 library(quarto)
