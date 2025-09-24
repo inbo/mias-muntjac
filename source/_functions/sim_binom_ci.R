@@ -14,7 +14,11 @@ sim_binom_ci <- function(
   )
   alternative <- match.arg(alternative)
   data_ci <- data.frame(
-    n = seq_len(n_max - n_min) + n_min,
+    n = if (n_max - n_min == 0) {
+     n_min
+      } else {
+        seq_len(n_max - n_min) + n_min
+      },
     psi_0 = psi_0,
     successes = successes,
     alpha = alpha
@@ -77,7 +81,8 @@ sim_binom_ci <- function(
     ) |>
     dplyr::mutate(
       ci_name = ci_name |> forcats::fct_rev()
-    )
+    ) |>
+    dplyr::select(-tmp)
   plot_ci <- if (plot) {ggplot2::ggplot(
     data = data_ci,
     ggplot2::aes(
