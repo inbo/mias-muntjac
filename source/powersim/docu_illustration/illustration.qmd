@@ -34,11 +34,10 @@ execute:
 
 # Overview
 
-The present documents illustrates simulation approaches for the following **monitoring scopes**:
+The present documents illustrates analysis approaches for the following **monitoring scopes**:
 
 - A: Abundance under management - status
-  - Determine population size under sustained eradication measures in distribution area in province of Antwerp
-  - ...
+  - Determine population size under sustained eradication measures in distribution area in province of Antwerp, per year
 - B: Abundance under management - trend
   - Estimate changes in population size in relation to sustained eradication measures in above distribution area
   - Can concern changes in absolute or relative abundance, depending on the assumptions we are willing to make
@@ -50,7 +49,7 @@ The present documents illustrates simulation approaches for the following **moni
   - Detect potential left-over animals in above distribution area after eradication has been completed 
 
 
-For these scopes, the document summarizes some thoughts on the following components of a simulation-based power analysis:
+For these scopes, the document summarizes some thoughts on the following components of a (simulation-based) power analysis:
 
 - Sampling
   - How do (simulated) data map onto geographical locations?
@@ -76,7 +75,7 @@ The following sections in this chapter deal with
 
 - the definition of a sample frame
 - the drawing of a random sample of locations
-- the mapping of future simulated data on the random sample of locations
+- the mapping of future simulated data on the random sample of locations (to be finalized)
 
 
 ## Define the sample frame
@@ -279,7 +278,7 @@ The sample frame for monitoring scope C, which targets a buffer area around the 
 
 
 ::: {.callout-note icon=false}
-##### Specifications
+##### Specifications: Sample frame
 
 - Define distribution area
   - which area?
@@ -463,7 +462,7 @@ The total number of grid cells associated with the sample frame forms the upper 
 
 
 ::: {.callout-note icon=false}
-##### Specifications / Extensions
+##### Specifications: Sampling
 
 - Determine grid
   - cell size?
@@ -509,6 +508,8 @@ Sticking to the not-too-complex model variants, we can rely on well-known proper
 We do this for abundances.
 For presences, we revert to a simpler option.
 For now we generally assume that we use the same model for data generation as we use for data-analysis.
+
+[data-generating distribution + regression model]
 
 
 ## Monitoring scopes A & B 
@@ -615,14 +616,14 @@ So, $exp(\beta_1)$ is the factor by which $\mu$ changes given a one-unit change 
 ($\mu|(year^*_1 + 1) = exp(\beta_1)*\mu|year^*_1$),
 and $(exp(\beta_1)-1)*100$ is the percentage change in $\mu$ associated with a one-unit change in year.
 
-The following figure shows a number of different trends implied by different sizes of $\beta_1$ for both $\nu$ and $\mu$.
+The following figure shows a number of different trends implied by different sizes of $\beta_1$ for both $\eta$ and $\mu$.
 
 ```{r fig-size-trend}
 #| include: true
 #| cache: true
 #| message: false
 #| results: 'hide'
-#| fig-cap: "Visualization of different effect sizes of beta_1"
+#| fig-cap: "Visualization of different effect sizes of beta_1 in the Poisson regression model"
 #| out-width: 150%
 
 data_trend <- data.frame(
@@ -630,7 +631,7 @@ data_trend <- data.frame(
   effect_size = -seq(0, 2, 0.2)
 ) |>
   tidyr::crossing(
-   year_star = seq(0,9)
+   year_star = seq(0,15)
 ) |>
   dplyr::mutate(
     eta =  effect_size*year_star + 2,
@@ -735,14 +736,15 @@ The question is again, what could be an interesting effect size from a biologica
 #### Regression model under monitoring scope A 
 
 For monitoring scope A (abundance under management - status), we could consider a special case of the model specified for monitoring scope B. 
-Specifically, we could further simplify the above regression model (@eq-6) to an intercept-only model to estimate expected local population size at year $t=t'$.
+Specifically, we could further simplify the above regression model(s) (@eq-poisreg2) to an intercept-only model to estimate expected local population size / probability of presence at year $t=t'$.
 The following thoughts on analysis setup for monitoring scope B then apply analogously to scope A.
 
-Alternatively, we might instead of a somewhat artificial regression model just use a Poisson test (see later elaborations on the Binomial test).
+Alternatively, we might instead of a somewhat artificial regression model just use a Poisson or Binomial test (see later elaborations).
+
 
 ### Analysis setup
 
-Based on the simple model specified above (@eq-6), we can now either
+Based on the simple model specified above (@eq-poisreg2; analogue considerations hold for the logistic regression variant), we can now either
 
 - determine a few minimal trend sizes of interest, and analyse how statistical power to detect those effects varies with the number of locations 
 - determine a few interesting numbers of locations, and analyse how the size of the minimal effect that can be detected with a certain statistical power varies
@@ -772,6 +774,7 @@ So, if costs become an additional optimization criterion next to statistical pow
 (Also when location-specific effects and/or detection probabilities are estimated, sample size dimension trade-off effects will become more interesting and should probably be added to the picture.) 
 
 
+
 ## Monitoring scopes C & D
 
 ### Data-generating model
@@ -779,23 +782,22 @@ So, if costs become an additional optimization criterion next to statistical pow
 #### Data-generating distributions
 
 Monitoring scopes C and D (detection under & after management - status) concern presence of animals as outcomes. Here we have 2 options.
-If we consider presence per location, we can rely on the **Bernoulli distribution**, with the parameter of focus being the probability of presence:
+If we consider presence per location, we can again rely on the **Bernoulli distribution** (@eq-bern):
 
 $$
 obs_{i,d,t=t'} \sim Bern(\psi_{i,t=t'})
-$$ {#eq-3}
+$$ {#eq-bern2}
 
 
 - $obs_{i,d,t=t'}  \in \{0,1\}$: observation of animals at location $i$, day $d$, year $t'$
-- $\psi_{i,d,t=t'}  \in [0,1]$: probability of presence at location $i$, year $t'$
+- $\psi_{i,t=t'}  \in [0,1]$: probability of presence at location $i$, year $t'$
   - within a location and year, measurements from different days are again treated as independent realizations from one Bernoulli distribution 
- - this again reflects assumption of some stability over time
 
 Alternatively, we can focus on the number of locations at which animal might be present, relying on the **Binomial distribution** and, again, the probability of presence:
 
 $$
 nobs_{d,t=t'} \sim Binom(\psi_{t=t'}, I)
-$$ {#eq-4}
+$$ {#eq-binom}
 
 
 - $nobs_{d,t=t'}  \in \{0,1,2,3, ...\}$: number of observations of animals summed across all locations, at day $d$, year $t'$
@@ -803,18 +805,18 @@ $$ {#eq-4}
   - within a year, measurements from different days are again treated as independent realizations from the same Binomial distribution
 - $I$: the total number of locations
 
-The first angle (@eq-3) makes sense if we want draw on the logistic regression model to include location-specific effects (and spatial dependencies) in our analysis.
-The second angle (@eq-4) is more of an aggregate approach.
+The first angle (@eq-bern2) makes sense if we want draw on the logistic regression model to include location-specific effects (and spatial dependencies) in our analysis.
+The second angle (@eq-binom) is more of an aggregate approach.
 We discuss the potential benefits of including location-specific effects later on.
 
-In analogy to @eq-2, we can here think of the probability of presence featuring in both @eq-3 and @eq-4 as being an observed one, which, again, 
+In analogy to @eq-pois2, we can here think of the probability of presence featuring in both @eq-bern2 and @eq-binom as being an observed one, which, again, 
 should be linked to a true probability of presence.
 Ideally the link is a one-to-one link.
 Again, an imperfect detection probability can weaken the link.
 The same animals being present multiple times or multiple animals being present should not be an issue and can be accommodated by thinking of $\psi$ as the probability of at least one animal being present.
 
 Under monitoring scopes C & D (detection under & after management - status) we start even simpler than under scope B:
-The data-generating model simply is the Binomial distribution presented in @eq-4.
+The data-generating model simply is the Binomial distribution presented in @eq-binom.
 Two analysis options are sketched in the following section.
 These are based on existing work of Thierry's.
 
@@ -824,9 +826,9 @@ These are based on existing work of Thierry's.
 
 Starting from a specific target value for the probability of presence (say 5% is some sort of critical threshold from an ecological perspective), we can investigate how the minimal deviation detectable with a desired statistical power changes with the sample size.
 
-We do this in the context of the binomial test.^[Note that we analyse one date per location. These could be from a single day, or aggregated across days. The probability of presence has different interpretations in both cases: In the first case, it is the probability that at least one animal was present at at least one moment during the recording; in the second case, it is the probability that at least one animal was present at at least one of the days. It is important to know for which we want to set a critical value. If it is the first probability, then the number of days should be added into the analysis.]
+We do this in the context of the binomial test.
 The binomial test can be used to determine whether a proportion of successes (sightings) in a number of Bernoulli trials (sampling locations) differs from an expected proportion of successes (critical value). 
-The test statistic is the binomial distribution (@eq-4).
+The test statistic is the binomial distribution (@eq-binom).
 
 The following figure visualizes for 100 trials (sampling locations) how much statistical power we have to detect deviations of two different sizes from a certain target (h_a1 and h_a2, relative to h_0).
 
@@ -848,11 +850,10 @@ plot_binom_power(
 )$plot_power
 ```
 
-<!---why is curve smooth for psi_0 = 0? ---->
 
 We can now do this for a whole range of sampling locations and each time determine the deviation that is detected with (at least) the desired power.
 This is the minimal detectable deviation given the desired power.
-The following figure illustrates how this minimally detectable deviation decreases with sample size for two different target values and testing strategies (one- and two-sided). 
+The following figure illustrates how this minimal detectable deviation decreases with sample size for two different target values and testing strategies (one- and two-sided). 
 
 
 ```{r fig-minimal-deviation}
@@ -863,7 +864,7 @@ The following figure illustrates how this minimally detectable deviation decreas
 #| fig-cap: "Minimal detectable deviation from target"
 #| out-width: 150%
 
-source("../power_binomial.R")
+source("../power_binom.R")
 
 plot_power + 
   ggplot2::labs(
@@ -874,9 +875,12 @@ plot_power +
 
 
 We can further complement this by taking estimation precision into account:
-For each sample size, we can for all possible sample configurations (all possible numbers of sightings) obtain the observable effects (probability of presence estimates), especially their confidence interval (CI) estimates.
-Based on width and position of the CIs with respect to the target and the minimally detectable effect, we can categorize each observable effect according to the [effectclass-logic](https://inbo.github.io/effectclass/articles/visualisation.html#format_ci-and-classification).
-The following figure illustrates this and shows which interpretations we can afford given different sample sizes and probabilities of success (figure requires some adjustments).
+For each sample size, we can for all possible sample configurations (all possible numbers of sightings) obtain the observable effects (observable probability of presence) and their confidence interval (CI) estimates.
+Based on width and position of the CIs with respect to the target effect and the minimally detectable deviation, we can categorize each observable effect according to the [effectclass-logic](https://inbo.github.io/effectclass/articles/visualisation.html#format_ci-and-classification).
+The following figure illustrates this and shows which interpretations we can afford given different sample sizes and observed probabilities of success.
+Panel A shows each observable effect as a point, the color of which codes its classification.
+Panel B subsumes points belonging to one and the same category as a closed surface.
+Note that only sample sizes are kept for which there are minimal detectable deviations in both directions.
 
 <!--- fix threshold issue ---->
 <!--- use points ---->
@@ -890,9 +894,14 @@ The following figure illustrates this and shows which interpretations we can aff
 #| fig-cap: "Classification of observable effects with respect to target and minimal detectable effect"
 #| out-width: 150%
 
-plot_classification + 
-  ggplot2::labs(
-    title = NULL
+library(patchwork)
+
+(plot_ec_point + ggplot2::labs(title = "A: Point")) + 
+  (plot_ec_poly + ggplot2::labs(title = "B: Polygon")) + 
+  patchwork::plot_layout(guides = "collect")
+  
+
+```
 
 **Note**: We currently analyse one date per location. These could be from a single day, or aggregated across days. The probability of presence has different interpretations in both cases: In the first case, it is the probability that at least one animal was present at at least one moment during a daily recording session; in the second case, it is the probability that at least one animal was present at at least one of the days. It is important to know for which we want to set a critical value. If it is the first probability, then we can link this to the second probability and achieve higher power by increasing the number of days.
 The relationship is $P(at\,least\,one\,sighting\,across\,days) = 1 - P(absence)^{\# days}$ with $P(absence) = 1-P(presence)$.
@@ -937,8 +946,6 @@ ggplot2::ggplot(
 
 #### Scenario 2: Focus on case of zero sightings
 
-<!---also link to power? ---->
-
 The alternative is to just consider the case in which we observe zero animals:
 If at least one observation of an animal is made, action has to be taken anyway.
 If zero observations are made across locations, however, we can guess that there are no animals
@@ -946,10 +953,12 @@ If zero observations are made across locations, however, we can guess that there
 The precision associated with this guess however depends on the number of sampling locations.
 Intuitively, we will trust our guess more having 100 locations without sighting as compared to 10 locations without sighting.
 The more locations without sightings, the less likely/plausible probabilities of presence estimates larger than zero become.
-We can formalize this by looking at the confidence interval estimate we get for increasing numbers of zero sightings.
-For 72 locations, the CI estimate excludes a probability of presence of 5%, which might be a critical threshold from an ecological perspective. 
-A probability of presence of 1% is however still included in the interval. 
-We desire the sample size for which the interval does not include a minimal critical value (which needs to be defined against the relevant ecological background) / does only include uncritical values.^[Interpreting single confidence interval estimates is tricky, and I need to double check whether this interpretation is admissible (enough); for now based on Lakens:https://lakens.github.io/statistical_inferences/07-CI.html]
+We can formalize this by looking at the CI estimate we get for increasing numbers of zero sightings.
+For > 58 locations, the CI estimate excludes a probability of presence of 5%, which might be a critical threshold from an ecological perspective. 
+A probability of presence of 1% is however still included in the interval.
+To exclude that value, we would need to measure at > 298 locations.
+
+We desire the sample size for which the interval does not include a minimal critical value (which needs to be defined against the relevant ecological background) / does only include uncritical values.^[Interpreting single CI estimates is tricky, and I need to double check whether this interpretation is admissible (enough); for now based on Lakens:https://lakens.github.io/statistical_inferences/07-CI.html]
 
 
 ```{r fig-plot-binomial-ci}
@@ -962,14 +971,15 @@ We desire the sample size for which the interval does not include a minimal crit
 
 source("../../_functions/sim_binom_ci.R")
 
-tmp <- sim_binom_ci(
+args_ci <- list(
     n_max = 500, # max number of trials
     n_min = 0, # min number of trials
     successes = 0, # number of successes
     psi_0 = 0, # probability of success under h_0 - does not matter for ci
-    alternative = "two.sided", # does matter for CI,
-    alpha = 0.05 
+    alternative = "two.sided", # corresponds to closed-form solution for successes = 0
+    alpha = 0.1 
 )
+tmp <- do.call(sim_binom_ci, args_ci)
 tmp$plot_ci + 
   ggplot2::labs(
     x = "Number of sampling locations",
@@ -1023,6 +1033,34 @@ plot_binom_power(
     alpha = test$alpha # type 1 error
 )$plot_power
 ```
+
+
+::: {.callout-note icon=false}
+##### Specifications: Power / precision analysis
+
+- Choose model (data-generation and - assuming we know the true model - analysis)
+  - Data-generating distribution?
+    - [ ] Poisson if local abundances are > 1
+    - [ ] Bernoulli if (local) presence information matters (including local abundances $\approx$ 1)
+    - [ ] Binomial if (global) presence information matters
+  - Data-generating model?
+    - [ ] Data-generating distribution if status is of interest
+    - [ ] Poisson regression if trend is of interest and data-generating distribution is Poisson
+    - [ ] Logistic regression if trend is of interest and data-generating distribution is Bernoulli
+    - [ ] Alternatives: Binomial regression if trend is of interest and data-generating distribution is Bernoulli?
+  - [ ] Extensions: 
+      - Location-specific effects?
+      - Sample size dimension-trade offs (-> cost trade-offs)?
+      - Non-perfect detection probability?
+      - ...
+  - Analysis?
+    - [ ] Test related to data-generating distribution (across all locations) if status is of interest 
+    - [ ] Regression model used for data-generation
+
+:::
+
+
+
 # References
 
 ::: {#refs}
