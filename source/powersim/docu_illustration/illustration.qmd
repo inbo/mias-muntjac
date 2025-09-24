@@ -979,6 +979,50 @@ tmp$plot_ci +
 ```
 
 
+**Note**: The left-hand panel of @fig-classification and @fig-plot-binomial-ci look quite similar.
+In fact, the displayed values are pretty close.^[They are almost exactly the same, when the CI is estimated in the context of a one-sided test, but it looks like the implementation is not entirely correct at this point as the estimated upper value does not match the value obtained from the closed-form expression known for this case (see https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Clopper%E2%80%93Pearson_interval)].
+
+Relying on the inverse relationship between a CI and a statistical hypothesis test (ref: Casella & Berger),
+we know that we would have rejected the null hypothesis of a zero probability of presence had we observed presences expected under probabilities not included in the CI ($\alpha =$ `r args_ci$alpha`; verify interpretation).
+This per se does not guarantee that we end up with the desired power (here `r 1 - args_ci$alpha`).
+In the case of psi = 0 however, we come close to the desired power once we reject the null hypothesis.
+Intuitively, this probably has in some way to do with things being bounded at 0, but I got stuck and stopped looking into this.
+(Knowing that the CI always lies entirely to the right of 0, we would need to show that here $\alpha \approx \beta$, so that $(1 - \alpha) \approx (1- \beta)$).
+
+
+
+```{r fig-plot-binomial-power-2}
+#| include: false
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Power of the binomial test (I = 10)"
+#| out-width: 150%
+
+
+args_ci <- list(
+    n_max = 100, # max number of trials
+    n_min = 0, # min number of trials
+    successes = 0, # number of successes
+    psi_0 = 0, # probability of success under h_0 - does not matter for ci
+    alternative = "less", # for checking interpretation
+    alpha = 0.1 
+)
+tmp <- do.call(sim_binom_ci, args_ci)
+
+test <- tmp$data_ci |> 
+  dplyr::filter(
+    n == 2,
+    grepl("ci_u", ci_name)
+  ) 
+
+plot_binom_power(
+    n = test$n, # number of trials
+    psi_0 = 0, # probability of succes under h_0
+    psi_a = test$ci_value, # probability of succes under h_a, or vector if multiple values
+    alpha = test$alpha # type 1 error
+)$plot_power
+```
 # References
 
 ::: {#refs}
