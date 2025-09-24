@@ -683,101 +683,16 @@ The following figure visualizes for 100 trials (sampling locations) how much sta
 #| cache: true
 #| message: false
 #| results: 'hide'
-#| fig-cap: "Power of the binomial test"
+#| fig-cap: "Power of the binomial test (I = 100)"
 #| out-width: 150%
 
-n = 100 # number of trials
-psi_0 = 0.05 # probability of succes under h_0
-psi_a1 = 0.1 # probability of succes under h_a1
-psi_a2 = 0.15 # probability of succes under h_a2
-successes = seq_len(n + 1) - 1 # all potential events for full probability mass distribution
-alpha = 0.05 # type 1 error
-
-data_binom <- data.frame(
-  n,
-  successes
-) |> tidyr::crossing(
-  hypothesis = c("h_0", "h_a1", "h_a2")
-) |>
-  dplyr::mutate(
-    psi = dplyr::case_match(
-      hypothesis,
-      "h_0" ~ psi_0,
-      "h_a1" ~ psi_a1,
-      "h_a2" ~ psi_a2
-    ),
-    probmass = dbinom(
-      x = successes,
-      size = n,
-      prob = psi
-    ),
-    quant_h0 = qbinom(
-      p = alpha,
-      size = n,
-      prob = psi_0,
-      lower.tail = FALSE # P(X > x)
-    ),
-    decision = dplyr::case_when(
-      successes > quant_h0 ~ "reject h_0",
-      successes <= quant_h0 ~ "retain h_0"
-    )
-  ) |>
-  dplyr::mutate(
-    power = dplyr::case_when(
-      decision == "reject h_0" ~ sum(probmass),
-    ),
-    .by = c(hypothesis, decision)
-  ) |>
-  dplyr::mutate(
-    decision = paste0(decision, " (alpha = ",alpha,")"),
-    lab_hypothesis = paste0(hypothesis, " (psi = ", psi, ")")
-    ) 
-  
-ggplot2::ggplot(
-  data = data_binom,
-  ggplot2::aes(
-    x = successes,
-    y = probmass,
-    group = hypothesis
-  )) + 
-  ggplot2::geom_vline(xintercept = data_binom$quant_h0 + 1) +
-  ggplot2::geom_segment(
-    ggplot2::aes(
-      y = 0,
-      yend = probmass,
-      color = decision
-    ),
-    linewidth = 1.1
-  ) + 
-  ggplot2::geom_line(linetype = "dashed") + 
-  ggplot2::geom_point(size = 1.5) + 
-  ggplot2::xlim(c(0,100)) +
-  ggplot2::theme_bw() + 
-  ggplot2::labs(
-    x = "Number of successes",
-    y = "Probability"
-  ) +
-  ggplot2::facet_wrap(
-    ggplot2::vars(lab_hypothesis),
-    ncol = 1
-  ) 
-
-if (FALSE){
-  p <- binom.test(
-    x = successes[10],
-    n = n, # number of trials
-    p = psi_0, # h_0
-    alternative = "greater"
-  )$p.value
-  
-  qbinom(
-    p = p, 
-    size = n,
-    prob = psi_0,
-    lower.tail = FALSE 
-  )
-}
-
+source("../../_functions/plot_binom_power.R")
+plot_binom_power(
+    n = 100, # number of trials
+    psi_0 = 0.05, # probability of succes under h_0
+    psi_a = c(0.1, 0.15), # probability of succes under h_a, or vector if multiple values
+    alpha = 0.1 # type 1 error
+)$plot_power
 ```
 
 <!---why is curve smooth for psi_0 = 0? ---->
