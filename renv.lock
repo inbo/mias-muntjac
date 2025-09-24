@@ -66,6 +66,65 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "CRAN"
     },
+    "DiceKriging": {
+      "Package": "DiceKriging",
+      "Version": "1.6.0",
+      "Source": "Repository",
+      "Title": "Kriging Methods for Computer Experiments",
+      "Date": "2021-02-23",
+      "Author": "Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: Clement Chevalier, Yann Richet.",
+      "Maintainer": "Olivier Roustant <roustant@insa-toulouse.fr>",
+      "Description": "Estimation, validation and prediction of kriging models. Important functions : km, print.km, plot.km, predict.km.",
+      "Depends": [
+        "methods"
+      ],
+      "Suggests": [
+        "rgenoud (>= 5.8-2.0)",
+        "foreach",
+        "doParallel",
+        "testthat",
+        "numDeriv"
+      ],
+      "License": "GPL-2 | GPL-3",
+      "URL": "https://dicekrigingclub.github.io/www/",
+      "NeedsCompilation": "yes",
+      "Repository": "CRAN"
+    },
+    "EnvStats": {
+      "Package": "EnvStats",
+      "Version": "3.1.0",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Package for Environmental Statistics, Including US EPA Guidance",
+      "Date": "2025-04-17",
+      "Authors@R": "c( person(\"Steven P.\",\"Millard\",email=\"EnvStats@ProbStatInfo.com\",role=c(\"aut\")), person(\"Alexander\", \"Kowarik\", email = \"alexander.kowarik@statistik.gv.at\", role = c(\"ctb\",\"cre\"), comment=c(ORCID=\"0000-0001-8598-4130\")))",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Imports": [
+        "MASS",
+        "ggplot2",
+        "nortest"
+      ],
+      "Suggests": [
+        "lattice",
+        "qcc",
+        "sp",
+        "boot",
+        "tinytest",
+        "covr",
+        "Hmisc"
+      ],
+      "Description": "Graphical and statistical analyses of environmental data, with  focus on analyzing chemical concentrations and physical parameters, usually in  the context of mandated environmental monitoring.  Major environmental  statistical methods found in the literature and regulatory guidance documents,  with extensive help that explains what these methods do, how to use them,  and where to find them in the literature.  Numerous built-in data sets from  regulatory guidance documents and environmental statistics literature.  Includes  scripts reproducing analyses presented in the book \"EnvStats:  An R Package for  Environmental Statistics\" (Millard, 2013, Springer, ISBN 978-1-4614-8455-4,  <doi:10.1007/978-1-4614-8456-1>).",
+      "License": "GPL (>= 3)",
+      "URL": "https://github.com/alexkowa/EnvStats, https://alexkowa.github.io/EnvStats/",
+      "LazyLoad": "yes",
+      "LazyData": "yes",
+      "NeedsCompilation": "no",
+      "Author": "Steven P. Millard [aut], Alexander Kowarik [ctb, cre] (<https://orcid.org/0000-0001-8598-4130>)",
+      "Maintainer": "Alexander Kowarik <alexander.kowarik@statistik.gv.at>",
+      "Repository": "CRAN"
+    },
     "INBOtheme": {
       "Package": "INBOtheme",
       "Version": "0.6.1",
@@ -345,6 +404,40 @@
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
+    "Rdpack": {
+      "Package": "Rdpack",
+      "Version": "2.6.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Update and Manipulate Rd Documentation Objects",
+      "Authors@R": "c( person(given = c(\"Georgi\", \"N.\"), family = \"Boshnakov\",  role = c(\"aut\", \"cre\"),  email = \"georgi.boshnakov@manchester.ac.uk\", comment = c(ORCID = \"0000-0003-2839-346X\")), person(given = \"Duncan\",  family = \"Murdoch\",  role = \"ctb\", email = \"murdoch.duncan@gmail.com\") )",
+      "Description": "Functions for manipulation of R documentation objects, including functions reprompt() and ereprompt() for updating 'Rd' documentation for functions, methods and classes; 'Rd' macros for citations and import of references from 'bibtex' files for use in 'Rd' files and 'roxygen2' comments; 'Rd' macros for evaluating and inserting snippets of 'R' code and the results of its evaluation or creating graphics on the fly; and many functions for manipulation of references and Rd files.",
+      "URL": "https://geobosh.github.io/Rdpack/ (doc), https://github.com/GeoBosh/Rdpack (devel)",
+      "BugReports": "https://github.com/GeoBosh/Rdpack/issues",
+      "Depends": [
+        "R (>= 2.15.0)",
+        "methods"
+      ],
+      "Imports": [
+        "tools",
+        "utils",
+        "rbibutils (>= 1.3)"
+      ],
+      "Suggests": [
+        "grDevices",
+        "testthat",
+        "rstudioapi",
+        "rprojroot",
+        "gbRd"
+      ],
+      "License": "GPL (>= 2)",
+      "LazyLoad": "yes",
+      "RoxygenNote": "7.1.1",
+      "NeedsCompilation": "no",
+      "Author": "Georgi N. Boshnakov [aut, cre] (<https://orcid.org/0000-0003-2839-346X>), Duncan Murdoch [ctb]",
+      "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
+      "Repository": "CRAN"
+    },
     "RefManageR": {
       "Package": "RefManageR",
       "Version": "1.4.0",
@@ -381,6 +474,31 @@
       "RoxygenNote": "7.2.1",
       "NeedsCompilation": "no",
       "Author": "Mathew W. McLean [aut, cre] (<https://orcid.org/0000-0002-7891-9645>)",
+      "Repository": "CRAN"
+    },
+    "XML": {
+      "Package": "XML",
+      "Version": "3.99-0.19",
+      "Source": "Repository",
+      "Authors@R": "c(person(\"CRAN Team\", role = c('ctb', 'cre'), email = \"CRAN@r-project.org\", comment = \"de facto maintainer since 2013\"), person(\"Duncan\", \"Temple Lang\", role = c(\"aut\"), email = \"duncan@r-project.org\", comment = c(ORCID = \"0000-0003-0159-1546\")), person(\"Tomas\", \"Kalibera\", role = \"ctb\"), person(\"Ivan\", \"Krylov\", role = \"ctb\"))",
+      "Title": "Tools for Parsing and Generating XML Within R and S-Plus",
+      "Depends": [
+        "R (>= 4.0.0)",
+        "methods",
+        "utils"
+      ],
+      "Suggests": [
+        "bitops",
+        "RCurl"
+      ],
+      "SystemRequirements": "libxml2 (>= 2.6.3)",
+      "Description": "Many approaches for both reading and creating XML (and HTML) documents (including DTDs), both local and accessible via HTTP or FTP.  Also offers access to an 'XPath' \"interpreter\".",
+      "URL": "https://www.omegahat.net/RSXML/",
+      "License": "BSD_3_clause + file LICENSE",
+      "Collate": "AAA.R DTD.R DTDClasses.R DTDRef.R SAXMethods.R XMLClasses.R applyDOM.R assignChild.R catalog.R createNode.R dynSupports.R error.R flatTree.R nodeAccessors.R parseDTD.R schema.R summary.R tangle.R toString.R tree.R version.R xmlErrorEnums.R xmlEventHandler.R xmlEventParse.R xmlHandler.R xmlInternalSource.R xmlOutputDOM.R xmlNodes.R xmlOutputBuffer.R xmlTree.R xmlTreeParse.R htmlParse.R hashTree.R zzz.R supports.R parser.R libxmlFeatures.R xmlString.R saveXML.R namespaces.R readHTMLTable.R reflection.R xmlToDataFrame.R bitList.R compare.R encoding.R fixNS.R xmlRoot.R serialize.R xmlMemoryMgmt.R keyValueDB.R solrDocs.R XMLRErrorInfo.R xincludes.R namespaceHandlers.R tangle1.R htmlLinks.R htmlLists.R getDependencies.R getRelativeURL.R xmlIncludes.R simplifyPath.R",
+      "NeedsCompilation": "yes",
+      "Author": "CRAN Team [ctb, cre] (de facto maintainer since 2013), Duncan Temple Lang [aut] (ORCID: <https://orcid.org/0000-0003-0159-1546>), Tomas Kalibera [ctb], Ivan Krylov [ctb]",
+      "Maintainer": "CRAN Team <CRAN@r-project.org>",
       "Repository": "CRAN"
     },
     "abind": {
@@ -519,6 +637,31 @@
       "NeedsCompilation": "no",
       "Author": "Romain Francois [aut, cph] (<https://orcid.org/0000-0002-2444-4226>, principal developer of bibtex R package), James Joseph Balamuta [ctb, cre] (<https://orcid.org/0000-0003-2826-8458>), Diego Hernangómez [aut] (<https://orcid.org/0000-0001-8457-4658>), Scott Chamberlain [ctb] (<https://orcid.org/0000-0003-1444-9135>), Kurt Hornik [ctb] (<https://orcid.org/0000-0003-4198-9911>), Brian Ripley [ctb] (compilation fixes), Michael Koohafkan [ctb], Mathew W. McLean [ctb] (<https://orcid.org/0000-0002-7891-9645>)",
       "Maintainer": "James Joseph Balamuta <balamut2@illinois.edu>",
+      "Repository": "CRAN"
+    },
+    "binGroup": {
+      "Package": "binGroup",
+      "Version": "2.2-3",
+      "Source": "Repository",
+      "Title": "Evaluation and Experimental Design for Binomial Group Testing",
+      "Date": "2025-05-07",
+      "Authors@R": "c(person(\"Boan\", \"Zhang\", role = \"aut\"),  person(\"Christopher\", \"Bilder\", role = \"aut\"), person(\"Brad\", \"Biggerstaff\", role = \"aut\"), person(\"Frank\", \"Schaarschmidt\", role = c(\"aut\", \"cre\"), email = \"schaarschmidt@biostat.uni-hannover.de\"), person(\"Brianna\", \"Hitt\", role = \"aut\"))",
+      "Maintainer": "Frank Schaarschmidt <schaarschmidt@biostat.uni-hannover.de>",
+      "Imports": [
+        "graphics",
+        "partitions",
+        "Rdpack",
+        "stats",
+        "utils"
+      ],
+      "RdMacros": "Rdpack",
+      "Description": "Methods for estimation and hypothesis testing of proportions in group testing designs: methods for estimating a proportion in a single population (assuming sensitivity and specificity equal to 1 in designs with equal group sizes), as well as hypothesis tests and functions for experimental design for this situation. For estimating one proportion or the difference of proportions, a number of confidence interval methods are included, which can deal with various different pool sizes. Further, regression methods are implemented for simple pooling and matrix pooling designs. Methods for identification of positive items in group testing designs: Optimal testing configurations can be found  for hierarchical and array-based algorithms. Operating  characteristics can be calculated for testing configurations  across a wide variety of situations.",
+      "License": "GPL (>= 3)",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "no",
+      "Author": "Boan Zhang [aut], Christopher Bilder [aut], Brad Biggerstaff [aut], Frank Schaarschmidt [aut, cre], Brianna Hitt [aut]",
       "Repository": "CRAN"
     },
     "bit": {
@@ -2842,6 +2985,35 @@
       "Maintainer": "Jennifer Bryan <jenny@posit.co>",
       "Repository": "CRAN"
     },
+    "gmp": {
+      "Package": "gmp",
+      "Version": "0.7-5",
+      "Source": "Repository",
+      "Date": "2024-08-23",
+      "Title": "Multiple Precision Arithmetic",
+      "Authors@R": "c(person(\"Antoine\",\"Lucas\",role = c(\"aut\",\"cre\"), email = \"antoinelucas@gmail.com\", comment = c(ORCID=\"0000-0002-8059-9767\")), person(\"Immanuel\",\"Scholz\", role= \"aut\"), person(\"Rainer\",\"Boehme\", role = \"ctb\", email= \"rb-gmp@reflex-studio.de\"), person(\"Sylvain\",\"Jasson\", role = \"ctb\", email= \"Sylvain.Jasson@inrae.fr\"), person(\"Martin\", \"Maechler\", role = \"ctb\", email=\"maechler@stat.math.ethz.ch\"))",
+      "Maintainer": "Antoine Lucas <antoinelucas@gmail.com>",
+      "Description": "Multiple Precision Arithmetic (big integers and rationals, prime number tests, matrix computation), \"arithmetic without limitations\" using the C library GMP (GNU Multiple Precision Arithmetic).",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Imports": [
+        "methods"
+      ],
+      "Suggests": [
+        "Rmpfr",
+        "MASS",
+        "round"
+      ],
+      "SystemRequirements": "gmp (>= 4.2.3)",
+      "License": "GPL (>= 2)",
+      "BuildResaveData": "no",
+      "LazyDataNote": "not available, as we use data/*.R *and* our classes",
+      "NeedsCompilation": "yes",
+      "URL": "https://forgemia.inra.fr/sylvain.jasson/gmp",
+      "Author": "Antoine Lucas [aut, cre] (<https://orcid.org/0000-0002-8059-9767>), Immanuel Scholz [aut], Rainer Boehme [ctb], Sylvain Jasson [ctb], Martin Maechler [ctb]",
+      "Repository": "CRAN"
+    },
     "googledrive": {
       "Package": "googledrive",
       "Version": "2.1.1",
@@ -4325,6 +4497,50 @@
       "Maintainer": "Joe Cheng <joe@posit.co>",
       "Repository": "CRAN"
     },
+    "mlpwr": {
+      "Package": "mlpwr",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Title": "A Power Analysis Toolbox to Find Cost-Efficient Study Designs",
+      "Authors@R": "c( person(\"Felix\", \"Zimmer\", , \"felix.zimmer@mail.de\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-8127-0007\")), person(\"Rudolf\", \"Debelak\", , \"rudolf.debelak@psychologie.uzh.ch\", role = c(\"aut\"), comment = c(ORCID = \"0000-0001-8900-2106\")), person(\"Marc\", \"Egli\", , \"eglimar@ethz.ch\", role = c(\"ctb\")) )",
+      "Description": "We implement a surrogate modeling algorithm to guide simulation-based sample size planning. The method is described in detail in our paper (Zimmer & Debelak (2023) <doi:10.1037/met0000611>). It supports multiple study design parameters and optimization with respect to a cost function. It can find optimal designs that correspond to a desired statistical power or that fulfill a cost constraint. We also provide a tutorial paper (Zimmer et al. (2023) <doi:10.3758/s13428-023-02269-0>).",
+      "License": "GPL (>= 3)",
+      "LazyData": "true",
+      "URL": "https://github.com/flxzimmer/mlpwr",
+      "BugReports": "https://github.com/flxzimmer/mlpwr/issues",
+      "Imports": [
+        "utils",
+        "stats",
+        "DiceKriging",
+        "digest",
+        "ggplot2",
+        "randtoolbox",
+        "rlist",
+        "rgenoud"
+      ],
+      "Suggests": [
+        "knitr",
+        "lme4",
+        "lmerTest",
+        "mirt",
+        "pwr",
+        "rmarkdown",
+        "simr",
+        "sn",
+        "tidyr",
+        "WeightSVM"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "VignetteBuilder": "knitr",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "NeedsCompilation": "no",
+      "Author": "Felix Zimmer [aut, cre] (<https://orcid.org/0000-0002-8127-0007>), Rudolf Debelak [aut] (<https://orcid.org/0000-0001-8900-2106>), Marc Egli [ctb]",
+      "Maintainer": "Felix Zimmer <felix.zimmer@mail.de>",
+      "Repository": "CRAN"
+    },
     "modelr": {
       "Package": "modelr",
       "Version": "0.1.11",
@@ -4398,6 +4614,23 @@
       "Maintainer": "R Core Team <R-core@R-project.org>",
       "Repository": "CRAN"
     },
+    "nortest": {
+      "Package": "nortest",
+      "Version": "1.0-4",
+      "Source": "Repository",
+      "Title": "Tests for Normality",
+      "Date": "2015-07-29",
+      "Description": "Five omnibus tests for testing the composite hypothesis of normality.",
+      "License": "GPL (>= 2)",
+      "Authors@R": "c(person(\"Juergen\", \"Gross\", role = \"aut\", email = \"gross@statistik.tu-dortmund.de\"), person(\"Uwe\", \"Ligges\", role = c(\"aut\", \"cre\"), email = \"ligges@statistik.tu-dortmund.de\"))",
+      "Imports": [
+        "stats"
+      ],
+      "Author": "Juergen Gross [aut], Uwe Ligges [aut, cre]",
+      "Maintainer": "Uwe Ligges <ligges@statistik.tu-dortmund.de>",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "2.3.3",
@@ -4429,6 +4662,128 @@
       "NeedsCompilation": "yes",
       "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>), Oliver Keyes [ctb]",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "osmdata": {
+      "Package": "osmdata",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Title": "Import 'OpenStreetMap' Data as Simple Features or Spatial Objects",
+      "Authors@R": "c( person(\"Joan\", \"Maspons\", , \"joanmaspons@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-2286-8727\")), person(\"Mark\", \"Padgham\", , \"mark.padgham@email.com\", role = \"aut\"), person(\"Bob\", \"Rudis\", role = \"aut\"), person(\"Robin\", \"Lovelace\", role = \"aut\"), person(\"Maëlle\", \"Salmon\", role = \"aut\"), person(\"Andrew\", \"Smith\", role = \"ctb\"), person(\"James\", \"Smith\", role = \"ctb\"), person(\"Andrea\", \"Gilardi\", role = \"ctb\"), person(\"Enrico\", \"Spinielli\", role = \"ctb\"), person(\"Anthony\", \"North\", role = \"ctb\"), person(\"Martin\", \"Machyna\", role = \"ctb\"), person(\"Marcin\", \"Kalicinski\", role = c(\"ctb\", \"cph\"), comment = \"Author of included RapidXML code\"), person(\"Eli\", \"Pousson\", , \"eli.pousson@gmail.com\", role = \"ctb\", comment = c(ORCID = \"0000-0001-8280-1706\")) )",
+      "Description": "Download and import of 'OpenStreetMap' ('OSM') data as 'sf' or 'sp' objects.  'OSM' data are extracted from the 'Overpass' web server (<https://overpass-api.de/>) and processed with very fast 'C++' routines for return to 'R'.",
+      "License": "GPL-3",
+      "URL": "https://docs.ropensci.org/osmdata/, https://github.com/ropensci/osmdata",
+      "BugReports": "https://github.com/ropensci/osmdata/issues",
+      "Depends": [
+        "R (>= 4.1)"
+      ],
+      "Imports": [
+        "curl",
+        "httr2",
+        "methods",
+        "Rcpp (>= 0.12.4)",
+        "rvest",
+        "tibble",
+        "utils",
+        "xml2"
+      ],
+      "Suggests": [
+        "httptest2",
+        "jsonlite",
+        "knitr",
+        "markdown",
+        "rmarkdown",
+        "sf",
+        "sp",
+        "terra",
+        "testthat"
+      ],
+      "LinkingTo": [
+        "Rcpp"
+      ],
+      "VignetteBuilder": "knitr",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "RoxygenNote": "7.3.2",
+      "X-schema.org-applicationCategory": "Data Access",
+      "X-schema.org-isPartOf": "https://ropensci.org",
+      "X-schema.org-keywords": "open0street0map, openstreetmap, overpass0API, OSM",
+      "Author": "Joan Maspons [aut, cre] (ORCID: <https://orcid.org/0000-0003-2286-8727>), Mark Padgham [aut], Bob Rudis [aut], Robin Lovelace [aut], Maëlle Salmon [aut], Andrew Smith [ctb], James Smith [ctb], Andrea Gilardi [ctb], Enrico Spinielli [ctb], Anthony North [ctb], Martin Machyna [ctb], Marcin Kalicinski [ctb, cph] (Author of included RapidXML code), Eli Pousson [ctb] (ORCID: <https://orcid.org/0000-0001-8280-1706>)",
+      "Maintainer": "Joan Maspons <joanmaspons@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "partitions": {
+      "Package": "partitions",
+      "Version": "1.10-9",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Additive Partitions of Integers",
+      "Depends": [
+        "R (>= 3.6.0)"
+      ],
+      "Authors@R": "c( person(given=c(\"Robin\", \"K. S.\"), family=\"Hankin\", role = c(\"aut\",\"cre\"), email=\"hankin.robin@gmail.com\", comment = c(ORCID = \"0000-0001-5982-0415\")), person(\"Paul\", \"Egeler\", email = \"paulegeler@gmail.com\", role = c(\"ctb\"), comment = c(ORCID = \"0000-0001-6948-9498\")) )",
+      "Maintainer": "Robin K. S. Hankin <hankin.robin@gmail.com>",
+      "Imports": [
+        "gmp",
+        "polynom",
+        "sets",
+        "Rdpack"
+      ],
+      "Description": "Additive partitions of integers.  Enumerates the partitions, unequal partitions, and restricted partitions of an integer; the three corresponding partition functions are also given. Set partitions and now compositions and riffle shuffles are included.",
+      "Suggests": [
+        "testthat",
+        "covr"
+      ],
+      "License": "GPL",
+      "URL": "https://github.com/RobinHankin/partitions",
+      "BugReports": "https://github.com/RobinHankin/partitions/issues",
+      "RdMacros": "Rdpack",
+      "NeedsCompilation": "yes",
+      "Author": "Robin K. S. Hankin [aut, cre] (<https://orcid.org/0000-0001-5982-0415>), Paul Egeler [ctb] (<https://orcid.org/0000-0001-6948-9498>)",
+      "Repository": "CRAN"
+    },
+    "patchwork": {
+      "Package": "patchwork",
+      "Version": "1.3.2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "The Composer of Plots",
+      "Authors@R": "person(given = \"Thomas Lin\", family = \"Pedersen\", role = c(\"cre\", \"aut\"), email = \"thomasp85@gmail.com\", comment = c(ORCID = \"0000-0002-5147-4711\"))",
+      "Maintainer": "Thomas Lin Pedersen <thomasp85@gmail.com>",
+      "Description": "The 'ggplot2' package provides a strong API for sequentially  building up a plot, but does not concern itself with composition of multiple plots. 'patchwork' is a package that expands the API to allow for  arbitrarily complex composition of plots by, among others, providing  mathematical operators for combining multiple plots. Other packages that try  to address this need (but with a different approach) are 'gridExtra' and  'cowplot'.",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Imports": [
+        "ggplot2 (>= 3.0.0)",
+        "gtable (>= 0.3.6)",
+        "grid",
+        "stats",
+        "grDevices",
+        "utils",
+        "graphics",
+        "rlang (>= 1.0.0)",
+        "cli",
+        "farver"
+      ],
+      "RoxygenNote": "7.3.2",
+      "URL": "https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork",
+      "BugReports": "https://github.com/thomasp85/patchwork/issues",
+      "Suggests": [
+        "knitr",
+        "rmarkdown",
+        "gridGraphics",
+        "gridExtra",
+        "ragg",
+        "testthat (>= 2.1.0)",
+        "vdiffr",
+        "covr",
+        "png",
+        "gt (>= 0.11.0)"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/Needs/website": "gifski",
+      "NeedsCompilation": "no",
+      "Author": "Thomas Lin Pedersen [cre, aut] (ORCID: <https://orcid.org/0000-0002-5147-4711>)",
       "Repository": "CRAN"
     },
     "pillar": {
@@ -4852,6 +5207,28 @@
       "SystemRequirements": "libpng",
       "URL": "http://www.rforge.net/png/",
       "NeedsCompilation": "yes",
+      "Repository": "CRAN"
+    },
+    "polynom": {
+      "Package": "polynom",
+      "Version": "1.4-1",
+      "Source": "Repository",
+      "Title": "A Collection of Functions to Implement a Class for Univariate Polynomial Manipulations",
+      "Authors@R": "c(person(\"Bill\", \"Venables\", role = c(\"aut\", \"cre\"), email = \"Bill.Venables@gmail.com\", comment = \"S original\"), person(\"Kurt\", \"Hornik\", role = \"aut\", email = \"Kurt.Hornik@R-project.org\", comment = \"R port\"), person(\"Martin\", \"Maechler\", role = \"aut\", email = \"maechler@stat.math.ethz.ch\", comment = \"R port\"))",
+      "Description": "A collection of functions to implement a class for univariate polynomial manipulations.",
+      "Imports": [
+        "stats",
+        "graphics"
+      ],
+      "License": "GPL-2",
+      "NeedsCompilation": "no",
+      "Author": "Bill Venables [aut, cre] (S original), Kurt Hornik [aut] (R port), Martin Maechler [aut] (R port)",
+      "Maintainer": "Bill Venables <Bill.Venables@gmail.com>",
+      "Suggests": [
+        "knitr",
+        "rmarkdown"
+      ],
+      "VignetteBuilder": "knitr",
       "Repository": "CRAN"
     },
     "praise": {
@@ -5291,6 +5668,24 @@
       "Author": "Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), Maxim Shemanarev [aut, cph] (Author of AGG), Tony Juricic [ctb, cph] (Contributor to AGG), Milan Marusinec [ctb, cph] (Contributor to AGG), Spencer Garrett [ctb] (Contributor to AGG), Posit, PBC [cph, fnd]",
       "Repository": "CRAN"
     },
+    "randtoolbox": {
+      "Package": "randtoolbox",
+      "Version": "2.0.5",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Toolbox for Pseudo and Quasi Random Number Generation and Random Generator Tests",
+      "Authors@R": "c( person(\"Christophe\", \"Dutang\", role = c(\"aut\", \"cre\"), email = \"dutangc@gmail.com\",  comment = c(ORCID = \"0000-0001-6732-1501\")), person(\"Petr\", \"Savicky\", role= \"aut\", email=\"savicky@cs.cas.cz\"), person(\"Yohan\", \"Chalabi\", role = \"ctb\", comment=\"part of R Code\"), person(\"Diethelm\", \"Wuertz\", role = \"aut\", comment=\"part of R Code\"), person(\"Donald\", \"Knuth\", role = \"aut\", comment=\"C code of Knuth-TAOCP RNG\"), person(\"Makoto\", \"Matsumoto\", role = \"aut\", comment=\"C code of SFMT algorithm\"), person(\"Mutsuo\", \"Saito\", role = \"aut\", comment=\"C code of SFMT algorithm\"))",
+      "Description": "Provides (1) pseudo random generators - general linear congruential generators,  multiple recursive generators and generalized feedback shift register (SF-Mersenne Twister algorithm (<doi:10.1007/978-3-540-74496-2_36>) and WELL (<doi:10.1145/1132973.1132974>)  generators); (2) quasi random generators - the Torus algorithm, the Sobol sequence, the Halton sequence (including the Van der Corput sequence) and (3) some generator tests - the gap test, the serial test, the poker test, see, e.g.,  Gentle (2003) <doi:10.1007/b97336>.  Take a look at the Distribution task view of types and tests of random number generators. The package can be provided without the 'rngWELL' dependency on demand. Package in Memoriam of Diethelm and Barbara Wuertz.",
+      "Depends": [
+        "rngWELL (>= 0.10-1)"
+      ],
+      "License": "BSD_3_clause + file LICENSE",
+      "URL": "https://r-forge.r-project.org/projects/rmetrics/",
+      "NeedsCompilation": "yes",
+      "Author": "Christophe Dutang [aut, cre] (<https://orcid.org/0000-0001-6732-1501>), Petr Savicky [aut], Yohan Chalabi [ctb] (part of R Code), Diethelm Wuertz [aut] (part of R Code), Donald Knuth [aut] (C code of Knuth-TAOCP RNG), Makoto Matsumoto [aut] (C code of SFMT algorithm), Mutsuo Saito [aut] (C code of SFMT algorithm)",
+      "Maintainer": "Christophe Dutang <dutangc@gmail.com>",
+      "Repository": "CRAN"
+    },
     "rapidjsonr": {
       "Package": "rapidjsonr",
       "Version": "1.2.0",
@@ -5379,6 +5774,34 @@
       "NeedsCompilation": "yes",
       "Author": "Robert J. Hijmans [cre, aut] (<https://orcid.org/0000-0001-5872-2872>), Jacob van Etten [ctb], Michael Sumner [ctb], Joe Cheng [ctb], Dan Baston [ctb], Andrew Bevan [ctb], Roger Bivand [ctb], Lorenzo Busetto [ctb], Mort Canty [ctb], Ben Fasoli [ctb], David Forrest [ctb], Aniruddha Ghosh [ctb], Duncan Golicher [ctb], Josh Gray [ctb], Jonathan A. Greenberg [ctb], Paul Hiemstra [ctb], Kassel Hingee [ctb], Alex Ilich [ctb], Institute for Mathematics Applied Geosciences [cph], Charles Karney [ctb], Matteo Mattiuzzi [ctb], Steven Mosher [ctb], Babak Naimi [ctb], Jakub Nowosad [ctb], Edzer Pebesma [ctb], Oscar Perpinan Lamigueiro [ctb], Etienne B. Racine [ctb], Barry Rowlingson [ctb], Ashton Shortridge [ctb], Bill Venables [ctb], Rafael Wueest [ctb]",
       "Maintainer": "Robert J. Hijmans <r.hijmans@gmail.com>",
+      "Repository": "CRAN"
+    },
+    "rbibutils": {
+      "Package": "rbibutils",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Read 'Bibtex' Files and Convert Between Bibliography Formats",
+      "Authors@R": "c( person(given = c(\"Georgi\", \"N.\"), family = \"Boshnakov\",  role = c(\"aut\", \"cre\"), \t email = \"georgi.boshnakov@manchester.ac.uk\", comment = \"R port, R code, new C code and modifications to bibutils' C code, conversion to Bibentry (R and C code)\" ), person(given = \"Chris\", family = \"Putman\", role = \"aut\", comment = \"src/*, author of the bibutils libraries, https://sourceforge.net/projects/bibutils/\"), person(given = \"Richard\", family = \"Mathar\", role = \"ctb\", comment = \"src/addsout.c\"), person(given = \"Johannes\", family = \"Wilm\", role = \"ctb\", comment = \"src/biblatexin.c, src/bltypes.c\"), person(\"R Core Team\", role = \"ctb\", comment = \"base R's bibentry and bibstyle implementation\") )",
+      "Description": "Read and write 'Bibtex' files. Convert between bibliography formats, including 'Bibtex', 'Biblatex', 'PubMed', 'Endnote', and 'Bibentry'.  Includes a port of the 'bibutils' utilities by Chris Putnam <https://sourceforge.net/projects/bibutils/>. Supports all bibliography formats and character encodings implemented in 'bibutils'.",
+      "License": "GPL-2",
+      "URL": "https://geobosh.github.io/rbibutils/ (doc), https://github.com/GeoBosh/rbibutils (devel)",
+      "BugReports": "https://github.com/GeoBosh/rbibutils/issues",
+      "Depends": [
+        "R (>= 2.10)"
+      ],
+      "Imports": [
+        "utils",
+        "tools"
+      ],
+      "Suggests": [
+        "testthat"
+      ],
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "Config/Needs/memcheck": "devtools, rcmdcheck",
+      "Author": "Georgi N. Boshnakov [aut, cre] (R port, R code, new C code and modifications to bibutils' C code, conversion to Bibentry (R and C code)), Chris Putman [aut] (src/*, author of the bibutils libraries, https://sourceforge.net/projects/bibutils/), Richard Mathar [ctb] (src/addsout.c), Johannes Wilm [ctb] (src/biblatexin.c, src/bltypes.c), R Core Team [ctb] (base R's bibentry and bibstyle implementation)",
+      "Maintainer": "Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>",
       "Repository": "CRAN"
     },
     "rcmdcheck": {
@@ -5755,6 +6178,28 @@
       "Maintainer": "Kevin Ushey <kevinushey@gmail.com>",
       "Repository": "CRAN"
     },
+    "rgenoud": {
+      "Package": "rgenoud",
+      "Version": "5.9-0.11",
+      "Source": "Repository",
+      "Date": "2024-10-03",
+      "Title": "R Version of GENetic Optimization Using Derivatives",
+      "Authors@R": "c( person(\"Walter\", \"R. Mebane, Jr\", role = \"aut\", email = \"wmebane@umich.edu\"), person(\"Jasjeet\", \"Singh Sekhon\", role = c(\"aut\",\"cre\"), email = \"jas.sekhon@yale.edu\"), person(\"Theo\", \"Saarinen\", role = \"aut\", email = \"theo_s@berkeley.edu\") )",
+      "Maintainer": "Jasjeet Singh Sekhon <jas.sekhon@yale.edu>",
+      "Description": "A genetic algorithm plus derivative optimizer.",
+      "Depends": [
+        "R (>= 2.15)",
+        "utils"
+      ],
+      "Suggests": [
+        "testthat"
+      ],
+      "License": "GPL-3",
+      "URL": "https://github.com/JasjeetSekhon/rgenoud",
+      "NeedsCompilation": "yes",
+      "Author": "Walter R. Mebane, Jr [aut], Jasjeet Singh Sekhon [aut, cre], Theo Saarinen [aut]",
+      "Repository": "CRAN"
+    },
     "rjson": {
       "Package": "rjson",
       "Version": "0.2.23",
@@ -5823,6 +6268,39 @@
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "CRAN"
     },
+    "rlist": {
+      "Package": "rlist",
+      "Version": "0.4.6.2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "A Toolbox for Non-Tabular Data Manipulation",
+      "Author": "Kun Ren <ken@renkun.me>",
+      "Maintainer": "Kun Ren <ken@renkun.me>",
+      "Description": "Provides a set of functions for data manipulation with list objects, including mapping, filtering, grouping, sorting, updating, searching, and other useful functions. Most functions are designed to be pipeline friendly so that data processing with lists can be chained.",
+      "Depends": [
+        "R (>= 2.15)"
+      ],
+      "Date": "2021-09-02",
+      "Suggests": [
+        "testthat",
+        "stringdist"
+      ],
+      "Imports": [
+        "yaml",
+        "jsonlite",
+        "XML",
+        "data.table"
+      ],
+      "License": "MIT + file LICENSE",
+      "URL": "https://renkun-ken.github.io/rlist/, https://github.com/renkun-ken/rlist, https://renkun-ken.github.io/rlist-tutorial/",
+      "BugReports": "https://github.com/renkun-ken/rlist/issues",
+      "ByteCompile": "TRUE",
+      "LazyData": "true",
+      "RoxygenNote": "7.1.1",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
     "rmarkdown": {
       "Package": "rmarkdown",
       "Version": "2.29",
@@ -5877,6 +6355,23 @@
       "NeedsCompilation": "no",
       "Author": "JJ Allaire [aut], Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>), Christophe Dervieux [aut] (<https://orcid.org/0000-0003-4474-2498>), Jonathan McPherson [aut], Javier Luraschi [aut], Kevin Ushey [aut], Aron Atkins [aut], Hadley Wickham [aut], Joe Cheng [aut], Winston Chang [aut], Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>), Andrew Dunning [ctb] (<https://orcid.org/0000-0003-0464-5036>), Atsushi Yasumoto [ctb, cph] (<https://orcid.org/0000-0002-8335-495X>, Number sections Lua filter), Barret Schloerke [ctb], Carson Sievert [ctb] (<https://orcid.org/0000-0002-4958-2844>), Devon Ryan [ctb] (<https://orcid.org/0000-0002-8549-0971>), Frederik Aust [ctb] (<https://orcid.org/0000-0003-4900-788X>), Jeff Allen [ctb], JooYoung Seo [ctb] (<https://orcid.org/0000-0002-4064-6012>), Malcolm Barrett [ctb], Rob Hyndman [ctb], Romain Lesur [ctb], Roy Storey [ctb], Ruben Arslan [ctb], Sergio Oller [ctb], Posit Software, PBC [cph, fnd], jQuery UI contributors [ctb, cph] (jQuery UI library; authors listed in inst/rmd/h/jqueryui/AUTHORS.txt), Mark Otto [ctb] (Bootstrap library), Jacob Thornton [ctb] (Bootstrap library), Bootstrap contributors [ctb] (Bootstrap library), Twitter, Inc [cph] (Bootstrap library), Alexander Farkas [ctb, cph] (html5shiv library), Scott Jehl [ctb, cph] (Respond.js library), Ivan Sagalaev [ctb, cph] (highlight.js library), Greg Franko [ctb, cph] (tocify library), John MacFarlane [ctb, cph] (Pandoc templates), Google, Inc. [ctb, cph] (ioslides library), Dave Raggett [ctb] (slidy library), W3C [cph] (slidy library), Dave Gandy [ctb, cph] (Font-Awesome), Ben Sperry [ctb] (Ionicons), Drifty [cph] (Ionicons), Aidan Lister [ctb, cph] (jQuery StickyTabs), Benct Philip Jonsson [ctb, cph] (pagebreak Lua filter), Albert Krewinkel [ctb, cph] (pagebreak Lua filter)",
       "Maintainer": "Yihui Xie <xie@yihui.name>",
+      "Repository": "CRAN"
+    },
+    "rngWELL": {
+      "Package": "rngWELL",
+      "Version": "0.10-10",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Toolbox for WELL Random Number Generators",
+      "Authors@R": "c( person(\"Christophe\", \"Dutang\", role = c(\"aut\", \"cre\"), email = \"dutangc@gmail.com\", comment = c(ORCID = \"0000-0001-6732-1501\")), person(\"Petr\", \"Savicky\", role= \"aut\", email=\"savicky@cs.cas.cz\"), person(\"F.\", \"Panneton\", role = \"ctb\", comment=\"C Code\"), person(\"P.\", \"L'Ecuyer\", role = \"ctb\", comment=\"C Code\"), person(\"M.\", \"Matsumoto\", role = \"ctb\", comment=\"C Code\"))",
+      "Description": "It is a dedicated package to WELL pseudo random generators,  which were introduced in Panneton et al. (2006), ``Improved Long-Period  Generators Based on Linear Recurrences Modulo 2'', see <doi:10.1145/1132973.1132974>.  But this package is not intended to be used directly, you are strongly __encouraged__  to use the 'randtoolbox' package, which depends on this package.",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "License": "BSD_3_clause + file LICENSE",
+      "NeedsCompilation": "yes",
+      "Author": "Christophe Dutang [aut, cre] (<https://orcid.org/0000-0001-6732-1501>), Petr Savicky [aut], F. Panneton [ctb] (C Code), P. L'Ecuyer [ctb] (C Code), M. Matsumoto [ctb] (C Code)",
+      "Maintainer": "Christophe Dutang <dutangc@gmail.com>",
       "Repository": "CRAN"
     },
     "rosm": {
@@ -6369,6 +6864,31 @@
       "RoxygenNote": "7.3.2",
       "NeedsCompilation": "no",
       "Author": "Gábor Csárdi [cre], Hadley Wickham [aut], Winston Chang [aut], Robert Flight [aut], Kirill Müller [aut], Jim Hester [aut], R Core team [ctb], Posit Software, PBC [cph, fnd]",
+      "Repository": "CRAN"
+    },
+    "sets": {
+      "Package": "sets",
+      "Version": "1.0-25",
+      "Source": "Repository",
+      "Title": "Sets, Generalized Sets, Customizable Sets and Intervals",
+      "Description": "Data structures and basic operations for ordinary sets, generalizations such as fuzzy sets, multisets, and fuzzy multisets, customizable sets, and intervals.",
+      "Authors@R": "c(person(given = \"David\", family = \"Meyer\", role = c(\"aut\", \"cre\"), email = \"David.Meyer@R-project.org\", comment = c(ORCID = \"0000-0002-5196-3048\")),\t     person(given = \"Kurt\", family = \"Hornik\", role = \"aut\", email = \"Kurt.Hornik@R-project.org\", comment = c(ORCID = \"0000-0003-4198-9911\")), person(given = \"Christian\", family = \"Buchta\", role = \"ctb\"))",
+      "Depends": [
+        "R (>= 2.7.0)"
+      ],
+      "Suggests": [
+        "proxy"
+      ],
+      "Imports": [
+        "graphics",
+        "grDevices",
+        "stats",
+        "utils"
+      ],
+      "License": "GPL-2",
+      "NeedsCompilation": "yes",
+      "Author": "David Meyer [aut, cre] (<https://orcid.org/0000-0002-5196-3048>), Kurt Hornik [aut] (<https://orcid.org/0000-0003-4198-9911>), Christian Buchta [ctb]",
+      "Maintainer": "David Meyer <David.Meyer@R-project.org>",
       "Repository": "CRAN"
     },
     "sf": {

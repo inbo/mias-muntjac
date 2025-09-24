@@ -12,9 +12,16 @@ library(ggspatial)
 library(prettymapr)
 library(inbospatial)
 library(grtsdb)
+library(osmdata)
+
+# power
+library(mlpwr)
+library(EnvStats)
+library(binGroup)
 
 # visualization
 library(effectclass)
+library(patchwork)
 
 # reporting
 library(quarto)
