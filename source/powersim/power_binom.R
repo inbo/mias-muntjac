@@ -54,7 +54,7 @@ find_ha <- function(
     n = 90,
     alpha = 0.1,
     alternative = c("two.sided", "less", "greater"),
-    lower = TRUE
+    lower = TRUE # search for h_a in range 0 - h_a (if TRUE) OR h_a - 1 (if FALSE)
 ) {
   alternative <- match.arg(alternative)
   if (alternative == "less" || (alternative == "two.sided" && lower)) {
@@ -156,6 +156,7 @@ powers <- do.call(
     )
   ) |>
   mutate(label_h0 = sprintf("Target value <= %.2f", h_0))
+
 plot_power <- ggplot(powers, aes(x = n_batch, y = h_a, color = alternative, group = lower)) +
   geom_hline(aes(yintercept = h_0), linetype = 2) +
   geom_line() +
@@ -170,6 +171,167 @@ plot_power <- ggplot(powers, aes(x = n_batch, y = h_a, color = alternative, grou
   ) +
   theme_bw()
 plot_power
+
+
+# --------------------------------------------------------------------------
+# --- comparisons -----------------------------------------------------
+# --------------------------------------------------------------------------
+
+if (FALSE){
+
+  source("source/_functions/sim_binom_ci.R")
+  source("source/_functions/plot_binom_power.R")
+
+  # comparison CI
+  data_ici <- sim_binom_ci(
+    n_max = args_batch_size$n_batch, # max number of trials
+    n_min = 1, # min number of trials
+    successes = 0, # number of successes
+    psi_0 = args_batch_size$h_0, # probability of success under h_0 - does not matter for ci
+    alpha = 0.1, # type 1 error
+    alternative = "two.sided",
+    plot = FALSE
+  )$data_ci |>
+    dplyr::mutate(
+      alternative = "greater",
+      label_h0 = "Target value <= 0.00"
+    ) |>
+    dplyr::bind_rows(
+      tmp <- lapply(
+        seq(1,100),
+        function(i){
+          sim_binom_ci(
+            n_max = i, # max number of trials
+            n_min = floor(i*0.05), # min number of trials
+            successes = floor(i*0.05), # max number of successes
+            psi_0 = 0.05, # probability of success under h_0 - does not matter for ci
+            alpha = args_batch_size$alpha, # type 1 error
+            alternative = "two.sided",
+            plot = FALSE
+          )$data_ci |>
+            dplyr::filter(
+              n == i
+            )
+        }
+      ) |>
+        dplyr::bind_rows()|>
+        dplyr::mutate(
+          alternative = "two.sided",
+          label_h0 = "Target value <= 0.05"
+        )
+    ) |>
+    dplyr::mutate(
+      lower = dplyr::case_when(
+        ci_name == "ci_l" ~ TRUE,
+        ci_name == "ci_u" ~ FALSE,
+      ),
+      n_batch = n,
+      h_a = ci_value
+    )
+
+  plot_power + geom_line(data = data_ici, color = "blue", linetype = "longdash")
+
+
+  # test propTestMdd
+  EnvStats::propTestMdd(
+    n.or.n1 = 100,
+    p0.or.p2 = 0.05,
+    alpha = 0.1,
+    power = 0.9,
+    sample.type = "one.sample",
+    alternative = "two.sided",
+    approx = FALSE
+  )
+  tmp <- lapply(
+    seq(2,100),
+    function(i){
+      data.frame(
+        h_a = EnvStats::propTestMdd(
+          n.or.n1 = i,
+          p0.or.p2 = 0.05,
+          alpha = 0.1,
+          power = 0.9,
+          sample.type = "one.sample",
+          alternative = "two.sided",
+          approx = FALSE
+        )$delta,
+        n = i
+      )
+    }
+  ) |> dplyr::bind_rows()
+
+  # no accordance
+  EnvStats::propTestPower(
+    n.or.n1 = 10,
+    p.or.p1 = 0.06,
+    p0.or.p2 = 0.05,
+    alpha = 0.1,
+    alternative = "greater"
+  )
+  # accordance
+  binGroup::binPower(
+    n = 10,
+    p.hyp = 0.05,
+    delta = 0.01, # difference
+    conf.level = 0.9,
+    alternative = "greater"
+  )
+
+  powers_prop <- lapply(
+    seq(2,100),
+    function(i){
+      data.frame(
+        h_a = EnvStats::propTestMdd(
+          n.or.n1 = i,
+          p0.or.p2 = 0.0000000001,
+          alpha = 0.1,
+          power = 0.9,
+          sample.type = "one.sample",
+          alternative = "greater",
+          approx = FALSE
+        )$delta,
+        n = i
+      )
+    }
+  ) |> dplyr::bind_rows() |>
+    dplyr::mutate(
+      alternative = "greater",
+      label_h0 = "Target value <= 0.00"
+    ) |>
+    dplyr::bind_rows(
+      tmp <- lapply(
+        seq(2,100),
+        function(i){
+          data.frame(
+            h_a = EnvStats::propTestMdd(
+              n.or.n1 = i,
+              p0.or.p2 = 0.05,
+              alpha = 0.1,
+              power = 0.9,
+              sample.type = "one.sample",
+              alternative = "two.sided",
+              approx = FALSE
+            )$delta,
+            n = i
+          )
+        }
+      ) |>
+        dplyr::bind_rows() |>
+        dplyr::mutate(
+          alternative = "two.sided",
+          label_h0 = "Target value <= 0.05"
+        )
+    ) |>
+    dplyr::mutate(
+      lower = FALSE,
+      n_batch = n
+    )
+
+  plot_power +
+    geom_line(data = data_ici, color = "blue", linetype = "longdash", , linewidth = 0.9) +
+    geom_line(data = powers_prop, color = "purple", linetype = "dashed", linewidth = 0.9)
+
+}
 
 # --------------------------------------------------------------------------
 # --- effectclass -----------------------------------------------------
@@ -246,48 +408,52 @@ if (FALSE){
     )
 }
 
-# polygon-plot, two-sided
-effect_size <- do.call(
-  batch_size,
-  args_batch_size |>
-    purrr::assign_in("lower", TRUE) |>
-    purrr::assign_in("h_0", 0.05) |>
-    purrr::assign_in("alternative", "two.sided")
-) |>
+# plot, two-sided
+# discard cases for which desired power is not reached in at least one direction
+# ec lower and upper required
+effect_size <- powers |>
+  dplyr::filter(
+    # discard cases for which desired power is not reached
+    !is.na(.data$h_a),
+    lower,
+    grepl("two.sided", alternative)
+  ) |>
   select(
     "n_batch",
     "n_rat",
     "h_0",
-    lower = "h_a", # use h_a as lower threshold
+    "h_a",
+    "lower",
+    ec_lower = "h_a", # use h_a as lower threshold
     "n_test",
     "alpha",
     "alternative"
   ) |>
-  dplyr::filter(!is.na(.data$lower)) |>
-  inner_join(
-    do.call(
-      batch_size,
-      args_batch_size |>
-        purrr::assign_in("lower", FALSE) |>
-        purrr::assign_in("h_0", 0.05) |>
-        purrr::assign_in("alternative", "two.sided")
-    ) |>
+  dplyr::inner_join(
+    powers |>
+      dplyr::filter(
+        !is.na(.data$h_a),
+        !lower,
+        grepl("two.sided", alternative)
+      ) |>
       select(
         "n_batch",
         "n_rat",
         "h_0",
-        upper = "h_a", # use h_a as upper threshold
+        "h_a",
+        "lower",
+        ec_upper = "h_a", # use h_a as upper threshold
         "n_test",
         "alpha",
         "alternative"
-      ) |>
-      dplyr::filter(!is.na(.data$upper)),
+      ),
     by = c("n_batch", "n_rat", "n_test", "alpha", "h_0", "alternative")
   )
 
 results <- effect_size |>
   mutate(
     size = .data$n_batch * .data$n_rat,
+    # range of 0 to maximum number of successes
     success = map(.data$size, ~ seq_len(.x + 1) - 1)
   ) |>
   unnest("success") |>
@@ -307,7 +473,7 @@ results <- effect_size |>
     lcl = map(.data$bt, "conf.int"),
     ucl = map_dbl(.data$lcl, ~ .x[2]),
     lcl = map_dbl(.data$lcl, ~ .x[1]),
-    threshold = map2(.data$lower, .data$upper, c),
+    threshold = map2(.data$ec_lower, .data$ec_upper, c),
     interpretation = pmap(
       list(
         lcl = .data$lcl,
@@ -321,28 +487,10 @@ results <- effect_size |>
     fraction = .data$success / .data$size
   )
 
-plot_classification <- results |>
-  slice_min(
-    .data$fraction,
-    n = 1,
-    by = c("h_0", "n_batch", "interpretation")
-  ) |>
-  select("h_0", "n_batch", "interpretation", "fraction") |>
-  mutate(direction = 1) |>
-  bind_rows(
-    results |>
-      slice_max(
-        .data$fraction,
-        n = 1,
-        by = c("h_0", "n_batch", "interpretation")
-      ) |>
-      select("h_0", "n_batch", "interpretation", "fraction") |>
-      mutate(direction = -1)
-  ) |>
-  arrange(.data$direction * .data$n_batch) |>
+plot_ec_point <- results |>
   mutate(label = sprintf("Target value <= %.2f", .data$h_0)) |>
   ggplot(aes(x = n_batch, y = fraction)) +
-  geom_polygon(aes(fill = interpretation)) +
+  geom_point(aes(color = interpretation)) +
   geom_hline(aes(yintercept = h_0), linetype = 2) +
   facet_wrap(~label) +
   labs(
@@ -351,7 +499,7 @@ plot_classification <- results |>
     title = "Classification of observable effects with respect to target and minimal detectable effect"
   ) +
   theme_bw() +
-  scale_fill_manual(
+  scale_color_manual(
     values = effectclass:::detailed_signed_palette,
     name = "Interpretation",
     labels = c(
@@ -365,6 +513,51 @@ plot_classification <- results |>
       "?+" = "potentially over\ntarget",
       "?-" = "potentially under\ntarget",
       "?" = "unclear"
-    )
+    ) -> ec_labels
   )
-plot_classification
+#plot_ec_point
+
+
+plot_ec_poly <- results |>
+  slice_min(
+    .data$fraction,
+    n = 1,
+    by = c("h_0", "n_batch", "interpretation")
+  ) |>
+  select("h_0", "n_batch", "interpretation", "fraction") |>
+   mutate(direction = 1) |>
+  bind_rows(
+    results |>
+      slice_max(
+        .data$fraction,
+        n = 1,
+        by = c("h_0", "n_batch", "interpretation")
+      ) |>
+      select("h_0", "n_batch", "interpretation", "fraction") |>
+      mutate(direction = -1)
+  ) |>
+  arrange(.data$direction * .data$n_batch) |>
+  mutate(label = sprintf("Target value <= %.2f", .data$h_0)) |>
+  ggplot(aes(x = n_batch, y = fraction)) +
+  geom_polygon(aes(fill = interpretation, color = interpretation)) +
+  geom_hline(aes(yintercept = h_0), linetype = 2) +
+  facet_wrap(~label) +
+  labs(
+    x = "Number of sampling locations",
+    y = "Probability of success", # (observed),
+    title = "Classification of observable effects with respect to target and minimal detectable effect"
+  ) +
+  theme_bw() +
+  scale_fill_manual(
+    values = effectclass:::detailed_signed_palette,
+    name = "Interpretation",
+    labels = ec_labels,
+    guide = "none"
+  ) +
+  scale_color_manual(
+    values = effectclass:::detailed_signed_palette,
+    name = "Interpretation",
+    labels = ec_labels,
+    guide = "none"
+  )
+#plot_ec_poly
