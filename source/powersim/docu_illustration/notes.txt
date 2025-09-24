@@ -1,15 +1,12 @@
 - random effect of day - not included (see stability assumption earlier)
-- a slower effect might be realistic, but does also not add much
 - detection probability < 1 not accounted for in a explicit, probabilistic sense (see N-mixture model), but in a more implicit sense (not estimated and not corrected for)
 
 
 analysemodel:
 - strategie Bollen (enkel dag met max aantal dieren analyseren; aan-/afwezigheid over hele periode -> impact op detectiekans, in beide (?) gevallen zit er dan impliciet in, dus effect van meer dagen zou ook merkbaar moeten zijn; bij een dag: ook n-mixture of occupancy model)
 
+- lokaal effect van jacht, daarna herverdeling dieren over areal (source sink)
+- voldoende wachten om in die toestand te zitten
+- lokaal effect jacht moeilijk in model op te nemen
+- random effect hok: invariant over de tijd -> onrealistisch aangezien ze niet het hele gebied uniform bejagen
 
-aanwezigheid op een dag -> dit is al een aanwezig op minstens een moment
-aanwezigheid over X dagen -> aanwezig op minstens een een van de X dagen
-
-data kunnen voor 1 dag zijn, of geaggregeerd over dagen
-
-show maps voor binomial test
