@@ -310,6 +310,65 @@ The sample frame for monitoring scope C, which targets a buffer area around the 
   
 :::
 
+#### Sample frame based on OpenStreetMap information
+
+The following map is comparable to the previous one, but habitat areas are now identified based on current OpenStreetMap data ([category "forest" and "orchard"](https://wiki.openstreetmap.org/wiki/Forest)).
+
+
+```{r fig-plot-osm}
+#| include: true
+#| cache: true
+#| results: 'hide'
+#| message: false
+#| fig-cap: "Map based on OpenStreetMap information" 
+#| out-width: 150%
+#| layout-ncol: 1 
+
+maplist_3857 <- readRDS("../../../data/gis/sample/sampleframe_maplist_3857.Rds")
+
+# base plot
+plot_base <- ggplot2::ggplot(data = maplist_3857$map_antw) +
+  ggspatial::annotation_map_tile(
+    type = "cartolight", zoom = 12, cachedir = tempdir(), alpha = .5
+  )
+plot_names <- ggplot2::geom_sf_text(ggplot2::aes(label = NAAM),
+  size = 5,
+  color = INBOtheme::vl_black,
+  check_overlap = TRUE
+)
+
+# distribution area
+geoms_dist <- list(
+  ggplot2::geom_sf(fill = INBOtheme::vl_yellow,
+                   alpha = .6),
+  ggplot2::geom_sf(data = maplist_3857$map_antw_hab,
+                   fill = INBOtheme::vl_lightgreen,
+                   color = INBOtheme::vl_lightgreen,
+                   alpha = .6)
+)
+
+# buffer area
+geoms_buffer <- list(
+  ggplot2::geom_sf(data = maplist_3857$map_buff,
+                   fill = INBOtheme::vl_darkyellow,
+                   alpha = .6),
+  ggplot2::geom_sf(data = maplist_3857$map_buff_hab,
+                   fill = INBOtheme::vl_darkgreen,
+                   color = INBOtheme::vl_darkgreen,
+                   alpha = .6)
+)
+
+# combined plot
+plot_dist_buff <- plot_base + geoms_dist + geoms_buffer + plot_names +
+  # emphasize dist
+  ggplot2::geom_sf(data = maplist_3857$map_antw_merged,
+                   fill = NA,
+                   color = INBOtheme::vl_black,
+                   linewidth = 0.8)
+plot_dist_buff
+
+
+```
 
 
 ## Draw a sample
