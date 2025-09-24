@@ -458,11 +458,13 @@ For now we generally assume that we use the same model for data generation as we
 
 #### Data-generating distribution
 
+##### Poisson distribution
+
 Monitoring scopes A and B (abundance under management - status & trend) concern abundances of animals as outcomes (i.e., numbers of individuals per location), so we will rely on the **Poisson distribution** for these cases, with the parameter of focus being the expected number of observed animals:
 
 $$
 nobs_{i,d,t} \sim Pois(\mu_{i,t})
-$$ {#eq-1}
+$$ {#eq-pois}
 with
 
 - $nobs_{i,d,t} \in \{0,1,2,3, ...\}$: number of observations of animals at location $i$, day $d$, year $t$
@@ -472,12 +474,12 @@ with
 
 When looking at status, we can assume we are looking at one specific year, so $t = t'$.
 
-In the case of @eq-1, we assume that $\mu_{i,t}$ is linked to the expected true population size / the true abundance at location $i$, year $t$, $\nu_{i,t}$.^[Following the logic of N-mixture modeling, or latent variable modeling, one would rather assume that $nobs_{i,d,t}$ is linked to the true population size at location $i$, year $t$, $n_{i,t}$; if the link holds at that level then it should also be implied at the level of expectations, but not the reverse.]
+In the case of @eq-pois, we assume that $\mu_{i,t}$ is linked to the expected true population size / the true abundance at location $i$, year $t$, $\nu_{i,t}$.^[Following the logic of N-mixture modeling, or latent variable modeling, one would rather assume that $nobs_{i,d,t}$ is linked to the true population size at location $i$, year $t$, $n_{i,t}$; if the link holds at that level then it should also be implied at the level of expectations, but not the reverse.]
 For simplicity, we assume a linear relationship that is invariant across all dimensions considered (i.e., space and time), but also across abundance itself:
 
 $$
 \mu_{i,t} = a * \nu_{i,t}
-$$ {#eq-2}
+$$ {#eq-pois2}
 
 In an ideal case $a = 1$, which means we can make statements about absolute abundances over space, time and abundance.
 If $a \neq 1$, then we can still make statements about relative abundances over space, time and abundance *without having to know* $a$.
@@ -488,16 +490,37 @@ Then we are most likely only observing one to a few individuals and the number o
 In that case, we would need to find another approach to generate and analyse abundances.
 One option could be the logistic regression model (see notes later), if abundances are basically one at this geographical scale, then we are dealing with data of presence and absence.
 
+##### Bernoulli distribution
+
+If abundance at the given geographical scale is rather about the presence of animals, then we can alternatively rely on the **Bernoulli distribution** as the data-generating distribution. The parameter of focus then is the probability of presence:
+
+$$
+obs_{i,d,t} \sim Bern(\psi_{i,t})
+$$ {#eq-bern}
+
+- $obs_{i,d,t}  \in \{0,1\}$: observation of animals at location $i$, day $d$, year $t$
+- $\psi_{i,t}  \in [0,1]$: probability of presence at location $i$, year $t$
+  - within a location and year, measurements from different days are again treated as independent realizations from one Bernoulli distribution 
+  - this again reflects assumption of some stability over time
+
+In analogy to @eq-pois2, we can here think of the probability of presence featuring in @eq-bern as being an observed one, which, again, 
+should be linked to a true probability of presence.
+Ideally the link is a one-to-one link.
+Again, an imperfect detection probability can weaken the link.
+The same animals being present multiple times or multiple animals being present should not be an issue and can be accommodated by thinking of $\psi$ as the probability of at least one animal being present.
+
 
 #### Regression model under monitoring scope B
 
-In the case of both monitoring scopes A & B (abundance under management - status & trend), we can rely on the **Poisson regression model**. Starting from the distributional assumption in @eq-1, we linearly decompose $\mu_{i,t}$, the parameter of the Poisson distribution, after applying the log-link function:
+##### Poisson regression
+
+In the case of both monitoring scopes A & B (abundance under management - status & trend), we can rely on the **Poisson regression model**. Starting from the distributional assumption in @eq-pois, we linearly decompose $\mu_{i,t}$, the parameter of the Poisson distribution, after applying the log-link function:
 
 $$
 log(\mu_{i,t}) = \eta_{i,t} \\
 \Leftrightarrow \\
 \mu_{i,t} = exp(\eta_{i,t})
-$$ {#eq-5}
+$$ {#eq-poisreg1}
 with:
 
 - $log(\cdot)$: natural logarithm, here the log-link function
@@ -508,7 +531,7 @@ The most simple model variant under monitoring scope B (abundance under manageme
 
 $$
 \eta_{t} = \beta_{0} + \beta_{1} \, year_t^*
-$$ {#eq-6}
+$$ {#eq-poisreg2}
 with:
 
 - $\beta_{0}$: intercept; linear predictor if $year_t^*= 0$
@@ -574,10 +597,81 @@ ggplot2::ggplot(
 ```
 
 In case $\beta_1 = 0$, we have `r round((exp(0)-1)*100, digits = 0)` %,
-if $\beta_1 = -0.2$, we have around `r round((exp(0.2)-1)*100, digits = 0)` %, 
-if $\beta_1 = -0.4$, we have around `r round((exp(0.4)-1)*100, digits = 0)` %, 
-if $\beta_1 = -1$, we have around `r round((exp(1)-1)*100, digits = 0)` % decrease per year. 
+if $\beta_1 = -0.2$, we have around `r round((exp(-0.2)-1)*100, digits = 0)` %, 
+if $\beta_1 = -0.4$, we have around `r round((exp(-0.4)-1)*100, digits = 0)` %, 
+if $\beta_1 = -1$, we have around `r round((exp(-1)-1)*100, digits = 0)` % decrease per year. 
 
+What could be an interesting effect size from a biological perspective?
+
+##### Logistic regression
+
+Alternatively, we can start from the distributional assumption made in @eq-bern and rely on the **Logistic regression model** 
+and we linearly decompose $\psi_{i,t}$, the parameter of the Bernoulli distribution, after applying the logit-link function:
+
+
+$$
+logit(\psi_{i,t}) = log(\frac{\psi_{i,t}}{1-\psi_{i,t}}) = \eta_{i,t} \\
+$$ {#eq-logreg1}
+with:
+
+- $logit(\cdot)$: logit-link function (i.e., the log-odds/ logarithm of the odds)
+- $log(\cdot)$: natural logarithm
+- $\frac{\psi_{i,t}}{1-\psi_{i,t}}$: odds of presence
+- $\eta_{i,t}$: linear predictor
+
+The most simple model variant is the one from above (@eq-poisreg2), with the parameter of interest again being the **slope**, $\beta_{1}$.
+This parameter can again be interpreted in terms of the linear predictor,
+in terms of the odds of presence ($odds_{i,t}: exp(\eta_{i,t}) = \frac{\psi_{i,t}}{1-\psi_{i,t}}$),
+or in terms of the probability of presence ($\psi_{i,t} = \frac{odds_{i,t}}{1+odds_{i,t}}$)
+
+The interpretation in terms of the odds of presence is analoguous to the interpretation above:
+So, $exp(\beta_1)$ is the factor by which the odds of presence change given a one-unit change in year
+The following figure shows a number of different trends implied by different sizes of $\beta_1$ for $\nu$ (the log-odds), the odds and $\psi$.
+
+```{r fig-size-trend-2}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Visualization of different effect sizes of beta_1 in the logistic regression model"
+#| out-width: 150%
+
+data_trend <- data.frame(
+  # size of linear effect of year
+  effect_size = -seq(0, 2, 0.2)
+) |>
+  tidyr::crossing(
+   year_star = seq(0,15)
+) |>
+  dplyr::mutate(
+    eta =  effect_size*year_star + 2,
+    odds = exp(eta),
+    psi = odds / (1 + odds),
+    effect_size = factor(effect_size) |> forcats::fct_rev()
+    ) |>
+  tidyr::pivot_longer(
+    cols = tidyselect::all_of(c("eta", "odds", "psi")),
+    names_to = "out_name",
+    values_to = "out_value"
+  )
+ggplot2::ggplot(
+  data = data_trend, 
+  mapping = ggplot2::aes(x = year_star, y = out_value, group = effect_size)
+  ) + 
+  ggplot2::geom_line(ggplot2::aes(color = effect_size), linewidth = 1.2) +
+  ggplot2::facet_wrap(~ out_name, scales = "free_y", ncol = 3) + 
+  ggplot2::labs(x = "year*", y = "outcome", color = "size beta1") +
+  ggplot2::scale_x_continuous(breaks = data_trend$year_star |> unique()) + 
+  ggplot2::scale_colour_viridis_d(direction = -1) + 
+  ggplot2::theme_bw()
+
+```
+
+
+If $\beta_1 = -0.2$, then the odds change by a factor of `r round(exp(-0.2), digits = 2)` per year, 
+and if $\beta_1 = -1$, that factor is `r round(exp(-1), digits = 2)`. 
+
+The question is again, what could be an interesting effect size from a biological perspective?
 
 #### Regression model under monitoring scope A 
 
