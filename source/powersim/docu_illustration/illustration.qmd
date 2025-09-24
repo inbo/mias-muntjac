@@ -893,7 +893,43 @@ The following figure illustrates this and shows which interpretations we can aff
 plot_classification + 
   ggplot2::labs(
     title = NULL
+
+**Note**: We currently analyse one date per location. These could be from a single day, or aggregated across days. The probability of presence has different interpretations in both cases: In the first case, it is the probability that at least one animal was present at at least one moment during a daily recording session; in the second case, it is the probability that at least one animal was present at at least one of the days. It is important to know for which we want to set a critical value. If it is the first probability, then we can link this to the second probability and achieve higher power by increasing the number of days.
+The relationship is $P(at\,least\,one\,sighting\,across\,days) = 1 - P(absence)^{\# days}$ with $P(absence) = 1-P(presence)$.
+The following figures shows the relationship between $P(at\,least\,one\,sighting\,across\,days)$ and the number of days for different values of $P(presence)$.
+
+```{r fig-probs}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Probability of at least one sighting across days"
+#| out-width: 150%
+
+data_test <- data.frame(
+  p_pr = c(0.01, .05, .1, .15, .20)
+) |> 
+  tidyr::crossing(
+    day = seq(1,100)
+  ) |>
+  dplyr::mutate(
+    p_ab = 1 - p_pr,
+    p_pr1 = 1 - p_ab^day,
+    p_pr = factor(p_pr) |> forcats::fct_rev()
   )
+ggplot2::ggplot(
+  data = data_test, 
+  mapping = ggplot2::aes(
+    x = day,
+    y = p_pr1,
+    group = p_pr,
+    color = p_pr
+  )
+) + 
+  ggplot2::geom_line(linewidth = 1.2) +
+  ggplot2::labs(x = "observation days", y = "probability of at least one sighting", color = "probability of presence") +
+  ggplot2::scale_colour_viridis_d(direction = 1) + 
+  ggplot2::theme_bw()
   
 
 ```
