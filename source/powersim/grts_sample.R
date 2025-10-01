@@ -20,7 +20,7 @@ colnames(bbox_buff) <- c("min", "max")
 rownames(bbox_buff) <- c("x", "y")
 
 # cell size (in meters)
-cellsize <- 10
+cellsize <- 100
 
 # sample size
 samplesize <- 100
@@ -85,7 +85,11 @@ sample_hab <- sf::st_filter(
   maplist$map_antw_hab
   #,.predicate = sf::st_within
 )
-if (FALSE) mapview::mapview(list(maplist$map_antw_hab, sample_sf), col.regions = list("blue", "red"))
+if (FALSE) {
+  m = mapview::mapview(list(maplist$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
+  m
+  mapview::mapshot2(m, url = "media/mapview_snapshot.html", remove_controls = c("homeBotton", "scaleBar", "drawToolbar", "easyButton"))
+}
 
 # keep N grid cells with smallest ranking within sample frame
 sample_hab_upd <- sample_hab |>
