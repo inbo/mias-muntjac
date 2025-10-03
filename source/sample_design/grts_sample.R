@@ -1,19 +1,20 @@
-rm(list  = ls())
+if (FALSE) rm(list  = ls())
 # https://inbo.github.io/grtsdb/articles/basic.html
 #
 #
 # --- draw sample bounding box ---------------------------------------------
 
 # load maplist sample frame
-maplist <- readRDS("data/gis/sample/sampleframe_maplist_31370.Rds")
+if (FALSE) maplist_31370 <- readRDS("data/gis/sample/sampleframe_maplist_31370.Rds")
 
 # create and connect to sqlite data base
 # if on disc: "data/gis/sample/grts_sample.sqlite"
+# if in memory: ":memory:"
 db <- grtsdb::connect_db(":memory:")
 
 # bounding box municipalities + buffer
 bbox_buff <- sf::st_bbox(
-  maplist$map_buff
+  maplist_31370$map_buff
 ) |>
   matrix(nrow = 2)
 colnames(bbox_buff) <- c("min", "max")
@@ -80,13 +81,14 @@ sample_sf <- sf::st_as_sf(
 
 # discard grid cells outside of the sample frame
 # HERE: define some minimum overlap
+# or define overlap with center of grid cell
 sample_hab <- sf::st_filter(
   sample_sf,
-  maplist$map_antw_hab
+  maplist_31370$map_antw_hab
   #,.predicate = sf::st_within
 )
 if (FALSE) {
-  m = mapview::mapview(list(maplist$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
+  m = mapview::mapview(list(maplist_31370$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
   m
   mapview::mapshot2(m, url = "media/mapview_snapshot.html", remove_controls = c("homeBotton", "scaleBar", "drawToolbar", "easyButton"))
 }
@@ -100,9 +102,11 @@ sample_hab_upd <- sample_hab |>
 # --- visualize sample ---------------------------------------------
 
 # HERE: convert to Pseudo-mercator
+
+if (FALSE){
 #
 # base plot
-plot_base <- ggplot2::ggplot(data = maplist$map_antw) +
+plot_base <- ggplot2::ggplot(data = maplist_31370$map_antw) +
   ggspatial::annotation_map_tile(
     type = "cartolight", zoom = 12, cachedir = tempdir(), alpha = .5
   )
@@ -116,7 +120,7 @@ plot_names <- ggplot2::geom_sf_text(ggplot2::aes(label = NAAM),
 geoms_dist <- list(
   ggplot2::geom_sf(fill = INBOtheme::vl_yellow,
                    alpha = .6),
-  ggplot2::geom_sf(data = maplist$map_antw_hab,
+  ggplot2::geom_sf(data = maplist_31370$map_antw_hab,
                    fill = INBOtheme::vl_lightgreen,
                    color = INBOtheme::vl_lightgreen,
                    alpha = .6)
@@ -124,10 +128,10 @@ geoms_dist <- list(
 
 # buffer area
 geoms_buffer <- list(
-  ggplot2::geom_sf(data = maplist$map_buff,
+  ggplot2::geom_sf(data = maplist_31370$map_buff,
                    fill = INBOtheme::vl_darkyellow,
                    alpha = .6),
-  ggplot2::geom_sf(data = maplist$map_buff_hab,
+  ggplot2::geom_sf(data = maplist_31370$map_buff_hab,
                    fill = INBOtheme::vl_darkgreen,
                    color = INBOtheme::vl_darkgreen,
                    alpha = .6)
@@ -136,7 +140,7 @@ geoms_buffer <- list(
 # combined plot
 plot_dist_buff <- plot_base + geoms_dist + geoms_buffer + plot_names +
   # emphasize dist
-  ggplot2::geom_sf(data = maplist$map_antw_merged,
+  ggplot2::geom_sf(data = maplist_31370$map_antw_merged,
                    fill = NA,
                    color = INBOtheme::vl_black,
                    linewidth = 0.8)
@@ -147,7 +151,7 @@ plot_dist_buff  +
                    fill = INBOtheme::vl_lightred)
 
 
-
+}
 
 
 
