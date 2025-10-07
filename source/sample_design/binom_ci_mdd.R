@@ -1,7 +1,11 @@
 rm(list = ls())
+source("source/_functions/design_power.R")
+
+# ---- definitions -----------------------------------------------
 
 # behavior of clopper-pearson interval for binomial proportions
 # https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
+
 
 # args
 successes = 5
@@ -55,7 +59,7 @@ out_0 <- binom.test(
 )
 out_0$conf.int
 
-# closed form expression
+# closed form expression two-sided
 ci_man_0 <- c(
   0,
   1 - ((alpha/2)^(1/n))
@@ -82,7 +86,7 @@ ci_beta_0 <- c(
     log.p = FALSE
   )
 )
-assertthat::are_equal(ci_beta_0[1], out_0$conf.int[1])
+assertthat::are_equal(ci_beta_0[1], out_0$conf.int[1]) # ci_beta_0[1] is NA
 assertthat::are_equal(ci_beta_0[2], out_0$conf.int[2])
 
 pbinom(q = ci_man_0[1], size = n, prob = 0)
@@ -100,7 +104,7 @@ out_0 <- binom.test(
 )
 out_0$conf.int
 
-# closed form expression
+# closed form expression one-sided
 ci_man_0 <- c(
   0,
   1 - ((alpha)^(1/n))
@@ -131,7 +135,7 @@ assertthat::are_equal(ci_beta_0[1], out_0$conf.int[1]) # ci_beta_0[1] is NA
 assertthat::are_equal(ci_beta_0[2], out_0$conf.int[2])
 
 
-# ---- 0 successes, alpha ~= beta -----------------------------------------------
+# ---- 0 successes, onde sided, show that alpha ~= beta -----------------------------------------------
 
 
 # 95%-percentile under h_0
@@ -148,18 +152,28 @@ qbinom(
   prob = ci_man_0[2]
 )
 
-# next possible percentile under h_a > 95%-percentile under h_0
+# next possible* percentile under h_a > 95%-percentile under h_0
+# *based on observable events
 qbinom(
   p = alpha,
   size = n,
   prob = ceiling(n * ci_man_0[2])/n
 )
 
-# beta
+# beta (power = 1 - beta)
 pbinom(
-  q = 0,
+  q = 0, # number of successes
   size= n,
   prob = ci_man_0[2]
+)
+
+# beta (Thierry's function)
+1 - design_power(
+    h_a = ci_man_0[2],
+    h_0 = 0,
+    n = n,
+    alpha = alpha,
+    alternative = c("greater")
 )
 
 
@@ -172,6 +186,13 @@ test_CI_mdd <- function(
     q =   qbinom(p = alpha, size = n, prob = 0),
     size= n,
     prob = ci_upper
+  )
+  beta_test <- 1 - design_power(
+    h_a = ci_upper,
+    h_0 = 0,
+    n = n,
+    alpha = alpha,
+    alternative = c("greater")
   )
   q_h0 <- qbinom(p = 1 - alpha, size = n, prob = 0)
   q_ha <- qbinom(p = alpha, size = n, prob = ci_upper)
@@ -193,9 +214,11 @@ test_CI_mdd <- function(
     n = n,
     alpha = alpha,
     beta = beta,
-    diff_alpha_beta = alpha - beta,
+    beta_test = beta_test,
     beta_next = beta_next,
     beta_prev,
+    diff_alpha_beta = alpha - beta,
+    diff_alpha_beta_test = alpha - beta_test,
     diff_alpha_beta_next = alpha - beta_next,
     diff_alpha_beta_prev = alpha - beta_prev,
     q_h0 = q_h0,
@@ -230,13 +253,16 @@ test <- data.frame(
   tidyr::unnest(tmp)
 
 if (FALSE){
-  View(test |> dplyr::filter(diff_q_h0_ha == 0 & diff_q_ha_next > 0))
+# should be very close to 0
+test$diff_alpha_beta |> range()
+test$diff_alpha_beta_test |> range()
 test$diff_alpha_beta |> hist()
+test$diff_alpha_beta_test |> hist()
+# not necessarily close to 0 / should involve larger differences
+test$diff_alpha_beta_next |> range()
+test$diff_alpha_beta_prev |> range()
 test$diff_alpha_beta_next |> hist()
 test$diff_alpha_beta_prev |> hist()
-test$diff_alpha_beta |> abs() |> max()
-test$diff_alpha_beta_next |> abs() |> min()
-test$diff_alpha_beta_prev |> abs() |> min()
 }
 
 # visualize
