@@ -6,55 +6,9 @@ library(effectclass)
 # --- define functions -----------------------------------------------------
 # --------------------------------------------------------------------------
 
-# returns probability of any event detected as deviating from h_0 under h_a
-# = actual power
-source("source/_functions/design_power.R")
-
-# finds value of h_a for which (design_power - power) assumes zero
-# probability of any event detected as deviating from h_0 under h_a equals desired power exactly
-# actual power = desired power
-# = finds minimal detectable deviation with desired power
-# = finds value of ha for which the supplied values hold
-find_ha <- function(
-    power = 0.9,
-    h_0 = 0.1,
-    n = 90,
-    alpha = 0.1,
-    alternative = c("two.sided", "less", "greater"),
-    lower = TRUE # search for h_a in range 0 - h_a (if TRUE) OR h_a - 1 (if FALSE)
-) {
-  alternative <- match.arg(alternative)
-  if (alternative == "less" || (alternative == "two.sided" && lower)) {
-    lower <- 0
-    upper <- h_0
-  } else {
-    lower <- h_0
-    upper <- 1
-  }
-  result <- try(
-    # error in case actual power never reaches desired,
-    # then no minimal detectable effect
-    uniroot(
-      function(h_a) {
-        design_power(
-          h_a = h_a,
-          h_0 = h_0,
-          n = n,
-          alpha = alpha,
-          alternative = alternative
-        ) -
-          power
-      },
-      lower = lower,
-      upper = upper
-    ),
-    silent = TRUE
-  )
-  if (inherits(result, "try-error")) {
-    return(NA)
-  }
-  result$root
-}
+source("source/_functions/funs_binom_mdd.R")
+# design_power: power of a design
+# find_ha: finds minimal detectable deviation with desired power
 
 batch_size <- function(
     n_batch = 100, # max number of trials
