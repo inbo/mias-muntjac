@@ -22,6 +22,7 @@ library(binGroup)
 # visualization
 library(effectclass)
 library(patchwork)
+library(ggforce)
 
 # reporting
 library(quarto)
