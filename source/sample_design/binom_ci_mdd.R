@@ -1,5 +1,7 @@
 rm(list = ls())
-source("source/_functions/design_power.R")
+options(scipen = 999)
+source("source/_functions/funs_binom_mdd.R")
+source("source/_functions/funs_binom_ci.R")
 
 # ---- definitions -----------------------------------------------
 
@@ -64,6 +66,8 @@ ci_man_0 <- c(
   0,
   1 - ((alpha/2)^(1/n))
   )
+get_ciu_k0(n, 1 - alpha, one_sided = FALSE)
+
 assertthat::are_equal(ci_man_0[1], out_0$conf.int[1])
 assertthat::are_equal(ci_man_0[2], out_0$conf.int[2])
 
@@ -109,6 +113,7 @@ ci_man_0 <- c(
   0,
   1 - ((alpha)^(1/n))
 )
+get_ciu_k0(n, 1 - alpha, one_sided = TRUE)
 assertthat::are_equal(ci_man_0[1], out_0$conf.int[1])
 assertthat::are_equal(ci_man_0[2], out_0$conf.int[2])
 
@@ -181,7 +186,14 @@ test_CI_mdd <- function(
     alpha,
     n
 ){
-  ci_upper <- 1 - ((alpha)^(1/n)) # one-sided
+  ci_upper <- get_ciu_k0(n, 1 - alpha, one_sided = TRUE)
+  mdd <- find_ha(
+    power = 1 - alpha,
+    h_0 = 0,
+    n = n,
+    alpha = alpha,
+    alternative = "greater"
+  )
   beta <- pbinom(
     q =   qbinom(p = alpha, size = n, prob = 0),
     size= n,
@@ -210,8 +222,12 @@ test_CI_mdd <- function(
     size= n,
     prob = psi_prev
   )
+
   data.frame(
     n = n,
+    ciu = ci_upper,
+    mdd = mdd,
+    diff_ciu_mdd = ciu - mdd,
     alpha = alpha,
     beta = beta,
     beta_test = beta_test,
@@ -254,6 +270,7 @@ test <- data.frame(
 
 if (FALSE){
 # should be very close to 0
+test$diff_ciu_mdd |> range()
 test$diff_alpha_beta |> range()
 test$diff_alpha_beta_test |> range()
 test$diff_alpha_beta |> hist()
