@@ -88,8 +88,7 @@ sample_hab <- sf::st_filter(
   #,.predicate = sf::st_within
 )
 if (FALSE) {
-  m = mapview::mapview(list(maplist_31370$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
-  m
+  m <- mapview::mapview(list(maplist_31370$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
   mapview::mapshot2(m, url = "media/mapview_snapshot.html", remove_controls = c("homeBotton", "scaleBar", "drawToolbar", "easyButton"))
 }
 
@@ -97,70 +96,4 @@ if (FALSE) {
 sample_hab_upd <- sample_hab |>
   dplyr::arrange(ranking) |>
   dplyr::slice_head(n = samplesize)
-
-
-# --- visualize sample ---------------------------------------------
-
-# HERE: convert to Pseudo-mercator
-
-if (FALSE){
-#
-# base plot
-plot_base <- ggplot2::ggplot(data = maplist_31370$map_antw) +
-  ggspatial::annotation_map_tile(
-    type = "cartolight", zoom = 12, cachedir = tempdir(), alpha = .5
-  )
-plot_names <- ggplot2::geom_sf_text(ggplot2::aes(label = NAAM),
-                                    size = 5,
-                                    color = INBOtheme::vl_black,
-                                    check_overlap = TRUE
-)
-
-# distribution area
-geoms_dist <- list(
-  ggplot2::geom_sf(fill = INBOtheme::vl_yellow,
-                   alpha = .6),
-  ggplot2::geom_sf(data = maplist_31370$map_antw_hab,
-                   fill = INBOtheme::vl_lightgreen,
-                   color = INBOtheme::vl_lightgreen,
-                   alpha = .6)
-)
-
-# buffer area
-geoms_buffer <- list(
-  ggplot2::geom_sf(data = maplist_31370$map_buff,
-                   fill = INBOtheme::vl_darkyellow,
-                   alpha = .6),
-  ggplot2::geom_sf(data = maplist_31370$map_buff_hab,
-                   fill = INBOtheme::vl_darkgreen,
-                   color = INBOtheme::vl_darkgreen,
-                   alpha = .6)
-)
-
-# combined plot
-plot_dist_buff <- plot_base + geoms_dist + geoms_buffer + plot_names +
-  # emphasize dist
-  ggplot2::geom_sf(data = maplist_31370$map_antw_merged,
-                   fill = NA,
-                   color = INBOtheme::vl_black,
-                   linewidth = 0.8)
-# add samples
-plot_dist_buff  +
-  ggplot2::geom_sf(data = sample_hab_upd,
-                   color = INBOtheme::vl_lightred,
-                   fill = INBOtheme::vl_lightred)
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
 
