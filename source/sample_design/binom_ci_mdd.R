@@ -27,6 +27,7 @@ out <- binom.test(
 out$conf.int
 
 # calculation of CI via quantiles of beta distribition
+# -> beta binomial model
 ci_beta <- c(
   qbeta(
     p = alpha/2,
@@ -50,6 +51,8 @@ assertthat::are_equal(ci_beta[2], out$conf.int[2])
 
 
 # ---- 0 successes, two-sided-----------------------------------------------
+
+psi_0 = 0
 
 # binomial test
 out_0 <- binom.test(
@@ -117,12 +120,12 @@ get_ciu_k0(n, 1 - alpha, one_sided = TRUE)
 assertthat::are_equal(ci_man_0[1], out_0$conf.int[1])
 assertthat::are_equal(ci_man_0[2], out_0$conf.int[2])
 
-# quantile function beta distribution (ref. Cai 05)
+# quantile function beta distribution (ref. Tony Cai 05)
 ci_beta_0 <- c(
   qbeta(
     p = alpha,
     shape1 = 0,
-    shape2 = n - 1,
+    shape2 = n + 1,
     ncp = 0,
     lower.tail = TRUE,
     log.p = FALSE
@@ -140,10 +143,10 @@ assertthat::are_equal(ci_beta_0[1], out_0$conf.int[1]) # ci_beta_0[1] is NA
 assertthat::are_equal(ci_beta_0[2], out_0$conf.int[2])
 
 
-# ---- 0 successes, onde sided, show that alpha ~= beta -----------------------------------------------
+# ---- 0 successes, one sided, show that alpha ~= beta -----------------------------------------------
 
 
-# 95%-percentile under h_0
+# 95%-percentile under h_0 (critical value)
 qbinom(
   p = 1 - alpha,
   size = n,
@@ -227,7 +230,7 @@ test_CI_mdd <- function(
     n = n,
     ciu = ci_upper,
     mdd = mdd,
-    diff_ciu_mdd = ciu - mdd,
+    diff_ciu_mdd = ci_upper - mdd,
     alpha = alpha,
     beta = beta,
     beta_test = beta_test,
