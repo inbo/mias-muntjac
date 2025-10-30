@@ -18,6 +18,8 @@ library(osmdata)
 library(mlpwr)
 library(EnvStats)
 library(binGroup)
+library(matrixcalc)
+library(lme4)
 
 # visualization
 library(effectclass)
@@ -27,4 +29,4 @@ library(ggforce)
 # reporting
 library(quarto)
 library(citr) # citations
-
+library(kableExtra)
