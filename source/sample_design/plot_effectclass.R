@@ -6,9 +6,9 @@ data_ec <- data.frame(
 ) |>
   dplyr::mutate(
     mdd = purrr::map_dbl(nl, \(x){
-      get_mdd(nl = x, alpha = alpha)
+      get_ciu_k0(nl = x, conf_level = 1 - alpha)
     })
-  )|>
+  ) |>
   dplyr::mutate(
     obs = purrr::map(
       nl,
