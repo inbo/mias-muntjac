@@ -1,0 +1,63 @@
+## Invasive populations {#sec-invasions}
+
+Mainly from deer parks and private collections
+
+### Invasion hotspot UK
+
+The introduction of the species to Europe has primarily occurred through deliberate releases and escapes from captivity, originally for ornamental purposes, game ranching, and private collections.
+The species was first introduced to the UK in the early 20th century, with individuals released into the wild for aesthetic and sporting reasons.
+Additional introductions and escapes from private estates and zoological collections further contributed to its spread, as the species is relatively easy to keep and breeds readily in captivity.
+In the decades following its introduction, Chinese muntjac became firmly established in the British countryside, particularly across central and southern England, where it has since undergone substantial population growth and range expansion.
+
+Beyond the UK, established populations of Chinese muntjac have also been reported from several regions in continental Europe.
+
+In France, recent observations confirm a small, but likely expanding population in the Centre-Val de Loire region, where animals are thought to have originated from escapes or releases near zoological or private facilities.
+In Ireland, the species was introduced in 2009 and is considered established, spreading from Northern Ireland to other parts of the island.
+
+In Belgium, the species has been recorded since at least the early 2000s, with the core of the current free-ranging population located on the eastern edge of the Antwerp agglomeration (see following section).
+
+Additional isolated observations elsewhere in Europe, including the Netherlands, Denmark and Germany, have so far not led to confirmed self-sustaining populations, although the potential for future establishment remains under scrutiny.
+
+### Invasive population in Flanders
+
+Invasion stadium in Flanders according to PrIUS and expert survey: established to limited extent.
+
+The Chinese muntjac was first recorded in the wild in Flanders in 2005, near the Rivierenhof estate on the eastern edge of Antwerp.
+Genetic analyses indicate that the current free-ranging population likely stems from a single introduction event, originating from a former private collection in the area.
+Since then, the species has established itself in a fragmented landscape of urban-adjacent forest patches, parks, and green corridors in the eastern part of the Antwerp agglomeration.
+Repeated observations and systematic camera trap surveys between 2020 and 2024 confirm the species’ presence in multiple sites, with evidence of reproduction and local persistence.
+The camera network consisted of up to 33 motion-sensitive traps deployed across 6 sites, where muntjac had previously been detected or were suspected to occur.
+Although the overall distribution remains relatively localized, the population shows signs of spatial expansion, with detections in nearby municipalities suggesting ongoing dispersal.
+In one of the core areas where management efforts—primarily through shooting—are actively applied, there are indications of a recent decrease in observed numbers.
+However, it remains unclear whether this reflects a genuine local population decline or a redistribution of animals to surrounding areas in response to hunting pressure.
+
+Invasion history until 2015 according to Casaer et al. (2015):
+
+-   2005: first occurrence, a dead muntjac, in the province of Limburg
+-   2009: first confirmed field observation in the wild in Schoten, province of Antwerp; additional roadkill victim on the E34 in Lille; hunters reported muntjacs in the Zoerselbos (Zoersel).
+-   2010 to 2012: only a few sightings
+-   2012 - 2014: increasing number of sightings to 27
+-   2009 - 2014; increasing number 1 x 1km grid cells with sightings (from one to 18)
+-   By 2015: observed in all provinces; 26 observations from two wildlife cameras in park Vordenstein (control measures taken as of 2014)
+
+### Impact
+
+Information taken from Baiwy et al. (ref) and ref.
+
+#### Competition
+
+Competes with native deer (e.g., roe deer) for food and habitat, potentially displacing them.
+Muntjac able to exploit a wide range of native and non-native plants.
+
+#### Herbivory / Ecosystem functioning
+
+Damage to forest understory/ground layer and shrub vegetation due to browsing and grazing; severe impact on specific plant species, for instance ground level flowering plants; suppress regeneration of trees and shrubs.\
+Broader ecological consequences, especially at higher densities: strongly modify the structure and the composition of woodland vegetation, which in turn has cascading effects on animal communities in these ecosystems (e.g. reduced diversity of bird species nesting in understory vegetation).
+
+#### Disease vector
+
+Can carry and transmit diseases such as bovine tuberculosis, impacting livestock and native wildlife.
+
+#### Economic and social impact
+
+Limited impact on agricultural plantings, potentially severe damage to gardens, and tree plantations, if these are not protected against browsing; species often involved in road collisions/road traffic accidents, which can cause human injuries or deaths..

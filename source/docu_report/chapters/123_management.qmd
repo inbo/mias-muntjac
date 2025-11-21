@@ -1,0 +1,31 @@
+## Management of the Chinese muntjac {#sec-management}
+
+(Rapid) eradication and control usually via shooting, although other techniques have been applied (trapping, netting).
+
+From meeting with Bram:\
+In principle, two control methods can be distinguished, hunting from a blind (i.e., the hunter sits in a raised hide or hunting blind waiting for animals to pass by; blind hunting in the following) versus stalk hunting or stalking (i.e., the hunter tries to find the animals by walking around attentively, looking and listening).
+In the past, hunters from ANB and the non-profit organization (vereniging zonder winstoogmerk) Jonge Jagers used to blind hunt during the winter.
+Nowadays, only the more effective, but also more risky, stalking is practised.
+
+In Flanders, management of Chinese muntjac primarily consists of targeted removal through hunting, often initiated through a rapid response protocol.
+Control efforts are carried out by a combination of faunabeheerders from the Agency for Nature and Forest (ANB) and authorized hunters.
+When a new sighting is reported, the species identification is verified and—if confirmed—a hunter is mobilized as quickly as possible to attempt removal.
+In areas where the species has established, two principal methods have been tried: still hunting (aanzitjacht) and stalking (bersjacht).
+Still hunting involves positioning a hunter at a fixed vantage point, typically at dawn or dusk, and waiting for an animal to pass by.
+However, this method has proven largely ineffective for muntjac control: due to the species’ small size, crepuscular activity, and preference for dense understory cover, detection and shooting opportunities are rare and require long, unproductive waiting periods.
+In contrast, stalking—where hunters actively and quietly move through the habitat in search of animals—is markedly more effective.
+This technique increases encounter rates and allows hunters to scan undergrowth more thoroughly, particularly in winter when vegetation is sparse.
+As a result, stalking is now considered the preferred method for muntjac removal in Flanders.
+Although muntjac has proven difficult to remove entirely, some successes have been recorded.
+During the 2022–2023 campaign, three animals were shot.
+This was followed by ten animals culled during the 2023–2024 campaign.
+An additional three individuals were removed in the interim period between these campaigns, bringing the total number of muntjac removed to sixteen over this two-year period.
+Despite this effort, the species continues to persist in several forest fragments northeast of Antwerp, suggesting either incomplete detection or ongoing dispersal from nearby areas.
+Continued pressure through stalking, particularly during the winter months, is considered key to further reduce the local population.
+
+Detailed information can be found in Casaer et al., 2015 (see also Baiwy et al.)..\
+Provide summary/overview here:
+
+-   Description of the measure (shooting), including different methods, focussing on the most common/recommended method, stalking\
+-   Legal context (unspecific)
+

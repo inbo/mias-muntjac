@@ -1,0 +1,9 @@
+# Analysis of the demand side {#sec-demand-side}
+
+{{< include 111_legislation.qmd >}}
+
+{{< include 112_expert_judgement.qmd >}}
+
+{{< include 113_cousers.qmd >}}
+
+{{< include 114_implications.qmd >}}

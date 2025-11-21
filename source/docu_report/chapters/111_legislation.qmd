@@ -1,0 +1,44 @@
+## Legislation {#sec-legislation}
+
+### European Union
+
+A cornerstone of the European Union’s policy on invasive species is the Invasive Alien Species Regulation (ref), which is concerned with establishing rules “to prevent, minimise and mitigate the adverse effects of invasive alien species on biodiversity and related ecosystem services, and on human health and safety as well as to reduce their social and economic impact” (ref regulation, p. X).
+It applies to species included in the Invasive Alien Species of Union Concern List (also Union List in short).
+Being subject to regular updates and extensions, the Union List currently holds 114 plants and animals, among which is the Chinese muntjac (print name).
+
+The Invasive Alien Species Regulation builds on three pillars (ref NSSIAS):
+
+-   First, **prevention** requires Member States to identify pathways of introduction and take measures to minimize the risk of new IAS entering the EU. It is also prohibited to keep, transport, exchange, release, trade, breed or allow the reproduction of Union List species.
+-   Second, to ensure **early detection and rapid eradication** Member States must establish a monitoring system (termed “surveillance system” in the regulation text) to detect emerging IAS as early as possible and respond immediately to eradicate them before they can establish viable populations.
+-   Third, for established species the regulation obliges Member States to determine their distribution and adopt **management measures** of eradication, containment or control to prevent further spread and reduce biodiversity, health, and economic impacts. Both, the species’ distributions and the implemented management actions, more specifically, their effectiveness, fall under the scope of the above mentioned monitoring system.
+
+#### Monitoring targets
+
+The monitoring targets are made more concrete in the Regulation’s reporting obligations (ref regulation, see commission implementing regulation to consult the reporting template), at least for the third and partly the second pillar:
+
+A **species’ distribution** should be reported as [@noauthor_commission_2024, pp. 3-4]
+
+-   the distribution status in the form of distribution maps (presence and absence per 10x10 km grid cell of the EEA Reference grid; ref);
+
+if available, the distribution maps should be complemented by information on the species’
+
+-   reproductive status (e.g., does a self-sustaining population exist?),
+-   reproductive pattern (e.g., sexual vs. asexual),
+-   introduction (e.g., how was the species predominantly introduced during the reporting period?), and
+-   spread patterns (e.g., did the species predominantly disperse through natural dispersal?).
+
+The **effectiveness and side effects of early eradication measures** and the **effectiveness and side effects of management measures** should be reported in terms of [@noauthor_commission_2024, pp. 7-8]
+
+-   long- or short-term effects on the presence of a species or on numbers of individuals; these effects are to be categorized using a number of pre-defined options (e.g., complete and permanent eradication, partial eradication, no reduction in numbers).
+-   Side effects are to be reported in terms of the presence of negative effects on the environment, non-targeted species, or human health.
+
+### Flanders
+
+In Flanders, the Decree of the Flemish Government on the Protection and Management of Species (ref; the Species Decree in short) mandates INBO with the coordination of species monitoring, which includes monitoring of IAS.
+While obligations originating from the European legislation are highlighted, an emphasis is put on determining the species’ distribution as well as changes in abundance, also under management.
+
+It is defined that INBO’s core responsibilities lie in ensuring the quality of data collection, processing and interpretation.
+
+### Belgium
+
+Samenwerkingsakkoord?

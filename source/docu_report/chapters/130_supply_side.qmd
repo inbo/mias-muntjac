@@ -1,0 +1,31 @@
+# Analysis of the supply-side
+
+## Dedicated monitoring
+
+Dedicated monitoring of the Chinese muntjac in Flanders is relatively limited (see above section XX on present monitoring by ANB).
+
+## Other monitoring
+
+### Marten Network (Marternetwerk)
+
+In the IAS expert survey (ref), the Marten Network was indicated as a monitoring initiative that can pick up the Chinese muntjac.
+However, the expert remarked that such pick up will rather be sporadic.
+The Marten Network is based on roadkill victims and (additional) opportunistic data.\
+Excerpt from Maes et al.:\
+“The Marten Network (Marternetwerk) started in 1998 (Van Den Berge 1998) and covers 13 carnivorous species, three of which are non-indigenous (Raccoon, Common raccoon dog and American mink).
+The protocol mainly consists of collecting and identifying roadkill victims and integrating opportunistic observations.
+The collected specimens are autopsied with respect to population ecological parameters such as age, reproduction and condition (Van Den Berge 2007a; Van Den Berge 2014).
+The scheme is coordinated by INBO.
+Roadkill victims are reported and collected by citizen scientists and autopsied by professional scientists.
+Data are stored in a local database at INBO and are available on demand.
+The Marten network currently includes six EU Habitats Directive species (Pine Marten, Western polecat, Eurasian otter, Wildcat, Lynx – Van Den Berge 2007a, Van Den Berge 2014 and Grey wolf – Everaert et al. 2018) and two (Eurasian otter, Lynx) are Annex II & IV species.
+Two other mammal species (European hamster and Eurasian Beaver) require monitoring according to European legislation but were not covered by any existing monitoring scheme until recently (...).”
+
+### Opportunistic observations
+
+\[Describe and show data available via GBIF (e.g., distribution map used in survey; accumulated over 10 years, but also a series of yearly maps), also mention main data sources (e.g., waarnemingen.be); probably mainly useable to get some idea of the distribution area; map based on GBIF data was indicated as correctly displaying the current distribution area by the expert - but also a number of no longer relevant areas: “The past 10 years have been very turbulent in terms of the distribution of this species.
+This image cumulates the data, but the species is no longer present at most of the locations shown.
+On the other hand, the actual, current distribution is reflected in this map (regions of Schoten, Kruisem, Arendonk, Torhout).”\]
+
+## Implications for monitoring design
+

@@ -30,3 +30,4 @@ library(ggforce)
 library(quarto)
 library(citr) # citations
 library(kableExtra)
+library(flandersqmd)

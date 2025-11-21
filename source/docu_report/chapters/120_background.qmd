@@ -1,0 +1,13 @@
+# Review of the relevant background information {#sec-background}
+
+{{< include 121_ecology.qmd >}}
+
+{{< include 122_invasions.qmd >}}
+
+{{< include 123_management.qmd >}}
+
+{{< include 124_monitoring_methods.qmd >}}
+
+{{< include 125_monitoring_projects.qmd >}}
+
+{{< include 126_implications.qmd >}}

@@ -1,0 +1,18 @@
+# Introduction {#sec-intro}
+
+The current report focuses on the Chinese muntjak (print name), a small deer species native to China and Taiwan.
+The Chinese muntjac is invasive in the UK, Belgium (Flanders) and France and is listed as a species of Union Concern under the EU Invasive Alien Species Regulation [@noauthor_regulation_2014].
+
+In Flanders, it is in an earlier invasion stage, with an established population with a distribution currently likely limited to parts of the Antwerp province.
+The Flanders population is one of the few known populations on the European mainland, which gives the region a particular responsibility to act.
+Effective containment and eradication here could prevent further spread into other climatically suitable regions across Europe, aligning Flemish efforts with broader EU biosecurity goals.
+In addition ...
+<!-- additional motivation for focusing on the species past monitoring, ongoing management, expertise at INBO; expert survey -->
+
+This report aims ...
+which is an importing component in developing a dedicated monitoring scheme tailored to the invasive Chinese muntjac in Flanders.
+It thereby follows the guidelines for designing policy-oriented monitoring schemes [@wouters_ontwerp_2008-1] developed at the Research Institute for Nature and Forest (Instituut voor Natuur- en Bosonderzoek; INBO)
+
+<!-- summarize the guidelines: cf. expert report & presentation EU -->
+
+The remainder of this report is structured as follows:...

@@ -1,0 +1,24 @@
+# Synthesis phase I
+
+## Net information needs
+
+Taking demand and supply side into account, which information needs are there and are to be filled in
+
+## Summary of implications for monitoring
+
+## Specifications monitoring scheme
+
+synthesize information from previous “implications for monitoring” sections; refine needs/modules identified in the section ‘analysis of the demand side’; complement with necessary information on effect sizes;
+
+### Monitoring base modules
+
+-   *Scope(s) concretized*\
+-   *Areas to be monitored (target population)*
+
+### Additional monitoring modules
+
+Additional species
+
+### Additional considerations
+
+## Rough cost estimates

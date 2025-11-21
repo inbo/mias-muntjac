@@ -1,0 +1,93 @@
+## Implications for monitoring design {#sec-implications}
+
+Taken together, the analysis of the demand side - including the IAS legislation at the level of the EU and Flanders, various expert sources, and the input of potential co-users - suggests the following monitoring needs for the Chinese muntjac in Flanders.
+Note that demands are multifaceted and so are the corresponding monitoring needs.
+These needs might crystallise into distinct monitoring modules during future planning.
+
+### Monitoring needs (scopes) refined
+
+#### Inventory
+
+**Aim**:
+
+-   Locate / confirm the current distribution within the municipalities Schoten, Brasschaat and Wuustwezel (hereafter the “distribution area”) to refine the definitions of distribution and buffer areas in the context of other monitoring needs
+
+**Issues**:
+
+-   Define possible inventory strategies
+-   Determine need based on ecological/habitat characteristics
+-   Determine costs: inventory + refined monitoring vs. not refined monitoring
+
+#### Abundance under management in distribution/management area
+
+**Aim(s)**:
+
+-   Track (changes in) population size in relation to sustained eradication measures in distribution area
+-   know when eradication is complete
+
+**Issues**:
+
+-   Determine monitoring area (see section inventory)
+-   Which changes in population size over which time interval should be detectable with sufficient probability
+
+#### Abundance / presence/absence after management
+
+**Aim**:
+
+-   Confirm complete and permanent eradication with sufficient confidence, in defined area where sustained management took place
+-   should follow up on abundance monitoring under management
+
+**Issues**:
+
+-   Define sufficient confidence, e.g., by defining a minimum length of the follow-up period
+
+#### Abundance or presence/absence around distribution/management area / Detection under management
+
+**Aim**:
+
+-   Detect potential spread into buffer areas around the distribution areas as movements in response to management are a known phenomenon;\
+-   Also detect movements out of buffer into monitoring area; would require abundance monitoring
+-   should accompany abundance monitoring under management and post-management monitoring
+
+**Issues**:
+
+-   Determine buffer area (e.g., based on ecological characteristics)
+-   How likely are movements from buffer into monitoring area as compared to movements in the other direction (given that the buffer area exceeds the actual distribution area)?
+
+#### Presence/absence after rapid eradication at scale Flanders
+
+**Aim**:
+
+-   Confirm eradication with sufficient confidence, in area where rapid eradication took place; possibly preceded by a verification of the initial observation phase
+
+**Issues**:
+
+-   Ensure/define sufficient confidence (see section XX);
+-   requires either continued monitoring at scale Flanders or highly adaptive monitoring, with the feasibility of either of the two appearing unclear at best;
+-   monitoring in buffer area around known distribution area can be viewed as a more feasible special case of this need (see section XX)
+
+#### Presence/absence close to known cross-border populations
+
+**Aim**:
+
+-   Detect potential spread into cross-border areas close to established distribution areas in neighboring countries and the Walloon region, especially if these established populations are subject to management
+
+**Issues**:
+
+-   see section XX;
+
+#### Presence/absence at scale Flanders
+
+**Aim**:
+
+-   Obtain a distribution map adhering at least to EU requirements
+
+**Issues**:
+
+-   might not be required if selected instances of the above monitoring needs are implemented and cover the most likely locations; complementing such data with opportunistic/existing observations might be sufficient
+
+### Additional considerations
+
+-   Above it is assumed that management can take place in the entire known distribution area
+-   Camera traps most relevant monitoring technique, and INBO has acquired substantial expertise with respect to the technique and its implementation
+-   In general, a high sensitivity is required
