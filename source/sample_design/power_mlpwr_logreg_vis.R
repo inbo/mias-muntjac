@@ -170,43 +170,147 @@ plot_res_odds <- ggplot2::`%+%`(plot_res, res_odds) +
     )
 
 
-# results in terms of probability of presence after X years
+# results in terms of probability of presence after X=x years
 res_prob <- res_vis |>
+  dplyr::mutate(
+    n_fct = n_fct |> forcats::fct_rev()
+  ) |>
   tidyr::crossing(
-    x = c(0, 4)
+    xmax = c(1, res_vis$x_end |> unique())
   ) |>
   dplyr::mutate(
-    p1x = exp(b0 + mdd * x)/(1 + exp(b0 + mdd * x))
-) |>
-  tidyr::pivot_wider(
-    values_from = p1x,
-    names_from = x,
-    names_prefix = "x_"
+    p1x0 = exp(b0)/(1 + exp(b0)),
+    p1xmax = exp(b0 + mdd * xmax)/(1 + exp(b0 + mdd * xmax)),
+    label_p1x0 = dplyr::case_when(
+      n == max(n) ~ paste(p1x0 |> round(digits = 3) |> format(digits = 3, nsmall = 3)),
+      TRUE ~ NA_character_
+      ),
+    label_p1xmax = paste(p1xmax |> round(digits = 3) |> format(digits = 3, nsmall = 3)),
+    xmax_fct = as.factor(xmax)
+  ) |>
+  dplyr::filter(
+    xmax <= x_end
   )
 
-ggplot2::ggplot(
+plot_res_prob <- ggplot2::ggplot(
   data = res_prob,
-  mapping = ggplot2::aes(x = n, color = b0_fct)
+  mapping = ggplot2::aes(y = n_fct)
 ) +
-  #ggplot2::geom_linerange(
-  #  ggplot2::aes(ymin = x_0, ymax = x_4),
-  #  position = ggplot2::position_dodge2(width = 0)
-  #) +
-  ggplot2::geom_segment(
-    ggplot2::aes(y = x_0, yend = x_4),
-    arrow = grid::arrow(length = grid::unit(0.7, "lines"), type = "open", angle = 40),
-    linewidth = 2, lineend = "butt", linejoin = "mitre"
+  gggenes::geom_gene_arrow(
+    ggplot2::aes(xmin = p1x0, xmax = p1xmax, fill = xmax_fct),
+    arrowhead_height = grid::unit(3, "mm"),
+    arrow_body_height = grid::unit(2, "mm"),
+    arrowhead_width = grid::unit(2, "mm"),
+    color = NA,
+    position = ggplot2::position_dodge2(width = .9, preserve = "single")
   ) +
-  #gggenes::geom_gene_arrow(ggplot2::aes(ymin = x_0, ymax = x_4)) +
+  ggplot2::geom_vline(ggplot2::aes(xintercept = p1x0)) +
+  ggplot2::geom_vline(xintercept = 0) +
+  ggplot2::geom_text(
+    ggplot2::aes(x = p1x0 + 0.03, label = label_p1x0, y = Inf - 1),
+    size = 3,
+    position = ggplot2::position_dodge2(width = .9, preserve = "single")
+  ) +
+  ggplot2::geom_text(
+    ggplot2::aes(x = p1xmax - 0.03, label = label_p1xmax, color = xmax_fct),
+    size = 3,
+    position = ggplot2::position_dodge2(width = .9, preserve = "single")
+  ) +
   ggplot2::facet_grid(
     rows = ggplot2::vars(x_end_char),
     cols = ggplot2::vars(u0_var_char)
   ) +
   ggplot2::labs(
-    x = "Number of sampling locations",
-    y = "Probability of presence",
-    shape = "b0",
-    linetype = "b0"
+    title = "Detectable change in probability of presence after x years",
+    x = "Probability of presence",
+    y = "Number of sampling locations",
+    fill = "x years"
   ) +
+  ggplot2::expand_limits(y = c(0, length(res_prob$n_fct |> levels()) + 1)) +
+  ggplot2::scale_color_manual(values = INBOtheme::inbo_palette(3)) +
+  ggplot2::scale_fill_manual(values = INBOtheme::inbo_palette(3)) +
+  ggplot2::guides(color = "none") +
+  ggplot2::scale_x_reverse() +
   ggplot2::theme_bw() +
   ggplot2::theme(strip.background = ggplot2::element_blank())
+
+
+
+data_logit <- data.frame(
+  p1 = seq(0.001, 0.999, 0.01)
+  ) |> dplyr::mutate(
+    eta = log(p1/(1-p1))
+  )
+data_tmp <- res_prob |>
+  dplyr::mutate(mdd = mdd * xmax) |>
+  dplyr::filter(u0_var == min(u0_var), x_end == min(x_end), n == 75, xmax == 4) |> # min(n)
+  dplyr::select(c("b0", "mdd", "b0_fct", "p1x0", "p1xmax", "b0_fct"))
+
+data_lines <- data_tmp |>
+  dplyr::mutate(
+    eta_min = b0,
+    eta_max = b0 + mdd,
+    p1_min = p1x0,
+    p1_max = p1xmax
+    ) |>
+  tidyr::pivot_longer(
+    cols = c("eta_min", "eta_max", "p1_min", "p1_max"),
+    names_pattern = "(.*)(_min|_max)",
+    names_to = c(".value", "type")
+  )
+
+
+
+ggplot2::ggplot(
+  data = data_tmp
+) +
+  ggplot2::geom_line(
+    data = data_logit,
+    ggplot2::aes(x = eta, y = p1)
+  ) +
+  # markers
+  ggplot2::geom_segment(
+    ggplot2::aes(
+      x = b0,
+      xend = b0 + mdd,
+      y = 0,
+      color = b0_fct
+    ),
+    linewidth = 2
+  ) +
+  ggplot2::geom_segment(
+    ggplot2::aes(
+      x = data_logit$eta |> min() |> floor(),
+      y = p1x0,
+      yend = p1xmax,
+      color = b0_fct
+    ),
+    linewidth = 2
+  ) +
+  # lines
+  ggplot2::geom_segment(
+    data = data_lines,
+  ggplot2::aes(
+    x = eta,
+    y = 0,
+    yend = p1,
+    color = b0_fct
+  ),
+  linetype = "dashed"
+  ) +
+  ggplot2::geom_segment(
+    data = data_lines,
+    ggplot2::aes(
+      x = data_logit$eta |> min() |> floor(),
+      xend = eta,
+      y = p1,
+      color = b0_fct
+    ),
+    linetype = "dashed"
+  ) +
+  ggplot2::labs(
+    x = "Logit(Probability of presence)",
+    y = "Probability of presence",
+    color = "fixed intercept"
+  ) +
+  ggplot2::theme_bw()
