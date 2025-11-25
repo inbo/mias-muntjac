@@ -20,6 +20,9 @@ Additional isolated observations elsewhere in Europe, including the Netherlands,
 
 ### Invasive population in Flanders
 
+HERE: distribution area! 
+d'Hondt et al. 2023
+
 Invasion stadium in Flanders according to PrIUS and expert survey: established to limited extent.
 
 The Chinese muntjac was first recorded in the wild in Flanders in 2005, near the Rivierenhof estate on the eastern edge of Antwerp.
@@ -44,6 +47,9 @@ Invasion history until 2015 according to Casaer et al. (2015):
 
 Information taken from Baiwy et al. (ref) and ref.
 
+also D'hondt 2023 p. 2 for damage in Flanders 
+
+
 #### Competition
 
 Competes with native deer (e.g., roe deer) for food and habitat, potentially displacing them.
@@ -61,3 +67,26 @@ Can carry and transmit diseases such as bovine tuberculosis, impacting livestock
 #### Economic and social impact
 
 Limited impact on agricultural plantings, potentially severe damage to gardens, and tree plantations, if these are not protected against browsing; species often involved in road collisions/road traffic accidents, which can cause human injuries or deaths..
+
+
+
+
+
+
+Leftovers from section biology (population size):
+
+In Great Britain, the species was first introduced into the wild in England in 1901 and expanded rapidly during the late 20th century, with the British population estimated at \~50,000 by 1995.
+More recent estimates suggest a tripling of this number, with Mathews et al. (2018) reporting 115,000–147,000 individuals by 2018.
+However, these figures are extrapolations from localized studies and carry significant uncertainty due to the lack of nationwide systematic surveys.
+
+The rate of range expansion was initially high, accelerating to 12% per year by 2007 but slowing to 2–3% per year in recent years as the species has saturated much of its suitable habitat in England.
+By 2016, muntjac were present in approximately 40% of all 10 km² grid squares in mainland Britain, including over 60% in England and Wales.
+Population density is estimated to be around 1 individual per 10 hectares, with localized maxima up to 1 muntjac per hectare in optimal conditions.
+
+In contrast, more recently established populations in continental Europe show lower densities.
+
+In France, the number of Chinese muntjac records increased gradually between 2008 and 2016, followed by a sharp rise from 2017 onward.
+The species' spread rate also increased over time, with a mean of 3.2 km/year during 2013–2017 and 7.6 km/year during 2018–2023.
+Notably, in 2019–2020, authorities initiated a full eradication campaign within a 120 ha private enclosure in the Bois d’Aiguevives, resulting in the removal of 40 individuals and the subsequent declaration of the site as muntjac-free.
+Although camera trap data were used to estimate densities, these estimates remain highly uncertain due to variability in assumed home range sizes (ranging from 10 to 160 ha).
+Nonetheless, current densities can be considered ‘very low’ under any plausible home range scenario.
