@@ -30,8 +30,8 @@ babel-lang: english
 flandersqmd:
   entity: INBO
   level: 1
-  title: Monitoring the Chinese muntjac
-  subtitle: Initial results from applying the guidelines for designing policy-oriented monitoring schemes
+  title: Monitoring scheme design for the Chinese muntjac
+  subtitle: Initial results from applying the INBO guidelines for designing policy-oriented monitoring schemes
   shorttitle: report-muntjac
   author:
   - name:
