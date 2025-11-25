@@ -1,7 +1,21 @@
 ## Potential co-users {#sec-cousers}
 
-Potential co-users as identified by the INBO species expert
+The INBO guidelines for monitoring design purport to assess the information needs of potential co-users of the to be collected monitoring data.
+This allows assessing to what extent their (most pressing) questions align with the broader information demand
+and might thus be incorporated in the monitoring design.
+Co-users can be contacted via a survey, for instance (ref Cartuyvels).
+It should however be clarified a priori that they are contacted for exploratory purposes 
+and that it cannot be guaranteed that their needs are taken into account.
 
--   ANB
--   Natuurpunt and other nature reserve managers
--   Jagers [Hubertus-vereniging](https://hvv.be/vereniging/jonge-jagers/)
+Potential co-users can be (non-commissioning) managing authorities, scientific institutions, interest groups, and reporting initiatives.
+In case of the Chinese muntjac, the potential co-users as identified by the INBO species expert are:
+
+- ANB,
+- Natuurpunt and other nature reserve managers,
+- hunters represented via the [Hubertus-vereniging](https://hvv.be/vereniging/jonge-jagers/).
+
+These parties are still to be contacted.
+
+For ANB, a first analysis took place in the context of an ongoing monitoring project coordinated by INBO (ref M&M).
+The primary monitoring scope here is to determine the boundaries of the distribution of the Chinese muntjac population in the province of Antwerp
+(ref: see sec X). 

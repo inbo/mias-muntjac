@@ -2,14 +2,13 @@
 
 ### Expert survey
 
-There is currently no coherent monitoring program for the Union List IAS in place in Flanders, nor is there yet a formal plan to develop such a program.
+There is currently no coherent monitoring programme for the Union List IAS in place in Flanders, nor is there a formal plan to develop such a programme.
 Existing monitoring initiatives form a fragmented landscape and are often project-based and time-limited, with varying geographic and taxonomic coverage.
 They include professional and citizen science-based projects dedicated to specific species groups and professional monitoring schemes with broader ecological aims that sporadically record IAS.
-Also opportunistic observations are collected through public biodiversity reporting portals such as waarnemingen.be (ref).
+Also opportunistic observations are collected through public biodiversity reporting portals such as waarnemingen.be [@noauthor_waarnemingenbe_nodate].
 Despite their contributions, these monitoring instances are not methodologically aligned and it remains unclear whether they collectively meet the requirements of the EU Invasive Alien Species Regulation.
 
-To support the development of a coherent IAS monitoring program in Flanders, INBO conducted an **expert survey** covering the current Union List as well as a number of candidate species, most of which will be included in the next revision round (ref survey report).
-
+To support the development of a coherent IAS monitoring programme in Flanders, INBO conducted an **expert survey** covering the current Union List [@adolf_prioritising_2025].
 The survey gathered species-specific information and expert judgements on the introduction, distribution, abundance, impacts, management and monitoring status in Flanders.
 The collected responses were condensed into **overall ratings of the feasibility and urgency of structured monitoring schemes for the species under consideration**.
 Subsequently, the survey results were fed into a two-stage prioritization process: Distinguishing the monitoring scopes of detection, inventory, distribution, abundance, and distribution or abundance under management, we aimed to identify a limited number of species-scope combinations with high relevance and priority.
@@ -17,9 +16,9 @@ Relevance and priority of the different monitoring scopes was assessed per speci
 The outcome of the prioritization process was a **selection of species-scope combinations for near-future monitoring scheme development**.
 To further structure these results, three scenarios were developed, each concerning a subset of the prioritized species and monitoring scopes:
 
--   species prioritized for management by the Agency for Nature and Forests;
--   species requiring mainly early detection and
--   species for which distribution monitoring is relevant.
+- species prioritized for management by ANB;
+- species requiring mainly early detection and
+- species for which distribution monitoring is relevant.
 
 For each scenario, **commonalities in monitoring methods between species** were explored to identify potential method-based synergies relevant for coordination or even implementation efforts.
 
@@ -27,25 +26,28 @@ The **survey results for the Chinese muntjac** are as follows on an aggregate le
 
 #### Overall feasibility and urgency of a structured monitoring scheme
 
-The overall urgency rating was X, the overall feasibility rating was X (the theoretical maximum value, which was never reached, is 4 in both cases).
-For urgency, the species thus reaches rank X of X among all species considered, for feasibility rank X of X.
+The overall urgency rating was 3.60, the overall feasibility rating was 3.11 (the theoretical maximum value, which was never reached, is 4 in both cases).
+For urgency, the species thus reaches rank 2 of 100 among all species considered, for feasibility rank 24 of 105.^
+[Due to the limited number of questions and response scores used in the expert survey, so-called ties (i.e., species with numerically identical overall ratings or feasibility or urgency) can occur.
+Ties can be handled differently in rankings, in this case we assign the minimum rank value to the respective species.
+Note that the number of ties and their handling determine the maximum rank values assigned.]
 
-Both overall ratings also exceed the 50-th percentile (i.e., the median) of the distribution of the overall scores of the respective category across all species.
+Both overall ratings also exceed the 50th percentile (i.e., the median) of the distribution of the overall scores of the respective category across all species.
 As this percentile was used as a critical value in the prioritization process, and none of the other exclusion criteria applied, the Chinese muntjac is among the selected species for near-future monitoring scheme development.
 
 #### Prioritized monitoring scopes
 
 The **monitoring scopes withheld as having high relevance and high priority** are
 
--   distribution,
--   abundance, and\
--   abundance under management.
+- distribution,
+- abundance, and
+- abundance under management.
 
 The monitoring scopes
 
--   detection,\
--   inventory, and\
--   distribution under management
+- detection,
+- inventory, and
+- distribution under management
 
 were excluded due to the following reasons: the species was reported as already being established to a limited extent, so detection was not considered relevant; a sufficiently known distribution area renders an inventory irrelevant; evaluating management requires abundance rather than distribution information according to the consulted species expert (see report for details).
 
@@ -57,7 +59,7 @@ It is the purpose of this report to take such a more differentiated picture into
 
 #### Focus scenario and potential method synergies
 
-The Chinese muntjak is prioritized for management by the Agency for Nature and Forests (Agentschap voor Natuur en Bos; ANB) and thus included in the corresponding focus scenario.
+The Chinese muntjac is prioritized for management by ANB and thus included in the corresponding focus scenario.
 Consequently, commonalities in reported monitoring methods with other survey species are considered for the monitoring scope abundance under management.
 Camera traps, air DNA, passive acoustic monitoring and visual surveys were reported as the monitoring methods generally available for the Chinese muntjac.
 **Potential method‐based synergies** concern for instance camera traps and visual surveys, which are shared with the Common raccoon (print name).
@@ -94,9 +96,9 @@ Monitoring after an early intervention (i.e., to ensure eradication was complete
 
 If monitoring is to be conducted in relation to **management of established populations**, then the monitoring area should be oriented towards the municipalities of Schoten, Brasschaat and Wuustwezel, which are home to a diffuse Chinese muntjac population.
 More specifically, the species is distributed across a mosaic of habitat patches within these three municipalities; while there are sites at which specimens are regularly observed, there are other sites where their presence is expected but not yet confirmed, and close-by areas that are currently unoccupied but potentially suitable for future colonisation.
-This includes both public lands and privately owned properties.\
+This includes both public lands and privately owned properties.
 Control / eradication measures are carried out in the publicly accessible (nature) areas by hunters authorised by ANB and ANB wildlife managers.
-A more detailed description of the measures taken can be found in Section XX.
+A more detailed description of the measures taken can be found in sec XX (ref).
 
 The species expert again highlighted the need to **define the monitoring area broadly enough**, for instance by including a sufficiently large buffer area, as the Chinese muntjac is sensitive to disturbance (e.g. by the presence of controllers) and reacts by quickly moving to other suitable areas.
 It is obviously also important to take such effects into account when interpreting population size changes observed at a local level.
@@ -116,7 +118,7 @@ Disruption of other species is a possible side effect, but there are no critical
 As explained in the previous subsection, monitoring under management will likely have to **span several years** tracking reductions in absolute abundance or density.
 Once the population has supposedly been eradicated, a second monitoring phase should follow to make sure eradication is complete and permanent.
 
-Past monitoring initiatives (see Section XX) often relied on **one assessment per year as a minimum frequency**.
+Past monitoring initiatives (ref: see section XX) often relied on **one assessment per year as a minimum frequency**.
 More frequent assessments (e.g., bi- or triannually) are desirable to provide for closer/more fine-grained monitoring of potential population size changes.
 The reasons for this are twofold: First, the Chinese muntjac reproduces in a non-seasonal pattern throughout the year, with one calf per birth and a minimum of 7-9 months between births.
 Second, management can take place at multiple occasions per year, usually from late autumn to early spring, on the hunter’s own initiative.
@@ -125,9 +127,9 @@ INBO has access to (non-public) data on the times of these occasions.
 #### Monitoring techniques
 
 **Camera traps** are the most relevant monitoring technique.
-Camera trap networks have been used successfully in the past, and are to a limited extent still in place (see Section XX): In Park Vordenstein, INBO maintained a now removed camera trap network (ref: D’hondt et al 2023), while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
+Camera trap networks have been used successfully in the past, and are to a limited extent still in place (ref: see sec XX): In Park Vordenstein, INBO maintained a now removed camera trap network (ref: D’hondt et al 2023), while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
 
 In terms of **potential complications**, it was noted that detection rates of camera traps can vary (e.g. increased vegetation during spring and summer has a negative effect, and moving cameras may then be required).
 Also, relatively few errors in the classification of camera images (i.e., false negative or false positive results) can have large impacts on the images’ further analysis as expected animal counts are relatively small.
-A detailed description of the monitoring technique can be found in Section XX.
+A detailed description of the monitoring technique can be found in sec XX (ref.).
 
