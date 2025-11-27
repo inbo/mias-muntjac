@@ -26,6 +26,8 @@ library(effectclass)
 library(patchwork)
 library(ggforce)
 library(gggenes)
+library(ggspatial)
+library(rgbif)
 
 # reporting
 library(quarto)
