@@ -1,9 +1,8 @@
 rm(list = ls())
-list.files("source/functions", full.names = TRUE) |>
-  lapply(source) |>
-  invisible()
-gis_data_path <- "data/gis"
-species_list_path <- "data/processed/2025-04-30_species_list.Rda"
+gis_data_path <- "../mias-general/data/gis"
+species_list_path <- "../mias-general/data/processed/2025-04-30_species_list.Rda"
+gbif_data_file <- "../mias-general/data/gbif_occcubes/0037665-241126133413365.csv"
+save_plot_path <- "output/gbif_occcubes/plots_ggspatial_muntjac"
 #
 # -------------------------------------------------------------
 #
@@ -38,7 +37,7 @@ sf::st_crs(map_bg_wgs84)$Name
 # get occurrence cube data
 # GBIF.org (17 December 2024)
 # GBIF Occurrence Download https://doi.org/10.15468/dl.63mdsh
-cube <- readr::read_tsv(file = "data/gbif_occcubes/0037665-241126133413365.csv")
+cube <- readr::read_tsv(file = gbif_data_file)
 cube_poly <- cube |> dplyr::filter(withinpolygon == TRUE)
 #
 # get species information
@@ -85,7 +84,6 @@ plot_map  <- function(
       mapping = ggplot2::aes(fill = occurrences),
       data = data_cube,
       alpha = 1, size = 1
-      #,color = "black"
     ) +
     ggplot2::scale_fill_viridis_c(
       option = "plasma",
@@ -119,11 +117,14 @@ for (year_i in cube_mr$year |> unique() |> sort()){
       # use third largest occurrence value for rescaling
       #cube_mr$occurrences |> unique() |> sort() |> tail(3) |> head(1),
       # use the 95th percentile
-      cube_mr$occurrences |> quantile(x = _, probs = .95),
+      #cube_mr$occurrences |> quantile(x = _, probs = .95),
+      # use the individual maximum value
+      cube_mr_i$occurrences |> max(),
     transform = TRUE
   )
-  filepath_i <- paste0(
-    "media/gbif_occcubes/plots_ggspatial_muntjac/", year_i, ".png"
+  filepath_i <- file.path(
+    save_plot_path,
+    paste0( year_i, ".png")
     )
   ggplot2::ggsave(
     filename =  filepath_i,
@@ -134,4 +135,5 @@ for (year_i in cube_mr$year |> unique() |> sort()){
     dpi = 200,
     bg = "white"
   )
+
 }
