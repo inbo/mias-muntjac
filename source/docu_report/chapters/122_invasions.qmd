@@ -2,91 +2,87 @@
 
 Mainly from deer parks and private collections
 
-### Invasion hotspot UK
+### Invasive populations in Europe
 
 The introduction of the species to Europe has primarily occurred through deliberate releases and escapes from captivity, originally for ornamental purposes, game ranching, and private collections.
-The species was first introduced to the UK in the early 20th century, with individuals released into the wild for aesthetic and sporting reasons.
-Additional introductions and escapes from private estates and zoological collections further contributed to its spread, as the species is relatively easy to keep and breeds readily in captivity.
-In the decades following its introduction, Chinese muntjac became firmly established in the British countryside, particularly across central and southern England, where it has since undergone substantial population growth and range expansion.
 
-Beyond the UK, established populations of Chinese muntjac have also been reported from several regions in continental Europe.
+The species was first introduced to the **UK** in the early 20th century, with individuals released into the wild for aesthetic and sporting (i.e., hunting) reasons.
+Additional introductions and escapes from private estates and zoological collections further contributed to its spread, as the species is relatively easy to keep and breeds readily in captivity.
+In the decades following its introduction, the Chinese muntjac became firmly established in the UK countryside, particularly across central and southern England, where it has since undergone substantial population growth and range expansion (ref section biology).
+
+Beyond the UK, established populations of the Chinese muntjac have also been reported from several regions in continental Europe, **mainly France, Ireland, and Belgium**.
 
 In France, recent observations confirm a small, but likely expanding population in the Centre-Val de Loire region, where animals are thought to have originated from escapes or releases near zoological or private facilities.
 In Ireland, the species was introduced in 2009 and is considered established, spreading from Northern Ireland to other parts of the island.
-
 In Belgium, the species has been recorded since at least the early 2000s, with the core of the current free-ranging population located on the eastern edge of the Antwerp agglomeration (see following section).
 
-Additional isolated observations elsewhere in Europe, including the Netherlands, Denmark and Germany, have so far not led to confirmed self-sustaining populations, although the potential for future establishment remains under scrutiny.
+Additional isolated observations elsewhere in Europe, **including the Netherlands, Denmark and Germany**, have so far not led to confirmed self-sustaining populations.
 
 ### Invasive population in Flanders
 
-HERE: distribution area! 
-d'Hondt et al. 2023
+#### Invasion history
 
-Invasion stadium in Flanders according to PrIUS and expert survey: established to limited extent.
+The invasion history in Flanders [cf. @casaer_best_2015; @dhondt_monitoring_2023] begins in 2005, with a roadkill victim in the province of Limburg.
+2009 marks the year with the first confirmed observation of a living specimen in the wild, in Schoten in the province of Antwerp. 
+In addition, hunters reported sightings in the Zoerselbos (also Antwerp).
+While there were only a few sightings between 2010 and 2012, 
+numbers started to rise afterwards, and the distribution of occurrences also expanded.
+This expansion can be closely linked to animals having escaped or been released from illegal private collections.
+By 2015, the species had been observed in all Flemish provinces.
+In 2020, the number of number of 1 x 1 km grid cells with sightings reached a maximum (66 grid cells) and has declined since then (to be verified using GBIF data > 2022).
 
-The Chinese muntjac was first recorded in the wild in Flanders in 2005, near the Rivierenhof estate on the eastern edge of Antwerp.
-Genetic analyses indicate that the current free-ranging population likely stems from a single introduction event, originating from a former private collection in the area.
-Since then, the species has established itself in a fragmented landscape of urban-adjacent forest patches, parks, and green corridors in the eastern part of the Antwerp agglomeration.
-Repeated observations and systematic camera trap surveys between 2020 and 2024 confirm the species’ presence in multiple sites, with evidence of reproduction and local persistence.
-The camera network consisted of up to 33 motion-sensitive traps deployed across 6 sites, where muntjac had previously been detected or were suspected to occur.
+By 2025, the Flemish Chinese muntjac population has established itself in the **province of Antwerp**, including the municipalities of Schoten, Brasschaat, and Wuustwezel.
+The invasion stadium of the species can be considered as 'established to limited extent' [@dhondt_een_2022].
+ 
+
+#### Current distribution
+
+Within the current distribution area in the Antwerp province, 
+the species is particularly established in the fragmented landscape of urban-adjacent forest patches, parks, and green corridors
+east of the city of Antwerp [@dhondt_monitoring_2023]. 
+This prominently features the domain Park Vordenstein, a largely state-owned, public recreational domain.
+On that 137 hectares sized domain, specimens of Chinese muntjac have been reported from 2012 onwards, 
+with more recent observations stemming from camera trap-based monitoring conducted by ANB and INBO between 2020 and 2024 [@dhondt_monitoring_2023; @neeckx_occurrence_2024] (ref sec monitoring).
 Although the overall distribution remains relatively localized, the population shows signs of spatial expansion, with detections in nearby municipalities suggesting ongoing dispersal.
-In one of the core areas where management efforts—primarily through shooting—are actively applied, there are indications of a recent decrease in observed numbers.
-However, it remains unclear whether this reflects a genuine local population decline or a redistribution of animals to surrounding areas in response to hunting pressure.
 
-Invasion history until 2015 according to Casaer et al. (2015):
 
--   2005: first occurrence, a dead muntjac, in the province of Limburg
--   2009: first confirmed field observation in the wild in Schoten, province of Antwerp; additional roadkill victim on the E34 in Lille; hunters reported muntjacs in the Zoerselbos (Zoersel).
--   2010 to 2012: only a few sightings
--   2012 - 2014: increasing number of sightings to 27
--   2009 - 2014; increasing number 1 x 1km grid cells with sightings (from one to 18)
--   By 2015: observed in all provinces; 26 observations from two wildlife cameras in park Vordenstein (control measures taken as of 2014)
+
+```{r fig-gbif-occ}
+#| include: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Occurrences of the Chinese muntjac in and around Flanders according to GBIF"
+#| out-width: 100%
+
+gis_data_path <- "../../data/gis"
+gbif_data_file <- "../../data/gbif_occ/occ_mr_4326.rda"
+source("../gbif_occ_maps/plot_occ_mr.R")
+plot_facet + ggplot2::ggtitle("")
+
+```
+
+Finally, @fig-gbif-occ shows occurrences of Chinese muntjac in and around Flanders based on 
+recent data from the Global Biodiversity Information Facility (GBIF) [@gbif_the_global_biodiversity_information_facility_what_2025].
+Occurrences are mapped on an OpenStreetMap tile projected in Web Mercator projection (ref OSM; ref ggspatial).
+We include all observations within a bounding box around Flanders, holding a minimum distance of 30 km to the Flemish borders.
+Each point represents a (validated or approved) occurrence. 
+Points are displayed with a certain transparency level, such that overlaying (i.e., spatially clustered) observations 
+appear more pronounced due to a more intense hue.
+Occurrences belonging to data sets published by INBO are highlighted by colour (magenta).
+These comprise the vast majority of the displayed observations (`r occ_mr$data_INBO |> sum()` out of `r occ_mr |> nrow()`),
+and were collected in the context of the above mentioned camera trap-based monitoring in and around Park Vordenstein [@dhondt_muntjac_antwerp_2024] (ref section monitoring).
+
 
 ### Impact
 
-Information taken from Baiwy et al. (ref) and ref.
+An overview of the species' impacts is for instance given in @baiwy_risk_2013:
 
-also D'hondt 2023 p. 2 for damage in Flanders 
+The species' impact on **vegetation and ecosystem functioning** is - in nature - comparable to that of other deer species:
+it causes damage to forest understory, ground layer and shrub vegetation due to browsing and grazing.
+The impact can be more severe for specific plant species, for instance ground level flowering plants. 
+In terms of broader ecological consequences, the species can - especially if present at high densities - strongly modify the structure and composition of woodland vegetation, which in turn has cascading effects on animal communities depending on these ecosystems (e.g. reduced diversity of bird species nesting in understory vegetation) [see also @dhondt_monitoring_2023].
 
+For **native deer species**, Chinese muntjac act as competitors for food and habitat, as well as disease vectors.
 
-#### Competition
-
-Competes with native deer (e.g., roe deer) for food and habitat, potentially displacing them.
-Muntjac able to exploit a wide range of native and non-native plants.
-
-#### Herbivory / Ecosystem functioning
-
-Damage to forest understory/ground layer and shrub vegetation due to browsing and grazing; severe impact on specific plant species, for instance ground level flowering plants; suppress regeneration of trees and shrubs.\
-Broader ecological consequences, especially at higher densities: strongly modify the structure and the composition of woodland vegetation, which in turn has cascading effects on animal communities in these ecosystems (e.g. reduced diversity of bird species nesting in understory vegetation).
-
-#### Disease vector
-
-Can carry and transmit diseases such as bovine tuberculosis, impacting livestock and native wildlife.
-
-#### Economic and social impact
-
-Limited impact on agricultural plantings, potentially severe damage to gardens, and tree plantations, if these are not protected against browsing; species often involved in road collisions/road traffic accidents, which can cause human injuries or deaths..
-
-
-
-
-
-
-Leftovers from section biology (population size):
-
-In Great Britain, the species was first introduced into the wild in England in 1901 and expanded rapidly during the late 20th century, with the British population estimated at \~50,000 by 1995.
-More recent estimates suggest a tripling of this number, with Mathews et al. (2018) reporting 115,000–147,000 individuals by 2018.
-However, these figures are extrapolations from localized studies and carry significant uncertainty due to the lack of nationwide systematic surveys.
-
-The rate of range expansion was initially high, accelerating to 12% per year by 2007 but slowing to 2–3% per year in recent years as the species has saturated much of its suitable habitat in England.
-By 2016, muntjac were present in approximately 40% of all 10 km² grid squares in mainland Britain, including over 60% in England and Wales.
-Population density is estimated to be around 1 individual per 10 hectares, with localized maxima up to 1 muntjac per hectare in optimal conditions.
-
-In contrast, more recently established populations in continental Europe show lower densities.
-
-In France, the number of Chinese muntjac records increased gradually between 2008 and 2016, followed by a sharp rise from 2017 onward.
-The species' spread rate also increased over time, with a mean of 3.2 km/year during 2013–2017 and 7.6 km/year during 2018–2023.
-Notably, in 2019–2020, authorities initiated a full eradication campaign within a 120 ha private enclosure in the Bois d’Aiguevives, resulting in the removal of 40 individuals and the subsequent declaration of the site as muntjac-free.
-Although camera trap data were used to estimate densities, these estimates remain highly uncertain due to variability in assumed home range sizes (ranging from 10 to 160 ha).
-Nonetheless, current densities can be considered ‘very low’ under any plausible home range scenario.
+The **economic and social impact** includes limited impact on agricultural plantings, potentially severe damage to gardens and (unprotected) tree plantations. 
+In addition, the species is often involved in road traffic accidents, which can cause human injuries or deaths.
