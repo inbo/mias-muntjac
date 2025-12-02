@@ -68,14 +68,15 @@ plot_map  <- function(
     ggplot2::geom_sf(
       data = data_occ,
       ggplot2::aes(color = data_INBO),
-      size = 2,
+      size = 0.7,
       fill = NA,
       shape = 21
     ) +
     ggplot2::geom_sf(
       data = data_occ,
        ggplot2::aes(color = data_INBO),
-      alpha = 0.2, size = 2
+      size = 0.7,
+      alpha = 0.2,
     ) +
     ggplot2::scale_color_manual(
       values = c(INBOtheme::inbo_oranje, INBOtheme::inbo_hoofd)
@@ -90,7 +91,7 @@ plot_map  <- function(
       ) +
     ggplot2::facet_wrap(
       facets = if (facet_year) ggplot2::vars(year) else NULL,
-      nrow = 2
+      nrow = 4
       )
 }
 
