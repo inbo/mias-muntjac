@@ -1,0 +1,97 @@
+# Introduction
+
+## Overview over monitoring scopes
+
+The present documents evaluates and/or illustrates sample design options for the following **monitoring scopes** relevant for the Chinese muntjac:
+
+::: {.landscape}
+
+```{r tab-mon-scopes}
+#| include: true
+#| cache: false
+#| message: false
+
+# make table monitoring scopes
+source("../sample_design/table_mon_scopes.R")
+
+# format-dependent table formatting
+is_html <- knitr::is_html_output()
+format <- ifelse(is_html, "html", "latex")
+bootstrap_options <- if (is_html) {c("condensed", "hover") } else {"basic"}
+
+# create table
+table_mon_scopes |>
+  knitr::kable(
+    x = _,
+    format = format,
+    booktabs = FALSE,
+    linesep = "",
+    table.attr = 'data-quarto-disable-processing="true"',
+    col.names = colnames(table_mon_scopes) |> gsub("_", " ", x = _)
+  ) |>
+  kableExtra::kable_styling(
+    bootstrap_options = bootstrap_options,
+    font_size = 10,
+    position = "left"
+  )
+
+```
+
+:::
+
+{{< pagebreak >}}
+
+
+## Overview over remainder of doc
+
+We start by discussing options for **sample size planning** for all monitoring scopes.
+Scopes C & D are hereby subsumed as they only differ in terms of the targeted area and thus sample frame.
+The following aspects of (simulation-based) sample size planning are discussed:
+
+- data-generation: appropriate data-generating (and later analysis) models
+- planning setup: possible setups for planning (rationale and implementation)
+
+We then move on to the **sampling (sample frame & sampling procedure)** per scope.
+This also answers the question of how (simulated) data map onto geographical locations.
+This is not only needed to visualize data collection under different sample size scenarios, but also
+helps judging whether assumptions made during sample size planning are more or less realistic, and 
+helps determining the range of realistic sample sizes.
+The following aspects are discussed:
+
+- the definition of a sample frame
+- the drawing of a random sample of locations
+<!-- - the mapping of future simulated data on the random sample of locations-->
+
+
+## Some technical remarks before we procede
+
+We assume we have as a starting point the observed outcomes per scope (i.e., data on observed abundances or presences/absences).
+The preprocessing pipeline leading from camera trap recordings to these data is not discussed in the present document.
+<!-- [footnote on how it could be relevant?] -->
+
+The data are assumed to vary along the following dimensions:
+
+- $i = 1, ..., I$ sampling locations
+- $d = 1, ..., D$ days per measurement period (more precisely: $d_{t}$; here the same for all $t$, so subscript $t$ is left out)
+- $t = 1, ..., T$ years, with one measurement period per year
+
+Data are assumed to be aggregated along the dimension of days, and we assume an aggregation period of 30 days [@bollen_gebruik_nodate].
+<!-- HERE specify: aggregation in what sense -->
+
+We do not consider the case of multiple measurement periods per year.
+In that case, differences between periods within years could be allowed in a model, capturing seasonal deviations from a longer-term (i.e., year-level) trend (e.g., more individuals before than after winter).
+For now, we however simply assume that the optimal period per year is used to obtain measurements.
+Optimality is for instance tied to a maximal detection probability, the absence of complicating factors such as ongoing control actions during measurement and so on.
+Status is then determined per year.
+Trend between years.
+
+<!--
+  We can think about possible data-generating models in the context of the generalized linear (mixed) modeling framework.
+Sticking to the not-too-complex model variants, we can rely on well-known properties/behavior and existing implementations for both data generation and model estimation.
+(Whether the model is feasible to implement as a data-analysis model should be considered already at this stage to not complicate things later.)
+We do this for abundances.
+For presences, we revert to a simpler option.
+For now we generally assume that we use the same model for data generation as we use for data-analysis.
+[data-generating distribution + regression model]
+-->
+

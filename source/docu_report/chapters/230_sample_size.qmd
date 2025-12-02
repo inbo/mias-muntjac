@@ -1,2 +1,7 @@
 # Sample size planning
 
+{{< include 231_sample_size_cd.qmd >}}
+
+{{< include 232_sample_size_a.qmd >}}
+
+{{< include 233_sample_size_b.qmd >}}

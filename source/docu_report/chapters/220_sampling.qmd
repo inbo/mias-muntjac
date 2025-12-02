@@ -1,2 +1,158 @@
 # Sampling
 
+```{r setup}
+#| message: false
+#| results: 'hide'
+#| cache: true
+
+mapfile <- "../../data/gis/sample/sampleframe_maplist_31370.Rds"
+samplingscript <- "../sample_design/grts_sample.R"
+source("../sample_design/plot_sample_frame_sample.R")
+
+# figure settings
+knitr::opts_chunk$set(
+    out.width = "100%", # enough room to breath
+    fig.width = 9,     # reasonable size
+    fig.asp = 0.618,   # golden ratio
+    fig.align = "center" # mostly what I want
+)
+
+```
+
+## Defining the sample frame
+
+### Defining the distribution area
+
+All above monitoring scopes concern the currently known **distribution area** in the province of Antwerp, 
+HERE
+here we limit ourselves to...alternative areas might include the ones followed up in the province of Antwerp in the context of the M&M project (ref section)
+including the municipalities of Schoten, Brasschaat, and Wuustwezel.
+To define the sample frame, more specifically, the distribution area, we thus rely on the Provisional Reference File for Municipal Boundaries published by the Flemish government agency Digital Flanders [@agentschap_digitaal_vlaanderen_voorlopig_2025]. 
+This file defines the boundaries of the administrative units in the Flemish Region, 
+and provides us with the geometry of the here-relevant Flemish municipalities. 
+
+Alternative, more data-driven approaches to defining the distribution area are of course possible.
+For instance, most recent (verified) observations could be used in combination with a spatial clustering or density estimation approach.
+
+### Defining a buffer around the distribution area
+
+While some monitoring scopes focus on the distribution area itself, others concern the detection of animals around the distribution area.
+Therefore, a **buffer area** around the distribution area must be defined.
+Here, we rely on estimates of the species' action radius (@sec-biology) and thus take a buffer of 2000 m width around the distribution area.
+
+Figure @fig-plot-dist-buff-area maps the distribution and buffer area onto an OpenStreetMap tile (ref). 
+
+```{r fig-plot-dist-buff-area}
+#| include: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Map of distribution (inner) and buffer (outer) area (both in yellow)." 
+##| out-width: 150%
+##| fig-height: 4
+
+
+plot_dist_buff_0
+
+```
+
+### Selecting habitat areas in the distribution and buffer area
+
+Within both the distribution and buffer area, we require geometrical information on **(potential) habitat areas** of the Chinese muntjac to define the sample frame.
+We know that the species can generally be found in terrestrial habitats with dense vegetation, mainly woodlands, forest edges, hedgerows, abandoned plantations, peri-urban overgrown parks and gardens, and patches of natural vegetation in agricultural areas (@sec-biology).
+We thus use OpenStreetMap data (ref) extracting relevant features via suitable [vegetation](https://wiki.openstreetmap.org/wiki/Vegetation) keys and tags. 
+
+The OpenStreetMap key-tag combinations currently used are:
+
+- 'natural = wood' & 'landuse = forest' to obtain (managed and unmanaged) forest ([reference](https://wiki.openstreetmap.org/wiki/Forest))
+- 'landuse = orchard' to obtain tree and scrub plantings ([reference](https://wiki.openstreetmap.org/wiki/Tag:landuse%3Dorchard))
+
+This list can of course be extended (e.g., by adding key-tag combinations such as 'natural=scrub') or refined (e.g., by adding keys specifying forest type; by considering distance to other features such as cities or open landscape).
+
+In addition, the selected geometries/polygons can further be filtered:
+One might for instance 
+To select those (clusters of) habitat areas with a certain minimal size, the information obtained via OpenStreetMap is then processed in the following way:
+HERE
+[(Describe processing here.)]{style="background-color: #E6E6FA;"}
+Within the buffer area, habitat areas are additionally required to have a maximal distance of 2000 m (see reasoning above) to the closest habitat area within the distribution area to be selected.
+
+The habitat areas remaining within the distribution area form the **sample frame** for the distribution area and hence monitoring scopes A, B, and D.
+HERE
+Add that criterion is minimal overlap; sampling frame can thus extend beyond municipaltity borders.
+
+Figure @fig-plot-sample-frame maps an example sample frame...HERE 
+For monitoring scope C targeting a buffer around the distribution area, the sample frame is formed by the habitat regions remaining within the buffer area and not selected for the sampling frame of the habitat area.
+
+
+```{r fig-plot-sample-frame}
+#| include: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Map of sample frame for distribution (light green) and buffer area (dark green)." 
+##| out-width: 150%
+##| fig-height: 4
+
+plot_dist_buff
+ 
+```
+
+## Drawing a random sample
+
+Draw a spatially-balanced random sample using a variant of the Generalised Random Tesselation Stratified [GRTS, @olsen_spatially_2012] approach as implemented in the grtsdb R package [@onkelinx_grtsdb_2022].
+
+The GRTS approach to sampling ...[HERE]
+
+The implemented variant [HERE]
+It allows to... [link!?]
+
+In terms of the present implementation, the following steps are required:
+
+Tessellation:
+With respect to a bounding box overlaying both distribution and buffer area.
+Define cell size.
+Overlay distribution / buffer area with spatial grid consisting of quadratic cells of dimension $p \times p$ m [here $100 \times 100$ m for illustrational purposes]
+
+Draw balanced sample
+
+Discard grid cells outside sample frame
+(minimum overlap)
+
+Keep first N cells.
+
+
+Figure @fig-plot-sample maps an example sample frame...HERE 
+
+
+
+```{r fig-plot-sample}
+#| include: true
+#| message: false
+#| fig-cap: "Map of sample for distribution area combined (red)." 
+##| out-width: 150%
+##| fig-height: 4
+
+plot_dist_sample
+ 
+```
+
+
+
+
+## Mapping generated data on sampling locations
+
+<!-- HERE: return to assumption on spatial independence (1_samplesize_cd) -->
+
+
+- Determine grid
+  - cell size?
+    - [ ] value from literature (250 m; cf. @bollen_gebruik_nodate)
+    - [ ] value based on camera angle/radius (usually $< 10$ m?)
+    - [x] smallish value to keep things visible
+    - [ ] value based on habitat parameters (e.g., forest density; to make sure a grid cell contains suitable areas for camera placement)
+  - how to define intersection with habitat areas?
+    - [x] grid cell overlaps with habitat areas 
+    - [ ] overlap at least $q \gg 0$ %
+
+
+
+Neeckx, p.21:
+During the placement of the cameras in the field, the exact location deviated a bit from the simulation due to the need for a suitable attachment to a tree, limitation due to vegetation, or accessibility.
