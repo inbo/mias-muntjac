@@ -97,7 +97,7 @@ Monitoring after an early intervention (i.e., to ensure eradication was complete
 If monitoring is to be conducted in relation to **management of established populations**, then the monitoring area should be oriented towards the municipalities of Schoten, Brasschaat and Wuustwezel, which are home to a diffuse Chinese muntjac population.
 More specifically, the species is distributed across a mosaic of habitat patches within these three municipalities; while there are sites at which specimens are regularly observed, there are other sites where their presence is expected but not yet confirmed, and close-by areas that are currently unoccupied but potentially suitable for future colonisation.
 This includes both public lands and privately owned properties.
-Control / eradication measures are carried out in the publicly accessible (nature) areas by hunters authorised by ANB and ANB wildlife managers.
+Control or eradication measures are carried out in the publicly accessible (nature) areas by hunters authorised by ANB and ANB wildlife managers.
 A more detailed description of the measures taken can be found in sec XX (ref).
 
 The species expert again highlighted the need to **define the monitoring area broadly enough**, for instance by including a sufficiently large buffer area, as the Chinese muntjac is sensitive to disturbance (e.g. by the presence of controllers) and reacts by quickly moving to other suitable areas.
@@ -127,7 +127,7 @@ INBO has access to (non-public) data on the times of these occasions.
 #### Monitoring techniques
 
 **Camera traps** are the most relevant monitoring technique.
-Camera trap networks have been used successfully in the past, and are to a limited extent still in place (ref: see sec XX): In Park Vordenstein, INBO maintained a now removed camera trap network (ref: D’hondt et al 2023), while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
+Camera trap networks have been used successfully in the past, and are to a limited extent still in place (ref: see monitoring): In Park Vordenstein, INBO maintained a now removed camera trap network [@dhondt_monitoring_2023], while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
 
 In terms of **potential complications**, it was noted that detection rates of camera traps can vary (e.g. increased vegetation during spring and summer has a negative effect, and moving cameras may then be required).
 Also, relatively few errors in the classification of camera images (i.e., false negative or false positive results) can have large impacts on the images’ further analysis as expected animal counts are relatively small.
