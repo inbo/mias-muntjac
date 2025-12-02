@@ -1,11 +1,8 @@
-## Species information {#sec-ecology}
+## Species information {#sec-biology}
 
 This section provides a brief overview over the biology of the Chinese muntjac, with a focus on those aspects that are potentially relevant for monitoring.
 It is largely based on the following sources: @baiwy_risk_2013; @casaer_best_2015; @dhondt_monitoring_2023; @putman_muntiacus_2009.
-We sometimes still ...to specific (conflicting) numbers HERE
 
-
-ref datasheet (https://www.cabidigitallibrary.org/doi/full/10.1079/cabicompendium.74281), ref other sources.
 
 ### Appearance
 
@@ -55,12 +52,12 @@ Chinese muntjac are **herbivores with a rather generalist diet**, which includes
 - berries and nuts, and
 - agricultural crops and garden plants.
 
-The species’ foraging behavior consists of **browsing**.
+The species’ foraging behaviour consists of **browsing**.
 The animals thereby target those plant parts that are tender and/or of high nutritional value.
 Higher vegetation is reached by standing on the hind legs.
 Chinese muntjac leave small **droppings** that are distinct from those of other deer species.
 
-### Activity patterns
+### Activity patterns {#sec-activity}
 
 Throughout the day, the Chinese muntjac exhibits predominantly **crepuscular activity**, with movement and foraging peaking around dawn and dusk.
 Activity during the day or night is possible, but less pronounced.
@@ -71,7 +68,7 @@ In autumn and early spring, when vegetation is sparse, specimens are more likely
 Female animals appear to be less active in December and January (compared to the rest of the year), and more active during night (compared to male animals).
 
 
-### Social structure
+### Social structure {#sec-social}
 
 Chinese muntjac are **solitary animals**, being most often alone and spacing themselves out throughout the available habitat.
 Sometimes small, temporary groups form, including females with fawns or brief male-female associations during mating.
@@ -90,7 +87,7 @@ Barking is not restricted to any particular season and can thus be heard through
 ### Mobility
 
 In terms of daily mobility of individual animals, estimates of **average distances travelled per day** range from under one to a few kilometres (e.g., point estimates of around 1 km reported in @baiwy_risk_2013, or of around 5 km reported in @neeckx_occurrence_2024), with males typically moving more than females.
-These probably mainly concern distances travelled within and around the animals' home ranges, which are relatively small (see ref sec ‘social structure’).
+These probably mainly concern distances travelled within and around the animals' home ranges, which are relatively small (see @sec-social).
 
 At the level of (sub-)populations, **yearly spread or expansion rates** are estimated at around 1 km without human interference [@baiwy_risk_2013].
 However, human influence likely accelerated early expansions of Chinese muntjac, for instance in the UK, but also in Belgium [@dhondt_monitoring_2023].
@@ -106,25 +103,7 @@ There is thus not only (short-term) emigration in response to control (i.e., ani
 The species reaches large population densities in the UK, where it is highly invasive:
 in some UK places, densities of around 1 animal per hectare are reached, which can be considered the **maximum value of the carrying capacity** for this species, also in Flanders.
 Here, however, densities currently remain well below UK numbers and can be considered 'very low' in an absolute sense.
-Recent estimates in Park Vordenstein, which is an important part of the distribution area of the species in Flanders, suggest average densities of around 0.05 animals per hectare and monitoring (i.e., winter) season [@neeckx_occurrence_2024].
+Recent estimates in Park Vordenstein, which is an important part of the distribution area of the species in Flanders (@sec-invasions), suggest average densities of around 0.05 animals per hectare and monitoring (i.e., winter) season [@neeckx_occurrence_2024].
 
 Factors that influence population density, and thus account for fluctuations therein, include habitat quality, establishment stage of a population (i.e., young populations fluctuate more), and local management.
-Note also that densities of the Chinese muntjac can be underestimated due to the species' elusive, solitary, and primarily crepuscular behaviour (ref secs activity, social structure).
-
-HERE
-From this, we can deduce the following population sizes for the entire Flanders distribution area…
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Note also that densities of the Chinese muntjac can be underestimated due to the species' elusive, solitary, and primarily crepuscular behaviour (@sec-activity, @sec-social).

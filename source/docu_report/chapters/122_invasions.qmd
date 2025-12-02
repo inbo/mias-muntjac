@@ -1,7 +1,5 @@
 ## Invasive populations {#sec-invasions}
 
-Mainly from deer parks and private collections
-
 ### Invasive populations in Europe
 
 The introduction of the species to Europe has primarily occurred through deliberate releases and escapes from captivity, originally for ornamental purposes, game ranching, and private collections.
@@ -38,11 +36,11 @@ The invasion stadium of the species can be considered as 'established to limited
 #### Current distribution
 
 Within the current distribution area in the Antwerp province, 
-the species is particularly established in the fragmented landscape of urban-adjacent forest patches, parks, and green corridors
-east of the city of Antwerp [@dhondt_monitoring_2023]. 
-This prominently features the domain Park Vordenstein, a largely state-owned, public recreational domain.
+the species is particularly established in the **fragmented landscape of urban-adjacent forest patches, parks, and green corridors
+east of Antwerp city** [@dhondt_monitoring_2023]. 
+This prominently features the domain **Park Vordenstein**, a largely state-owned, public recreational domain.
 On that 137 hectares sized domain, specimens of Chinese muntjac have been reported from 2012 onwards, 
-with more recent observations stemming from camera trap-based monitoring conducted by ANB and INBO between 2020 and 2024 [@dhondt_monitoring_2023; @neeckx_occurrence_2024] (ref sec monitoring).
+with more recent observations stemming from camera trap-based monitoring conducted by ANB and INBO between 2020 and 2024 [@dhondt_monitoring_2023; @neeckx_occurrence_2024] (@sec-supply-side).
 Although the overall distribution remains relatively localized, the population shows signs of spatial expansion, with detections in nearby municipalities suggesting ongoing dispersal.
 
 
@@ -52,12 +50,18 @@ Although the overall distribution remains relatively localized, the population s
 #| message: false
 #| results: 'hide'
 #| fig-cap: "Occurrences of the Chinese muntjac in and around Flanders according to GBIF"
-#| out-width: 100%
+#| out-width: "100%"
+#| fig-height: 8
+#| fig-align: "center"
 
 gis_data_path <- "../../data/gis"
 gbif_data_file <- "../../data/gbif_occ/occ_mr_4326.rda"
 source("../gbif_occ_maps/plot_occ_mr.R")
-plot_facet + ggplot2::ggtitle("")
+plot_facet + 
+  ggplot2::ggtitle("") +
+  ggplot2::theme(
+    legend.text = ggplot2::element_text(size = 5),
+    legend.title = ggplot2::element_text(size = 5))
 
 ```
 
@@ -70,7 +74,7 @@ Points are displayed with a certain transparency level, such that overlaying (i.
 appear more pronounced due to a more intense hue.
 Occurrences belonging to data sets published by INBO are highlighted by colour (magenta).
 These comprise the vast majority of the displayed observations (`r occ_mr$data_INBO |> sum()` out of `r occ_mr |> nrow()`),
-and were collected in the context of the above mentioned camera trap-based monitoring in and around Park Vordenstein [@dhondt_muntjac_antwerp_2024] (ref section monitoring).
+and were collected in the context of the above mentioned camera trap-based monitoring in and around Park Vordenstein [@dhondt_muntjac_antwerp_2024] (@sec-supply-side).
 
 
 ### Impact
