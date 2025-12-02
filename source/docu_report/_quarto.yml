@@ -79,6 +79,8 @@ book:
     right:
     - icon: mastodon
       href: https://mastodon.online/&#64;inbo
+    - icon: bluesky
+      href: https://mastodon.online/&#64;inbo
     - icon: facebook
       href: https://www.facebook.com/INBOVlaanderen/
     - icon: github
@@ -101,7 +103,7 @@ book:
       - chapters/150_synthesis.qmd
     - part: "Results of monitoring design phase 2: developing sample design and data collection"
       chapters:
-      - chapters/210_tmp.qmd
+      - chapters/210_overview.qmd
       - chapters/220_sampling.qmd
       - chapters/230_sample_size.qmd
       - chapters/240_methodology.qmd
