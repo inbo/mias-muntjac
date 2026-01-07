@@ -99,7 +99,9 @@ if (FALSE) mapview::mapview(data_osm$osm_polygons)
 # prepare map habitat
 map_hab <- data_osm$osm_polygons |>
   sf::st_transform(x = _, crs = "EPSG:31370")
+
 if (FALSE) sf::st_crs(map_hab)$Name
+if (FALSE) mapview::mapview(map_hab)
 
 # --- intersect osm data with municipalities ---------------------------------------------
 
@@ -117,12 +119,8 @@ map_buff_hab <- sf::st_intersection(
 )
 if (FALSE) mapview::mapview(map_buff_hab)
 
+# --- list maps ---------------------------------------------
 
-# --- visualize sample frame ---------------------------------------------
-
-
-# transform: pseudo-mercator, which is CRS of map tile
-# (unless map tile - in pseudo-mercator - is first layer)
 mapnames <-   c(
   "map_antw",
   "map_antw_hab",
@@ -143,47 +141,6 @@ maplist_3857 <- lapply(
 names(maplist_3857) <- names(maplist_31370) <- mapnames
 lapply(maplist_3857, \(x) sf::st_crs(x)$Name) # check transformation
 lapply(maplist_31370, \(x) sf::st_crs(x)$Name) # check transformation
-
-# base plot
-plot_base <- ggplot2::ggplot(data = maplist_3857$map_antw) +
-  ggspatial::annotation_map_tile(
-    type = "cartolight", zoom = 12, cachedir = tempdir(), alpha = .5
-  )
-plot_names <- ggplot2::geom_sf_text(ggplot2::aes(label = NAAM),
-  size = 5,
-  color = INBOtheme::vl_black,
-  check_overlap = TRUE
-)
-
-# distribution area
-geoms_dist <- list(
-  ggplot2::geom_sf(fill = INBOtheme::vl_yellow,
-                   alpha = .6),
-  ggplot2::geom_sf(data = maplist_3857$map_antw_hab,
-                   fill = INBOtheme::vl_lightgreen,
-                   color = INBOtheme::vl_lightgreen,
-                   alpha = .6)
-)
-
-# buffer area
-geoms_buffer <- list(
-  ggplot2::geom_sf(data = maplist_3857$map_buff,
-                   fill = INBOtheme::vl_darkyellow,
-                   alpha = .6),
-  ggplot2::geom_sf(data = maplist_3857$map_buff_hab,
-                   fill = INBOtheme::vl_darkgreen,
-                   color = INBOtheme::vl_darkgreen,
-                   alpha = .6)
-)
-
-# combined plot
-plot_dist_buff <- plot_base + geoms_dist + geoms_buffer + plot_names +
-  # emphasize dist
-  ggplot2::geom_sf(data = maplist_3857$map_antw_merged,
-                   fill = NA,
-                   color = INBOtheme::vl_black,
-                   linewidth = 0.8)
-plot_dist_buff
 
 
 # --- save sample frame ---------------------------------------------

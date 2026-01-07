@@ -80,20 +80,32 @@ sample_sf <- sf::st_as_sf(
 
 
 # discard grid cells outside of the sample frame
-# HERE: define some minimum overlap
+# to do: define some minimum overlap
 # or define overlap with center of grid cell
 sample_hab <- sf::st_filter(
   sample_sf,
   maplist_31370$map_antw_hab
   #,.predicate = sf::st_within
 )
-if (FALSE) {
-  m <- mapview::mapview(list(maplist_31370$map_antw_hab, sample_sf), col.regions = list("#0000ff", "#ff8000"))
-  mapview::mapshot2(m, url = "media/mapview_snapshot.html", remove_controls = c("homeBotton", "scaleBar", "drawToolbar", "easyButton"))
-}
 
 # keep N grid cells with smallest ranking within sample frame
 sample_hab_upd <- sample_hab |>
   dplyr::arrange(ranking) |>
   dplyr::slice_head(n = samplesize)
 
+# check
+if (FALSE) mapview::mapview(
+  list(maplist_31370$map_antw_hab, sample_hab_upd),
+  col.regions = list("#0000ff", "#ff8000")
+  )
+
+# save mapshot
+if (FALSE) {
+  m <- mapview::mapview(
+    list(maplist_31370$map_antw_hab, sample_sf),
+    col.regions = list("#0000ff", "#ff8000"))
+  mapview::mapshot2(
+    m, url = "media/mapview_snapshot.html",
+    remove_controls = c("homeBotton", "scaleBar", "drawToolbar", "easyButton")
+  )
+}
