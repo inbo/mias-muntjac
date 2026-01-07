@@ -5,7 +5,7 @@ if (FALSE) rm(list  = ls())
 # --- draw sample bounding box ---------------------------------------------
 
 # load maplist sample frame
-if (FALSE) maplist_31370 <- readRDS("data/gis/sample/sampleframe_maplist_31370.Rds")
+if (FALSE) maplist_31370 <- readRDS("data/gis/sample/sampleframe_maplist_31370_smooth.Rds")
 
 # create and connect to sqlite data base
 # if on disc: "data/gis/sample/grts_sample.sqlite"
