@@ -41,7 +41,7 @@ sf::st_crs(occ_mr)$Name # "WGS 84"
 plot_map  <- function(
     data_occ,
     data_bbox = map_bbox,
-    data_fla =map_fla,
+    data_fla = map_fla,
     plot_title,
     plot_subtitle = NULL,
     transform = FALSE,
@@ -120,3 +120,22 @@ plot_list <- purrr::map(
 )
 plot_list <- setNames(plot_list, years)
 }
+
+# count data from INBO per year
+occ_datasets <- occ_mr |>
+  as.data.frame() |>
+  dplyr::mutate(
+    n_rows = dplyr::n(),
+    .by = year
+  ) |>
+  dplyr::mutate(
+    n_rows_dataset = dplyr::n(),
+    perc_rows_dataset =  n_rows_dataset / n_rows * 100,
+    .by = c(year, datasetName)
+  ) |>
+  dplyr::select(
+    c(year, datasetName, data_INBO, n_rows, n_rows_dataset, perc_rows_dataset)
+  ) |>
+  dplyr::distinct(.keep_all = TRUE) |>
+  dplyr::arrange(year, perc_rows_dataset |> dplyr::desc())
+
