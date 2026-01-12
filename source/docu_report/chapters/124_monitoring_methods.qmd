@@ -1,0 +1,166 @@
+## Monitoring methods {#sec-monitoring-methods}
+
+### Overview over available methods
+
+The IUCN guidance document on surveillance techniques for IAS [@scalera_guidance_2024] lists the following methods for the monitoring of the Chinese muntjac as "available" or "recommended":
+
+- camera traps and drones
+- acoustic surveys
+- visual surveys
+- surveys for tracks and signs
+- citizen science
+- trapping, netting, and collecting
+
+
+As "not yet developed / tested" are listed:
+
+- eDNA
+- aggregation techniques.
+
+
+In the expert survey on the situation of Union List IAS in Flanders conducted by INBO (@sec-expert-judgement),
+
+- camera traps and
+- visual surveys (including tracks and signs and the use of infrared devices)
+
+were reported as potential methods.
+
+In addition,
+
+- passive acoustic monitoring and
+- airborne environmental DNA
+
+were mentioned, but it was remarked that these methods either require more research or are inferior to others.
+When asked which method was the most relevant, the expert clearly indicated camera traps.
+
+In what follows, we provide descriptions of the above listed monitoring methods (if classified as available by at least one party).
+We start with the most relevant method, camera traps.
+Here we present a relatively detailed account while we keep information quite concise for the remaining techniques (more detailed information is available in @scalera_guidance_2024).
+We base ourselves mainly on @bollen_cameravallen_2025 and the above mentioned IUCN guidance document on surveillance techniques for IAS.
+
+
+### Camera traps
+
+Camera traps are **devices that use sensors and digital cameras to automatically record images of passing wildlife**.
+The technique is well-suited to monitor medium-sized to large, warm-blooded and terrestrial animal species in terrestrial environments. 
+Cameras are usually attached to trees and can be combined with lures or baits.
+The method does not per se track individual animals, and individual identification requires marking animals, for instance if estimation of local abundance is attempted.
+
+Camera sensors can be infrared-based, detecting changes in the temperature profile within the measurement range, or triggered by motion.
+Cameras can take still images or videos, and record during the day as well as at night.
+Images can be stored on a medium for later examination, or be transmitted in real time.
+Processing of camera trap images is aided by specialised software and automatic classification by means of machine learning algorithms, although manual processing currently remains an important component.
+
+
+#### Technical parameters
+
+On a more detailed level, the following technical parameters require attention (recommendations are taken from @bollen_cameravallen_2025):
+
+- **Trigger type**: whether the camera is triggered in an active or passive way; passive triggering is currently the standard and well-suited for not too small mammal species such as the Chinese muntjac; the associated sensor should be infrared-based if pictures are to taken during times of reduced daylight
+- **Trigger speed**: speed at which the camera takes a photo after detection; should be very fast, i.e., at least < 1 s and preferably < 0.6 s
+- **Recovery time**: time between two subsequent camera activations; should also be as fast as possible, as an image series (see next point) of the same group of animals facilitates the determination of e.g. the species
+- **Burst mode**: upon activation, a series of images of e.g. 10 images is taken instead of a single image; highly recommended and preferred above video mode, which usually comes with slower trigger speeds and longer recovery times, and consumes more electricity
+- **Detection zone**: zone in front of the camera in which animals are detected; has the shape of a circular segment and as such is determined by a detection distance and a detection angle; the detection distance - the radius of the circular segment - is the maximum distance from the camera at which an animal can be detected; the detection angle is the maximum angle within which animals are detected relative to the camera's viewing direction; both should be as large as possible, especially for rare and/or difficult-to-detect species, such as the Chinese muntjac; it is recommended to check manufacturer's specifications empirically in the context of a pilot study [@bollen_cameravallen_2025]
+- **Flash**: an invisible infrared fash causes minimal interference but also black and white images only; white flash in case images should be in color to aid identification of individual animals; disturbing, however
+- **Batteries**: especially battery running time and battery life expectancy should be considered.
+- **Camera cases**: cases should ideally be compact, lightweight, water-resistant, and sturdy to protect the camera from impact; a cable lock for attaching cameras to e.g. trees is recommended to mitigate theft.
+- **Programmable operation schedules**: If photos are to be taken at specific times (e.g., only at night), then cameras should be programmable
+- **Image sensors**: If high-resolution photos are required, for artistic purposes or for identifying individuals, we recommend purchasing full-frame (DSLR) cameras.
+- **Image transfer**: if images should be transferred in real time, the corresponding functionality is required; however, the strength of the network signal (mobile data, Wi-Fi) at the location should be considered as a potential bottleneck.
+- **Technical support / service**: Finally, the reputation of the manufacturer, customer service, technical support and warranty should also be considered.
+
+#### Costs
+
+The initial purchase price for the required equipment (cameras, batteries, storage media, subscriptions for image transfer, lures) can be relatively high:
+Depending on the above-discussed technical parameters, camera prices range from 150 to 500 EUR per piece.
+Equipment account for additional costs per camera, depending on the duration of use.
+Cameras normally last about five years, but replacement of a 10 - 30 % fraction might be necessary  annually due to theft or malfunction [@dahl_information_2017].
+
+Of course, deploying the method involves costs beyond equipment, including staff time for setup, maintenance, data collection, and analysis.
+However, staff time is less closely tied to monitoring duration, as compared to other methods such as visual surveys, so camera traps become relatively cost efficient in the long run.
+@dahl_information_2017 estimate that a monitoring system with 100 cameras covering 1,000,000 hectares may require two months of labour annually for upkeep.
+
+A more complete analysis of the costs of camera trap-based monitoring is part of phase 2 of the INBO guidelines for monitoring design.
+
+#### Advantages and disadvantages
+
+In summary, we can distil the following advantages and disadvantages of camera traps:
+
+Advantages:
+
+- multiple animal species can in principle be detected simultaneously
+- minimal human interference
+- can be used for quasi-continuous monitoring
+- can be used for extended periods of time
+- maintenance efforts are limited
+- relatively cost efficient
+
+Disadvantages:
+
+- potential technical issues (e.g., battery issues, capacity of storage medium)
+- potential damaging and theft of cameras
+- animal sensitivity to camera sounds
+- elusive species can be hard to detect
+- false activation triggers (e.g., through moving vegetation) consume energy and cause irrelevant images
+- potential privacy concerns
+- manual image processing is laborious, but currently still often required as automatic approaches suffer from limited accuracy
+
+### Visual surveys
+
+Visual surveys involve recording species visually in the field, potentially with the aid of optical tools (e.g. binoculars). 
+Recordings additionally include location, date, and recorder, and are often complemented with photographs or physical samples for further analysis.
+The technique requires (to-some-extend) trained personnel and sometimes special equipment (e.g., infra-red equipment for nocturnal surveys, equipment for vehicle-based surveys), and is therefore rather labour- and cost-intense. 
+In turn, it enables estimates of presence / absence and abundance with possibly high levels of reliability.
+
+For the Chinese muntjac, the method has limited utility due to the species' cryptic behaviour, solitary lifestyle, and predominantly crepuscular to nocturnal activity (@sec-biology). 
+
+
+### Surveys for tracks and signs
+
+Surveys for tracks and signs involve recording physical evidence left by animal species, such as droppings, footprints, feeding marks, nests, or hairs, or roadkill.
+Such signs can indicate the presence or absence of a species in an area, and in some cases, provide an index of local abundance.
+Similarly to visual surveys, recordings made via this technique should be complemented by physical material for further analysis (e.g., genetic or microscopic).
+Also, trained personnel is again required to ensure accurate data.
+
+Signs such as hoofprints, droppings, or evidence of bark stripping and browsing can indicate the presence of Chinese muntjac in a given area [e.g., @casaer_best_2015].
+However, signs can be confused with those of other deer species and can in general be hard to detect. 
+The technique can therefore be considered as a supporting, but not stand-alone, technique.
+
+### Citizen science
+
+Citizen science involves the participation of volunteers in collecting, recording, and sometimes analysing data in collaboration with scientists.
+Observations are often submitted via freely available, dedicated apps.
+The method is increasingly used in IAS monitoring, especially for early detection (i.e., signalling presence / absence) and expanding geographic coverage.
+It enhances data collection at low cost, but data quality can be an issue (e.g., species misidentification).
+This can to some extent be compensated for by providing training and additional resources (e.g., automated identification tools).
+
+Citizen science can play a supportive role in the monitoring of Chinese muntjac, particularly in complementing structured monitoring, as even occasional, opportunistic observations can still provide valuable signals of presence.
+
+### Trapping, netting, and collecting
+
+Trapping and netting involves capturing animal species via nets or traps.
+Traps, into which animals move by themselves, can be lethal or non-lethal and often use baits or lures to attract animals.
+The method can provide data for estimating species presence / absence and local abundance, and represents a possible control measure at the same time.
+Consequently, ethical and legal requirements must be followed to ensure animal welfare.
+
+For deer species, including the Chinese muntjac, it is not particularly cost-efficient and therefore not recommended.
+
+### Passive acoustic monitoring (acoustic surveys)
+
+Passive acoustic monitoring may be considered a special form of acoustic surveying and involves recording and analysing sounds produced by animal species.
+It is suited for detecting presence / absence of species that are vocal and difficult to observe directly (e.g., bats, birds, frogs, certain mammals, and some insects).
+The technique relies on acoustic sensors, which can be deployed in remote or hard-to-access areas for extended periods.
+The collected acoustic data is analysed using specialized software for species identification.
+Complications involve the storage and analysis of the usually extensive and complex, noisy data (e.g., background noise, overlapping calls).  
+Passive acoustic monitoring is an emerging technique for detecting Chinese muntjac, which capitalizes on their distinctive bark-like vocalizations (@sec-biology).
+While proof-of-concept results are promising, additional research needs to precede full-scale applications.
+
+
+### Airborne environmental DNA
+
+Environmental DNA involves the analysis of genetic material species leave in their environment (water, soil, or air), through faeces, mucus, skin cells or decomposition. 
+The genetic material can be extracted from environmental samples collected according to a specific protocol, 
+and is then subjected to laboratory analysis to identify the presence of a target species.
+It can be particularly useful for detecting the presence of rare or elusive species, but has limitations such as false positives or negatives, spatial and temporal imprecision, and complicates estimating abundance.
+
+The variant of airborne environmental DNA, which involves collecting airborne genetic particles, yields promising proof-of-concept results for the Chinese muntjac [@clare_measuring_2022], but requires further development.

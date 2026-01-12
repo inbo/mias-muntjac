@@ -1,0 +1,119 @@
+project:
+  type: book
+  preview:
+    port: 4201
+    browser: true
+  render:
+  - '*.md'
+  - '*.qmd'
+  - '!LICENSE.md'
+  - '!README.md'
+  output-dir: ../../output/docu_report
+  execute-dir: project
+  post-render: _extensions/inbo/flandersqmd-book/filters/post_render.R
+
+execute:
+  echo: false
+  warnings: true
+  errors: true
+  message: true
+  freeze: false
+  cache: false
+
+format:
+  flandersqmd-book-html: default
+  flandersqmd-book-pdf: default
+
+lang: en-GB
+babel-lang: english
+
+flandersqmd:
+  entity: INBO
+  level: 1
+  title: Monitoring scheme design for the Chinese muntjac
+  subtitle: Initial results from applying the INBO guidelines for designing policy-oriented monitoring schemes
+  shorttitle: report-muntjac
+  author:
+  - name:
+      given: Janne
+      family: Adolf
+    email: janne.adolf@inbo.be
+    orcid: 0000-0001-6064-9803
+    affiliation:
+    - Research Institute for Nature and Forest (INBO)
+    corresponding: true
+  - name:
+      given: Diederik
+      family: Strubbe
+    email: diederik.strubbe@inbo.be
+    corresponding: false
+    orcid: 0000-0002-2613-4985
+    affiliation:
+      - Research Institute for Nature and Forest (INBO)
+  - name:
+      given: Tim
+      family: Adriaens
+    email: tim.adriaens@inbo.be
+    orcid: 0000-0001-7268-4200
+    affiliation:
+      - Research Institute for Nature and Forest (INBO)
+  - name:
+      given: Thierry
+      family: Onkelinx
+    email: thierry.onkelinx@inbo.be
+    orcid: 0000-0001-8804-4216
+    affiliation:
+      - Research Institute for Nature and Forest (INBO)
+  year: 2025
+  public_report: false
+  colophon: false # adapt?
+  floatbarrier: subsection
+  linenr: false
+
+book:
+  downloads: pdf
+  open-graph: true
+  body-footer: '{{< footer >}}'
+  navbar:
+    pinned: true
+    right:
+    - icon: mastodon
+      href: https://mastodon.online/&#64;inbo
+    - icon: bluesky
+      href: https://mastodon.online/&#64;inbo
+    - icon: facebook
+      href: https://www.facebook.com/INBOVlaanderen/
+    - icon: github
+      href: https://github.com/inbo
+    left:
+    - text: Cover & acknowledgements
+      file: index.qmd
+    - text: Summary
+      file: chapters/001_summary.qmd
+  chapters:
+    - index.qmd
+    - chapters/001_summary.qmd
+    - chapters/010_introduction.qmd
+    - part: "Results of monitoring design phase 1: prioritising information needs"
+      chapters:
+      - chapters/110_demand_side.qmd
+      - chapters/120_background.qmd
+      - chapters/130_supply_side.qmd
+      - chapters/140_boundary_conditions.qmd
+      - chapters/150_synthesis.qmd
+    - part: "Results of monitoring design phase 2: developing sample design and data collection"
+      chapters:
+      - chapters/210_overview.qmd
+      - chapters/220_sampling.qmd
+      - chapters/230_sample_size.qmd
+      - chapters/240_methodology.qmd
+      - chapters/250_costs.qmd
+      - chapters/260_synthesis.qmd
+    - chapters/999_references.qmd
+  appendices:
+   - appendices/appendix_a.qmd
+   - appendices/appendix_b.qmd
+
+bibliography: ../../media/MIAS.bib
+
+lightbox: true

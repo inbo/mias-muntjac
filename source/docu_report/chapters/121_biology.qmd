@@ -1,0 +1,109 @@
+## Species information {#sec-biology}
+
+This section provides a brief overview over the biology of the Chinese muntjac, with a focus on those aspects that are potentially relevant for monitoring.
+It is largely based on the following sources: @baiwy_risk_2013; @casaer_best_2015; @dhondt_monitoring_2023; @putman_muntiacus_2009.
+
+
+### Appearance
+
+The Chinese muntjac, is a **small deer species** native to southern and central China and Taiwan.
+Adult individuals typically measure 40 to 50 cm at the shoulder and weigh between 12 and 16 kg.
+The species’ hunched posture is due to its relatively long hind legs and short forelimbs.
+It has a short, upturned tail with a conspicuous white underside that is often raised when alarmed.
+Chinese muntjac exhibit seasonal coat variation, with a reddish-brown coat in summer and a greyer, denser one in winter.
+
+The species displays **sexual dimorphism**: Males are easily distinguished from females by the presence of short, single-pointed antlers, and by prominent upper canines protruding from the mouth.
+Females lack antlers but have similarly shaped skulls and also possess small canines, though less visible.
+Both sexes also show distinct facial markings, with males typically having a dark V-shaped stripe on the forehead and females a diamond-shaped pattern.
+
+### Habitat
+
+The species can generally be found in **terrestrial habitats with dense vegetation**, as these provide foraging and, even more important, cover opportunities.
+More specifically, habitat preferences encompass
+
+- woodlands with dense understory vegetation, including subtropical and temperate broadleaved forests or mixed coniferous-broadleaf woodlands,
+- edge habitats, such as forest edges,
+- scrub and secondary growth, including hedgerows or abandoned plantations,
+- (peri-)urban areas, including overgrown parks or gardens, and
+- agricultural areas with patches of natural vegetation.
+
+
+### Reproduction and life cycle
+
+Chinese muntjac have an **a-seasonal reproductive cycle**, such that mating and births occur year-round, without clear seasonal patterns.
+Males mate opportunistically with any estrous female with an overlapping home range.
+Gestation lasts around 7 months, typically resulting in the birth of a single fawn.
+Females can and often do conceive again within days after giving birth, such that **two fawns per year are possible**, and this for many subsequent years.
+Chinese muntjac populations can thus grow continuously, without seasonal constraints.
+
+During the first few weeks of life, fawns remain hidden and are nursed by their visiting mother.
+At 2 - 3 months of age weaning occurs.
+**Sexual maturity** is reached early, at around 7 - 8 months of age (females mature slightly earlier than males).
+The species’ **life span** ranges from 6 to 10 years, typically.
+Mortality can be due to disease, roadkill, hunting, or - primarily in natural ranges - predation.
+
+
+### Feeding
+
+Chinese muntjac are **herbivores with a rather generalist diet**, which includes
+
+- woody plants such as shoots, young leaves, bark, stems of shrubs or trees (e.g., bramble, hazel, ash, oak, hawthorn),
+- herbaceous plants such as forbs, ground flora, and - to a lesser extent - grasses,
+- berries and nuts, and
+- agricultural crops and garden plants.
+
+The species’ foraging behaviour consists of **browsing**.
+The animals thereby target those plant parts that are tender and/or of high nutritional value.
+Higher vegetation is reached by standing on the hind legs.
+Chinese muntjac leave small **droppings** that are distinct from those of other deer species.
+
+### Activity patterns {#sec-activity}
+
+Throughout the day, the Chinese muntjac exhibits predominantly **crepuscular activity**, with movement and foraging peaking around dawn and dusk.
+Activity during the day or night is possible, but less pronounced.
+However, if the species is regularly disturbed, activity patterns can shift to the night.
+
+On a yearly level, the species is **active year-round**.
+In autumn and early spring, when vegetation is sparse, specimens are more likely to forage in open areas such as recently harvested agricultural fields.
+Female animals appear to be less active in December and January (compared to the rest of the year), and more active during night (compared to male animals).
+
+
+### Social structure {#sec-social}
+
+Chinese muntjac are **solitary animals**, being most often alone and spacing themselves out throughout the available habitat.
+Sometimes small, temporary groups form, including females with fawns or brief male-female associations during mating.
+
+Males maintain fixed, limitedly overlapping **home ranges of 10 - 30 hectares**^[
+While these numbers are based on estimates from the UK [@baiwy_risk_2013]; alternatively, ranges up to 100 hectares are reported [@casaer_best_2015;  based on estimates in native habitats, @baiwy_risk_2013]
+], while females are less territorial (i.e., their home ranges overlap to a larger extent, also with the ones of male animals).
+Home ranges are marked by scent or vocalizations (see next subsection).
+
+### Vocalization
+
+A distinctive feature of this species is its vocal behaviour, more specifically a **loud and short dog-like barking sound**, which happens especially in response to disturbance or during social interactions.
+Barks can persist intermittently for prolonged periods, sometimes over an hour, and occur most often during nights.
+Barking is not restricted to any particular season and can thus be heard throughout the year.
+
+### Mobility
+
+In terms of daily mobility of individual animals, estimates of **average distances travelled per day** range from under one to a few kilometres (e.g., point estimates of around 1 km reported in @baiwy_risk_2013, or of around 5 km reported in @neeckx_occurrence_2024), with males typically moving more than females.
+These probably mainly concern distances travelled within and around the animals' home ranges, which are relatively small (see @sec-social).
+
+At the level of (sub-)populations, **yearly spread or expansion rates** are estimated at around 1 km without human interference [@baiwy_risk_2013].
+However, human influence likely accelerated early expansions of Chinese muntjac, for instance in the UK, but also in Belgium [@dhondt_monitoring_2023].
+This includes human-mediated translocation, but also repeated introductions.
+On the other hand, natural dispersal is likely slowed down by habitat fragmentation as present in Flanders [@baiwy_risk_2013].
+
+Finally, turning to movement patterns, a notable one observed for the Chinese muntjac concerns the so-called **source-sink dynamic**.
+That means that subpopulations of decreasing size (e.g., due to control) can to some extent be replenished by immigration from subpopulations of increasing size [@dhondt_monitoring_2023].
+There is thus not only (short-term) emigration in response to control (i.e., animals evade human interventions), but also (intermediate-term) immigration.
+
+### Population size and density
+
+The species reaches large population densities in the UK, where it is highly invasive:
+in some UK places, densities of around 1 animal per hectare are reached, which can be considered the **maximum value of the carrying capacity** for this species, also in Flanders.
+Here, however, densities currently remain well below UK numbers and can be considered "very low" in an absolute sense.
+Recent estimates in Park Vordenstein, which is an important part of the distribution area of the species in Flanders (@sec-invasions), suggest average densities of around 0.05 animals per hectare and monitoring (i.e., winter) season [@neeckx_occurrence_2024].
+
+Factors that influence population density, and thus account for fluctuations therein, include habitat quality, establishment stage of a population (i.e., young populations fluctuate more), and local management.
+Note also that densities of the Chinese muntjac can be underestimated due to the species' elusive, solitary, and primarily crepuscular behaviour (@sec-activity, @sec-social).

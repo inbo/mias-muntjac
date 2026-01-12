@@ -20,3 +20,8 @@ docs
 libs
 output
 renv/library
+media/img
+*to_do*
+*outtakes*
+data/gis
+data/gbif_occ

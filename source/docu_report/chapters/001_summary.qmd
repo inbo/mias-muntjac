@@ -1,0 +1,49 @@
+# Summary {.unnumbered} 
+
+The present report addresses the development of a dedicated structured monitoring scheme for the invasive Chinese muntjac in Flanders, where the species occurs in an earlier invasion stage. 
+Building on earlier prioritisation work and in line with EU and Flemish biosecurity obligations, 
+the report applies the INBO guidelines for monitoring design as a methodology. 
+It presents preliminary results from the guideline design phases 1 and 2, focusing on the prioritisation of information needs and the development of sampling design and data collection. 
+To this end, the report reviews legislative and stakeholder demands, relevant background information, existing monitoring, and boundary conditions, and translates these into monitoring needs, discussing their implementation as well as sampling strategies and sample size considerations.
+
+
+<!-- This part adds the table of content in the pdf -->
+
+<!-- Add it at the end of the last chapter of the frontmatter -->
+
+<!-- spell-check: ignore:start-->
+
+::: {.content-visible when-format="pdf"}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\clearpage
+
+<!-- remove this line when you have neither a list of figures and a list of tables -->
+
+<!-- remove this block when you don't want a list of figures -->
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\vspace{34pt}
+
+<!-- remove this block when you don't want a list of figures -->
+
+<!-- remove this block when you don't want a list of tables -->
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+<!-- remove this block when you don't want a list of tables -->
+
+<!-- keep the lines below -->
+:::
+
+<!-- spell-check: ignore:end-->
+
+<!-- This part adds the tables of contents in the pdf -->

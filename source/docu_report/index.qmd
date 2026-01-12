@@ -1,0 +1,9 @@
+{{< colophon >}}
+
+# Acknowledgements {.unnumbered}
+
+We thank Bram D'hondt for contributing his time and expertise to parts of this report.
+This report was created using Quarto [@allaire_quarto_2025] in conjunction with the Quarto extension providing the corporate identity of the Flemish government for reports [version 0.1.0, @onkelinx_quarto_nodate], as well as R [@r_core_team_r_2025] and R Studio [@posit_team_rstudio_2025].
+All source code used within the present project is available via the github repository [inbo/mias-muntjac](https://github.com/inbo/mias-muntjac) [@adolf_monitoring_nodate-1].
+This includes the source code of the present report under
+[inbo/mias-muntjac/source/docu_report](https://github.com/inbo/mias-muntjac/tree/main/source/docu_report).

@@ -1,0 +1,123 @@
+## Sample size planning for confirming eradication under management {#sec-samplesize-eradication} 
+
+
+As discussed in @sec-synthesis-1, can be viewed as a **temporary form of monitoring for detecting presence after management**, for which sample size planning is elaborated on in @sec-samplesize-detection.
+Here we briefly present a possible extension, a Bayesian variant of the planning for precision scenario. 
+The Bayesian perspective is interesting in this context, as it allows for a more direct account of "confirming eradication". 
+We explain this in the following.
+
+### Planning scenarios
+
+#### Planning for precision (Bayesian variant)
+
+For the Bayesian variant of the planning for precision scenario, we rely on the Bayesian variant of the data-generating model used in @sec-samplesize-detection, which was the binomial distribution to model the number of observations of animals summed across all locations.
+The **Bayesian beta-binomial model** combines the binomial distribution as the data-generating or likelihood function with a beta prior distribution on the probability of presence.
+The beta prior thus encodes prior beliefs about the probability of presence.
+It is a flexible distribution capable of accommodating various shapes and hence prior beliefs. 
+After observing data, the prior beliefs about the success probability are updated to a posterior distribution, also a beta distribution, that balances prior information and observed evidence.
+We can thus rely on this posterior distribution for inference.
+More specifically, we can use posterior quantiles to form credible intervals (CRIs), the Bayesian variant of CIs.
+and infer that the probability of presence falls within the range of a CRI with the corresponding probability.
+Being able to state that the probability of presence is with a high probability very close to 0 seems a more direct and intuitive way of confirming eradication than is possible under a frequentist account.^[
+In the frequentist framework, confirming eradication, or, in other words, stating with high a certainty that the species is absent, boils down to stating with high certainty that we cannot have missed the species.
+We can afford such a statement to the extent we have managed to minimize the type-2 error, and hence maximize power.
+If we have a large enough number of zero-observations guaranteeing a sufficiently high power to detect a sufficiently small probability of presence, 
+we can consider it plausible - we use the term "plausible" to indicate that this is no quantitative probability statement - that the species is “absent” in the sense that the probability of presence is sufficiently small.
+]
+
+In the case of a uninformative (i.e., flat) prior ($Beta(1, 1)$), the posterior distribution is $Beta(1 + k, 1 + n - k)$ [@gelman_bayesian_2013].
+In analogy to the construction of the CI, we use the $1-\alpha$ quantile of this posterior distribution to get the upper bound of $1-\alpha$ CRI given $i'$ zero-sightings. 
+We know from the literature [@@thulin_cost_2014] that the Bayesian CRI based on a flat beta prior is very similar to Clopper-Pearson CI, which can also be constructed from the quantiles of a beta distribution that closely resembles here-considered beta posterior:
+The CRI is a little bit more narrow, but this difference dissipates quickly with an increasing number of sampling locations. 
+@fig-credible-interval displays the upper bounds of the 90 %-variant of this CRI and the 90 % Clopper-Pearson CI given zero-sightings over varying numbers of sampling locations.
+
+In consequence, planning for precision under a Bayesian perspective results in similar sample sizes as planning for precision under a frequentist perspective, at least if a plat prior distribution is used.
+The difference in interpretation remains, however.
+
+<!---
+- prior: $\psi_{t=t'} \sim Beta(\alpha, \beta)$
+- likelihood: $nobs_{t=t'}|\psi_{t=t'} \sim Binom(\psi_{t=t'}, I)$
+- posterior: $\psi_{t=t'}|nobs_{t=t'} \sim Beta(k + \alpha, n - k + \beta)$
+  - with: k: number of successes, n: number of trials
+-->  
+
+<!--quantile function: inverted cdf
+if a and b are positive integers: 
+cdf of binomial with specific parameterization can be used
+(see: https://en.wikipedia.org/wiki/Beta_distribution)-->
+
+
+
+
+```{r fig-credible-interval}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Credible and confidence interval upper bounds given zero-sightings"
+#| fig-asp: 0.618
+
+source("../_functions/funs_binom_ci.R")
+
+# simulate cri upper bound
+data_cri <- data.frame(
+  nl = seq(1,600),
+  conf_level = 0.9,
+  k = 0
+) |>
+  dplyr::mutate(
+    ciu = purrr::map2_dbl(nl, conf_level, \(x, y){
+      get_ciu_k0(nl = x, conf_level = y, one_sided = TRUE) 
+    }),
+    criu = purrr::pmap_dbl(list(nl, conf_level, k), \(x, y, z){
+      qbeta(
+        p = y,
+        shape1 = 1 + z,
+        shape2 = 1 + x - z,
+        ncp = 0,
+        lower.tail = TRUE,
+        log.p = FALSE
+        )
+    })
+  ) |> 
+  tidyr::pivot_longer(
+    cols = c("ciu", "criu"),
+    names_to = "interval"
+  ) |> 
+  dplyr::mutate(
+    interval = dplyr::case_match(
+      interval,
+      "ciu" ~ "confidence interval",
+      "criu" ~ "credible interval"
+    )
+  )
+
+plot_cri <- ggplot2::ggplot(data = data_cri, ggplot2::aes(x = nl, y = value, linetype = interval, color = interval)) + 
+  ggplot2::geom_line(linewidth = 1) + 
+  ggplot2::scale_y_continuous(labels = scales::percent) + 
+  ggplot2::coord_cartesian(xlim = c(0, 500), ylim = c(0,0.25)) + 
+  ggplot2::labs(
+    x = "Number of sampling locations",
+    y = paste("Upper bound", data_cri$conf_level*100 ,"% interval"),
+    color = NULL,
+    linetype = NULL
+    ) + 
+  ggplot2::theme_bw() + 
+  ggplot2::theme(ggplot2::element_text(size = 16)) + 
+  ggplot2::theme(legend.position = "bottom")
+  
+plot_cri
+
+if (FALSE) {
+  qbeta(
+     p = 0,
+     shape1 = 1 + 0,
+     shape2 = 1 + 100 - 0,
+     ncp = 0,
+     lower.tail = TRUE,
+     log.p = FALSE
+)  
+}
+
+
+```

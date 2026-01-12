@@ -1,0 +1,63 @@
+# Sample size planning {#sec-samplesize}
+
+```{r setup-samplesize}
+#| message: false
+#| results: 'hide'
+#| cache: true
+
+# figure settings
+knitr::opts_chunk$set(
+    out.width = "100%", 
+    fig.width = 9,
+    #fig.asp = 0.618,  
+    fig.align = "center" 
+)
+
+```
+
+
+In this section we conduct and discuss **sample size planning** for all monitoring needs outlined in @sec-overview-needs.
+Sample size planning concerns optimizing the sample size for statistical criteria such as statistical power (in short: power) or estimation precision (in short: precision).
+The goal is thus to determine the sample size needed to reach a certain level of power or precision when answering the questions relevant for each monitoring need.
+Even larger sample sizes of course lead to even higher levels of power and precision, but are also associated with higher costs (e.g., monetary costs, disturbance of ecosystems).
+The two planning scenarios we distinguish in the following are thus **planning for power** and **planning for precision** [cf. @wouters_ontwerp_2008-1].
+
+Linking sample size to power or precision requires the **context of a specific statistical test or model**, 
+chosen to address the questions relevant for each monitoring need. 
+The choice should obviously reflect the nature and structure of the to be collected data.
+Prior to discussing the planning scenarios themselves, 
+we thus elaborate on appropriate **data-generating** models and or distributions (i.e., models and or distributions that could have generated the data and are therefore plausible to assume during the later analysis of the data).
+The detection monitoring needs are hereby subsumed as they concern the same type of outcome variables assessed in different areas.
+
+
+A few more technical remarks before we proceed: 
+We assume that we have, as a starting point in the following, the *observed* outcomes per monitoring need (i.e., observed abundances or presences/absences).
+The preprocessing pipeline leading from camera trap recordings to these data is not discussed in the present document.
+
+In principle, these assumed data vary along the following dimensions:
+
+- $i = 1, ..., I$ sampling locations
+- $d = 1, ..., D$ days per measurement period (more precisely: $d_{t}$; here the same for all $t$, so subscript $t$ is left out)
+- $t = 1, ..., T$ years, with one measurement period per year
+
+The data we work with in the following are however assumed to be aggregated along the dimension of days^[
+Aggregation within days is not discussed here, but might be done in analogous ways
+]
+}, across a period of 30 days, in the following way [cf. @bollen_gebruik_nodate]:
+
+- the observed presence per location and year, $obs_{i,t}$, is aggregated over days in that it assumes a value of 1 if at least one muntjac specimen was seen on at least one day, and a value of 0 otherwise
+- the observed abundance or number of observations of animals per location and year, $nobs_{i,t}$, is aggregated over days by retaining the maximum number of observations on a day
+
+Note that we do not consider the case of multiple measurement periods per year.
+Otherwise, differences between periods within years could be considered, representing seasonal deviations from a longer-term (i.e., year-level) trend (e.g., more individuals before than after winter).
+For now, we however simply assume that the optimal period per year is used to obtain measurements.
+Optimality is for instance tied to a maximal detection probability, the absence of complicating factors such as ongoing control actions during measurement and so on.
+The status is then determined per year, and trends are determined between years.
+
+
+
+{{< include 231_sample_size_detection.qmd >}}
+
+{{< include 232_sample_size_decline.qmd >}}
+
+{{< include 233_sample_size_eradication.qmd >}}

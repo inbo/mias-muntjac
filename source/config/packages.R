@@ -1,12 +1,36 @@
-# INBO related packages
+# checklist
 library(checklist)
-
-# checklist suggests
-library(cyclocomp)
+library(cyclocomp) # checklist suggests
 
 # tidyverse
 library(tidyverse)
 
+# gis
+library(sf)
+library(mapview)
+library(ggspatial)
+library(prettymapr)
+library(inbospatial)
+library(grtsdb)
+library(osmdata)
+
+# power
+library(mlpwr)
+library(EnvStats)
+library(binGroup)
+library(matrixcalc)
+library(lme4)
+
+# visualization
+library(effectclass)
+library(patchwork)
+library(ggforce)
+library(gggenes)
+library(ggspatial)
+library(rgbif)
+
 # reporting
 library(quarto)
 library(citr) # citations
+library(kableExtra)
+library(flandersqmd)

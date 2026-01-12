@@ -1,0 +1,212 @@
+# Appendix
+
+## A
+
+### Relationship between minimal detectable deviation and the Clopper-Pearson confidence interval
+
+<!-- HERE: recap what we are showing here --->
+
+Let $F(k; n, \psi)$ be the cumulative distribution function of the Binomial distribution for $k$ successes - here presences - given $n$ Bernoulli trials with success probability $\psi$:
+
+$$
+F(k; n, \psi) = P(X \le k) = \sum_{i=0}^{\lfloor k\rfloor}\binom{n}{i}\psi^i(1-\psi)^{n - i} 
+$$
+<!-- HERE-->
+For zero successes or presences, $k=0$, we get:
+
+\begin{align}
+F(k=0; n, \psi) = P(X \le k = 0) &= \sum_{i=0}^{\lfloor k = 0\rfloor}\binom{n}{i}\psi^i(1-\psi)^{n - i} \\
+&= \binom{n}{0}\psi^0(1-\psi)^{n - 0} \\
+&= (1-\psi)^n
+\end{align}
+
+<!-- HERE: check -->
+For the null hypothesis of absence, $H_0:\psi = 0$, and type-I error $\alpha = 0.1$, the critical value is 0 
+(i.e., the $(1-\alpha)$-quantile of $Binom(\psi = 0, I)$).
+Hence, the null hypothesis is rejected if $k > 0$.
+
+Under the alternative hypothesis, $H_a:\psi>0$, we can thus express the type-II error, $\beta$, as:
+
+$$
+\beta = F(k=0; n, \psi>0)
+$$
+In case of $k=0$ the upper bound of the one-sided Clopper-Pearson confidence interval (CI) is (based on [@thulin_cost_2014]):
+
+$$
+CI^{upper}_{CP} = 1-\alpha^{1/n}
+$$
+<!-- HERE: Motivation: Starting from our numerical results... -->
+Using this upper bound as the probability of success under the alternative hypothesis in the expression for $\beta$ we get:
+
+\begin{align}
+\beta &= F(k=0; n, \psi=CI^{upper}_{CP}) \\
+&= F(k=0; n, \psi=1-\alpha^{1/n}) 
+\end{align}
+
+Simplifying the equation, we get $\beta = \alpha$:
+
+\begin{align}
+\beta &= F(k=0; n, \psi = 1-\alpha^{1/n}) \\
+&= (1-(1-\alpha^{1/n}))^n \\
+&= (1-1+\alpha^{1/n})^n \\
+&= (\alpha^{1/n})^n \\
+&= \alpha
+\end{align}
+
+Hence, if the alternative probability of success is equal to the upper bound of the one-sided $(1- \alpha)$ Clopper-Pearson CI, 
+then the type-I error is the same as the type-II error.
+The upper bound of the one-sided $(1- \alpha)$ Clopper-Pearson CI can thus be used as the minimal detectable presence with $(1 - \beta)$ statistical power.
+
+<!-- HERE: alpha does not matter for the critical value, but it matters for the CI ... -->
+
+
+## B
+
+### Interpretation of the slope paramter in the logistic regression model
+
+Interpretation in terms of the linear predictor, $\eta$:
+$\beta_1$ reflects the absolute difference in linear predictor values given a one-unit difference in year*.
+Formally, we can write (leaving out subscripts $i$ and $t$ for simplicity but without loss of generality):
+
+\begin{align}
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= (\beta_0 + \beta_1 * (year^*_1 + 1)) - (\beta_0 + \beta_1 * year^*_1)\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_0 + \beta_1 * year^*_1 + \beta_1 - \beta_0 - \beta_1 * year^*_1\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_1 
+\end{align}
+
+Interpretation in terms of the odds of presence, $\frac{\psi_{i,t}}{1-\psi_{i,t}}$:
+$exp(\beta_1)$ is the factor by which the odds change given a one-unit change in year
+(or: $exp(\beta_1)$ reflects the relative difference (ratio) in the odds given a one-unit change in year*).
+We can again derive this as (leaving out subscripts):
+
+\begin{align}
+log(odds)|(year^*_1 + 1) - log(odds)|year^*_1 &= \beta_1 \quad\quad|\;exp(\cdot) \\
+exp(log(odds)|(year^*_1 + 1) - log(odds)|year^*_1) &= exp(\beta_1) \\
+\frac{exp(log(odds)|(year^*_1 + 1))}{exp(log(odds)|year^*_1)} &= exp(\beta_1) \\
+\frac{odds|(year^*_1 + 1))}{odds|year^*_1} &= exp(\beta_1) \\
+odds|(year^*_1 + 1)) &= exp(\beta_1) * odds|year^*_1
+\end{align}
+
+<!-- HERE: add interpretation for prop of presence? --->
+
+
+## C
+
+### Poisson regression
+
+Starting from the distributional assumption in @eq-pois we can use the **Poisson regression model** to linearly decompose $\mu_{i,t}$, the parameter of the Poisson distribution, after applying the log-link function:
+
+$$
+log(\mu_{i,t}) = \eta_{i,t} \\
+\Leftrightarrow \\
+\mu_{i,t} = exp(\eta_{i,t})
+$$ {#eq-poisreg1}
+with:
+
+- $log(\cdot)$: natural logarithm, here the log-link function
+- $\eta_{i,t}$: linear predictor, which is some linear function of a set of predictor variables
+- $exp(\cdot)$: exponential (i.e., inverse of log-link) function
+
+The most simple model variant under monitoring scope B (abundance under management - trend) includes an intercept and a linear effect of year, both location unspecific, so index $i$ is dropped:
+
+$$
+\eta_{t} = \beta_{0} + \beta_{1} \, year_t^*
+$$ {#eq-poisreg2}
+with:
+
+- $\beta_{0}$: intercept; linear predictor if $year_t^*= 0$
+- $\beta_{1}$: slope associated with $year_t*$, which is some linear function of year
+
+The **parameter of interest** - corresponding to our monitoring target 'trend' - is obviously the **slope**, $\beta_{1}$.
+It's interpretation in terms of the linear predictor, $\eta$, is the one we are familiar with from simple linear regression:
+$\beta_1$ reflects the absolute change in linear predictor values given a one-unit change in year*.
+
+The interpretation in terms of the expected number of observed animals, $\mu$, needs to incorporate the link-function used:
+Here, $exp(\beta_1)$ reflects the relative difference (ratio) in expected numbers of observations given a 1-unit difference in year*.
+So, $exp(\beta_1)$ is the factor by which $\mu$ changes given a one-unit change in year
+($\mu|(year^*_1 + 1) = exp(\beta_1)*\mu|year^*_1$),
+and $(exp(\beta_1)-1)*100$ is the percentage change in $\mu$ associated with a one-unit change in year.
+
+The following figure shows a number of different trends implied by different sizes of $\beta_1$ for both $\eta$ and $\mu$.
+
+```{r fig-size-trend}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Visualization of different effect sizes of beta_1 in the Poisson regression model"
+#| out-width: 150%
+
+data_trend <- data.frame(
+  # size of linear effect of year
+  effect_size = -seq(0, 2, 0.2)
+) |>
+  tidyr::crossing(
+   year_star = seq(0,15)
+) |>
+  dplyr::mutate(
+    eta =  effect_size*year_star + 2,
+    mu = exp(eta),
+    effect_size = factor(effect_size) |> forcats::fct_rev()
+    ) |>
+  tidyr::pivot_longer(
+    cols = tidyselect::all_of(c("eta", "mu")),
+    names_to = "out_name",
+    values_to = "out_value"
+  )
+ggplot2::ggplot(
+  data = data_trend, 
+  mapping = ggplot2::aes(x = year_star, y = out_value, group = effect_size)
+  ) + 
+  ggplot2::geom_line(ggplot2::aes(color = effect_size), linewidth = 1.2) +
+  ggplot2::facet_wrap(~ out_name, scales = "free_y", ncol = 2) + 
+  ggplot2::labs(x = "year*", y = "outcome", color = "size beta1") +
+  ggplot2::scale_x_continuous(breaks = data_trend$year_star |> unique()) + 
+  ggplot2::scale_colour_viridis_d(direction = -1) + 
+  ggplot2::theme_bw()
+
+```
+
+In case $\beta_1 = 0$, we have `r round((exp(0)-1)*100, digits = 0)` %,
+if $\beta_1 = -0.2$, we have around `r round((exp(-0.2)-1)*100, digits = 0)` %, 
+if $\beta_1 = -0.4$, we have around `r round((exp(-0.4)-1)*100, digits = 0)` %, 
+if $\beta_1 = -1$, we have around `r round((exp(-1)-1)*100, digits = 0)` % decrease per year. 
+
+## D
+
+### Simulation-based power analysis using the mlpwr R package
+
+```{r get-mlpwr-res-append}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+
+
+```
+
+```{r fig-mlpwr-app}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Results of the mlpwr-power analysis - simulated vs. surrogate power per condition"
+#| out-width: 150%
+#| fig-height: 20
+#| fig-width: 8
+
+# load results
+load("../../../output/sample_design/mlpwr_logreg/gridpars_20251022-133925.Rda")
+load("../../../output/sample_design/mlpwr_logreg/res_list_20251022-133925.Rda")
+  
+# create figs
+source("../power_mlpwr_logreg_vis.R")
+
+library(patchwork)
+
+(plot_res_iter_b0large/plot_res_iter_b0small) + 
+  patchwork::plot_annotation(tag_levels = 'A')
+
+
+
+```

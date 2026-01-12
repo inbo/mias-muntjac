@@ -1,0 +1,19 @@
+## Synthesis phase II {#sec-synthesis-2}
+
+::: {.callout-note}
+
+This section still needs to be written. 
+The following outline is based on @wouters_ontwerp_2008-1.
+
+:::
+
+This synthesis presents monitoring scenarios matching the previously identified priority monitoring needs (see @tab-mon-scopes).
+Summarizing the previous sections, each scenario includes:
+
+- Overview of monitoring questions
+- Precise description of target population
+- List of required variables
+- Description of sampling design and sample size planning 
+
+Scenarios are compared and further refined, 
+also on the basis of a cost effectiveness analysis.

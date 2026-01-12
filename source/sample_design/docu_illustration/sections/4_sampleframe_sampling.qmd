@@ -1,0 +1,219 @@
+# Sampling
+
+
+## Defining the sample frame
+
+### Defining the distribution area
+
+All above monitoring scopes concern the currently known **distribution area** in the province of Antwerp, 
+including the municipalities of Schoten, Brasschaat, and Wuustwezel. 
+To define the sample frame, we thus rely on the [Provisional Reference File for Municipal Boundaries](https://www.vlaanderen.be/datavindplaats/catalogus/voorlopig-referentiebestand-gemeentegrenzen-toestand-01-01-2025-correctie-11-02-2025) published by the Flemish government agency "Digital Flanders" (ref). 
+This file defines the boundaries of the administrative units in the Flemish Region, 
+and provides us with the geometry of the here-relevant Flemish municipalities. 
+
+Alternatively, recent reliable observations could be used to derive the distribution area.
+
+
+### Defining a buffer around the distribution area
+
+While some monitoring scopes focus on the distribution area, others concern the detection of animals around the distribution area.
+Therefore, a buffer area around the distribution area must be defined.
+Here, we rely on estimates of the species' mobility / action radius and thus take a buffer of [2000 m]{style="background-color: #E6E6FA;"} width around the distribution area.
+
+[(Recap information on the species' mobility here and adapt width.)]{style="background-color: #E6E6FA;"}
+
+
+```{r fig-plot-dist-buff-area}
+#| include: true
+#| message: false
+#| fig-cap: "Map of distribution (inner) and buffer (outer) area (both in yellow)." 
+#| out-width: 150%
+
+
+
+mapview::mapview(
+    list(
+      maplist_3857$map_antw_merged,
+      maplist_3857$map_buff
+    ),
+    col.regions = list(INBOtheme::vl_darkyellow, INBOtheme::vl_darkyellow),
+    alpha.regsions = 0.3,
+    color = INBOtheme::vl_darkred
+  )
+
+ 
+```
+
+
+
+### Selecting habitat areas in the distribution and buffer area
+
+Within both the distribution and buffer area, we require geometrical information on **(potential) habitat areas** of the Chinese muntjac to define the sample frame.
+We know that the species can generally be found in terrestrial habitats with dense vegetation, mainly forests/woodlands, forest edges, hedgerows, abandoned plantations, peri-urban overgrown parks and gardens, and patches of natural vegetation in agricultural areas.
+[Based on habitat maps, which habitat type most frequent in Flanders?]{style="background-color: #E6E6FA;"}
+We thus use OpenStreetMap data (ref) extracting relevant features via suitable [vegetation](https://wiki.openstreetmap.org/wiki/Vegetation) keys and tags. 
+
+OpenStreetMap key-tag combinations currently used are:
+
+- 'natural = wood' & 'landuse = forest' to obtain (managed and unmanaged) forest ([ref](https://wiki.openstreetmap.org/wiki/Forest))
+- 'landuse = orchard' to obtain tree and scrub plantings ([ref](https://wiki.openstreetmap.org/wiki/Tag:landuse%3Dorchard))
+
+[This list can be extended (e.g., by adding key-tag combinations such as 'natural=scrub') or refined (e.g., by adding keys specifying forest type; by considering distance to other features such as cities or open landscape).]{style="background-color: #E6E6FA;"}
+
+To select those (clusters of) habitat areas with a certain minimal size, the information obtained via OpenStreetMap is then processed in the following way:
+[(Describe processing here.)]{style="background-color: #E6E6FA;"}
+Within the buffer area, habitat areas are additionally required to have a maximal distance of [2000 m]{style="background-color: #E6E6FA;"} (see reasoning above) to the closest habitat area within the distribution area to be selected.
+
+The habitat areas remaining within the distribution area form the **sample frame** for the distribution area and hence monitoring scopes A, B, and D.
+[(Add that criterion is minimal overlap; sampling frame can thus extend beyond municipaltity borders.)]{style="background-color: #E6E6FA;"}
+
+For monitoring scope C targeting a buffer around the distribution area, the sample frame is formed by the habitat regions remaining within the buffer area and not selected for the sampling frame of the habitat area. 
+
+
+```{r fig-plot-sample-frame}
+#| include: true
+#| message: false
+#| fig-cap: "Map of sample frame for distribution (light green) and buffer area (dark green)." 
+#| out-width: 150%
+
+mapview::mapview(
+    list(
+      maplist_3857$map_antw_hab,
+      maplist_3857$map_buff_hab
+    ),
+    col.regions = list(INBOtheme::vl_lightgreen, INBOtheme::vl_darkgreen)
+  )
+
+ 
+```
+
+
+## Drawing a random sample {.hidden}
+
+HERE. 
+Draw a spatially-balanced random sample using a variant of the GRTS-algorithm as implemented in the grtsdb R package.
+
+Steps: 
+
+Tessellation:
+With respect to a bounding box overlaying both distribution and buffer area.
+Define cell size.
+Overlay distribution / buffer area with spatial grid consisting of quadratic cells of dimension $p \times p$ m [here $100 \times 100$ m for illustrational purposes]
+
+Draw balanced sample
+
+Discard grid cells outside sample frame
+(minimum overlap)
+
+Keep first N cells.
+
+
+
+```{r fig-plot-sample}
+#| include: true
+#| message: false
+#| fig-cap: "Map of sample for distribution area combined (red)." 
+
+
+source("../grts_sample.R")
+
+mapview::mapview(
+    list(
+      maplist_3857$map_antw_hab,
+      sample_hab_upd
+    ),
+    col.regions = list(INBOtheme::vl_lightgreen, INBOtheme::inbo_oranjerood),
+    alpha.regions = list(0.2, 0.9)
+  )
+
+ 
+```
+
+
+HERE
+For this illustration, we draw a naive random sample of locations.
+To this end, we take the following steps:
+
+
+
+```{r sampling-create-grid}
+#| include: false
+#| cache: false
+#| results: 'hide'
+
+# create grid over bounding box around distribution area
+p = 100
+grid_box <- sf::st_make_grid(
+  maplist_3857$map_antw_merged,
+  cellsize = p # meters, since Belgian Lambert
+) |>
+  sf::st_sf()
+if (FALSE) mapview::mapview(list(maplist_3857$map_antw_merged, grid_box))
+
+# extract grid cells that overlap with habitat polygons
+grid_hab <- sf::st_filter(
+  grid_box,
+  maplist_3857$map_antw_hab
+  #,.predicate = sf::st_within
+)
+if (FALSE) mapview::mapview(list(map_mun_antw_hab, grid_hab))
+
+# extract grid cells that overlap with habitat polygons
+# https://github.com/r-spatial/sf/issues/1125
+
+
+```
+
+2. Draw random sample of $C$ grid cells extracted in the previous step (here $100$ grid cells)
+
+```{r sampling-draw-random-sample}
+#| include: false
+#| eval: false
+#| cache: false
+#| results: 'hide'
+
+# --- draw naive random sample ---------------------------------------------
+
+# sample size
+ncell <- 500
+assertthat::assert_that(ncell < nrow(grid_hab))
+
+# sample
+grid_sample <- grid_hab |>
+  dplyr::sample_n(tbl = _, size = ncell)
+
+# GRTS
+# https://inbo.github.io/grtsdb/articles/basic.html
+# implementation?
+
+```
+
+
+
+Within each sampled grid cell, a camera trap is assumed to be placed following a certain strategy (e.g., placement in center or corner of grid cell). 
+
+The total number of grid cells associated with the sample frame forms the upper bound of sample sizes to consider in a power / precision analysis.
+
+## Mapping generated data on sampling locations
+
+<!-- HERE: return to assumption on spatial independence (1_samplesize_cd) -->
+
+
+##### Specifications: Sampling
+
+- Determine grid
+  - cell size?
+    - [ ] value from literature (250 m; cf. @bollen_gebruik_nodate)
+    - [ ] value based on camera angle/radius (usually $< 10$ m?)
+    - [x] smallish value to keep things visible
+    - [ ] value based on habitat parameters (e.g., forest density; to make sure a grid cell contains suitable areas for camera placement)
+  - how to define intersection with habitat areas?
+    - [x] grid cell overlaps with habitat areas 
+    - [ ] overlap at least $q \gg 0$ %
+- Draw a random sample
+  - strategy?
+    - [x] naive random sample
+    - [ ] spatially balanced random sample via the GRTS method (INBO R package *grtsdb*)
+
+
+

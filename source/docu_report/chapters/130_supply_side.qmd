@@ -1,0 +1,88 @@
+# Analysis of the supply-side {#sec-supply-side}
+
+## Dedicated monitoring
+
+There have been, are or will be a few dedicated monitoring projects targeting the Chinese muntjac in Flanders.
+We briefly describe those in the following.
+Although past monitoring cannot deliver up-to-date data, we include it here as it has been or might form a basis for future monitoring.
+
+### Past monitoring by INBO
+
+From 2020 to 2024, INBO conducted camera trap-based monitoring of the Chinese muntjac within Park Vordenstein (municipality of Schoten), which hosts the longest-established Chinese muntjac population in Flanders (@sec-invasions), and the nearby forest areas Peerdsbos and De Inslag (both municipality of Brasschaat)[@dhondt_monitoring_2023; @neeckx_occurrence_2024].
+Monitoring was conducted during the winter periods 2020–2021 (December to June), 2021–2022, 2022–2023, and 2023–2024 (November to May).
+As muntjac prefer forest habitats with dense vegetation, visibility is maximized during winter months when leaves have dropped (@sec-biology, @sec-expert-judgement).
+
+In total 33 camera traps were deployed:
+16 were placed in Park Vordenstein and an additional camera was placed next to the corridor connecting Park Vordenstein with Peerdsbos.
+These cameras remained active during all four monitoring periods.
+Additionally, 16 cameras were placed in Peerdsbos during the first two study periods and moved to De Inslag during the last two study periods.
+Sampling locations were chosen at random, but then (to some extent) adapted to the local habitat situation.
+The resulting images were annotated using the INBO-powered online platform [agouti.be](agouti.be) and analysed using dedicated R packages.
+
+
+### Current monitoring by ANB
+
+Again in Park Vordenstein, ANB has set up a number of so-called rapid-response cameras.
+These cameras are strategically placed at locations where Chinese muntjac are known or expected to pass by 
+(e.g., corridors connecting habitat areas or frequently used routes).
+The goal here is to enable immediate management actions in response to Chinese muntjac sightings.
+
+The cameras are equipped with a system that sends out an automatic alert when a Chinese muntjac is detected, allowing a trained hunting team to be deployed rapidly to locate and remove the animal.
+Images are not collected or stored as the focus is on real-time detection and response.
+
+### Future monitoring by INBO
+
+Additional monitoring to be conducted by INBO is planned in the context of the project [M&M: monitoring of muntjac and catfish](https://www.vlaanderen.be/inbo/en-GB/projects/mm-monitoring-van-muntjak-en-meerval).
+The following information is based on internal communication with Bram D'hondt,
+who coordinates the project on behalf of INBO.
+
+In general, this monitoring initiative aims at supporting management of the Chinese muntjac by ANB.
+For the winter season of 2025 / 2026 the primary goal is to determine the boundaries of the distribution of the Chinese muntjac population in the province of Antwerp.
+The corresponding priority monitoring locations are Bergeyckse Bossen and Marum (both in the municipality of Brecht),
+were 9 cameras are placed per location from October 2025 to January 2026, and s'Herenbos (municipality of Malle) and Kalmthoutse Heide (municipality of Kalmthout), were also 9 cameras are deployed from January to May 2026.
+Additional, non-primary monitoring locations lie in the provinces of Antwerp, the municipality of Oud-Turnhout (Zwaneven), West-Flanders (Blankenberge), East-Flanders (Kluisbergen, Zulte), or are yet to be determined.
+
+## Other monitoring
+
+### Marten Network (Marternetwerk)
+
+In the IAS expert survey conducted at INBO (@sec-expert-judgement),
+the Marten Network was indicated as a monitoring initiative that can in principle pick up the Chinese muntjac.
+The expert remarked, however, that such pick up will be rather sporadic.
+
+The [Marten Network](https://www.vlaanderen.be/inbo/marternetwerk/) relies on roadkill victims.
+According to @maes_monitoring_2023 the project was set up in 1998 
+targeting 13 carnivorous animal species (e.g., pine marten, Eurasian otter, lynx, wolf, raccoon, American mink).
+Reported roadkill victims falling under the scope of the project are picked up by volunteers,
+and handed over to INBO, where they are identified and autopsied to assess parameters such as age, reproduction and condition.
+
+
+### Opportunistic observations
+
+```{r gbif-occ}
+#| include: true
+#| message: false
+#| results: 'hide'
+
+gis_data_path <- "../../data/gis"
+gbif_data_file <- "../../data/gbif_occ/occ_mr_4326.rda"
+source("../gbif_occ_maps/plot_occ_mr.R")
+
+```
+
+Citizen science data collected opportunistically through biodiversity reporting platforms like (waarnemingen.be)[https://waarnemingen.be/species/invasieve-exoten/species/] [@noauthor_waarnemingenbe_nodate]
+can constitute a source of information for IAS monitoring [@adriaens_het_2018].
+Data from such sources are currently aggregated on GBIF.
+
+In the expert survey, the provided map based on recent GBIF data was indicated as correctly displaying the current distribution area - but also a number of no longer relevant locations.
+We note two restrictions with respect to opportunistic data: 
+Citizen science data are likely of limited potential given the species' habitat preferences and behaviour [e.g., dense habitats, crepuscular activity, hiding; @sec-biology; @scalera_guidance_2024].
+And citizen science data *are* literally limited in and around Flanders:
+Most records collated on GBIF and used to create the occurrence maps in @fig-gbif-occ are past monitoring data collected by INBO.
+Only
+`r occ_datasets |> dplyr::filter(!data_INBO) |> dplyr::pull(n_rows_dataset) |> sum()`
+out of
+`occ_datasets |> dplyr::pull(n_rows_dataset) |> sum()`
+occurrence records during the years
+`r occ_datasets$year |> unique() |> paste0(collapse = ", ")`
+stem from other sources, including waarnemingen.be.

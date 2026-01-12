@@ -1,0 +1,62 @@
+# Overview of monitoring needs and their implementation {#sec-overview-needs}
+
+@tab-mon-scopes provides an overview over the **priority monitoring needs** identified in phase 1 (@sec-synthesis-1), and their implementation.
+This includes specifying 
+
+- the target population, and the
+- outcome variables to be assessed to address the monitoring need.
+
+The **target population** concerns either the currently known distribution area in the province of Antwerp (@sec-invasions) or 
+In both cases, we consider those parts of the respective area qualifying as potential habitat (@sec-biology).
+
+The **outcome variables** to be measured is either the abundance or local population size, or presence / absence of the species.
+Both a trend over time as well as status snapshot in time can be of interest.
+
+
+::: {.landscape}
+
+```{r tab-mon-scopes}
+#| include: true
+#| cache: false
+#| message: false
+#| tbl-cap: Priority monitoring needs and their implementation
+
+# make table monitoring scopes
+source("../sample_design/table_mon_scopes.R")
+
+# format-dependent table formatting
+is_html <- knitr::is_html_output()
+format <- ifelse(is_html, "html", "latex")
+booktabs <- ifelse(is_html, FALSE, TRUE)
+bootstrap_options <- if (is_html) {c("condensed", "hover") } else {"basic"}
+latex_options <- if (is_html) {"basic"} else {c("striped")}
+
+# create table
+table_mon_scopes |>
+  dplyr::select(c("name", "description", "sample_frame", "outcome")) |>
+  knitr::kable(
+    x = _,
+    format = format,
+    booktabs = booktabs,
+    linesep = "",
+    table.attr = 'data-quarto-disable-processing="true"',
+    col.names = c("Monitoring need", "Description", "Target population", "Outcome variable")
+  ) |>
+  kableExtra::kable_styling(
+    bootstrap_options = bootstrap_options,
+    latex_options = latex_options,
+    font_size = 10,
+    position = "left"
+  ) |>
+    kableExtra::column_spec(
+      column = 1:4,
+      width =  ifelse(is_html, "100px", "160pt")
+    ) 
+```
+
+:::
+
+{{< pagebreak >}}
+
+
+

@@ -1,0 +1,9 @@
+# Appendix sampling design {#sec-app-a}
+
+## Source code
+
+The R code we used to define the sampling frames can be found on github:
+[inbo/mias-muntjac/source/sample_design/sample_frame.R](https://github.com/inbo/mias-muntjac/tree/main/source/sample_design/sample_frame.R)
+
+The R code using the *grtsdb* R package [@onkelinx_grtsdb_2022] to draw a spatially balanced random sample can also be found on github:
+[inbo/mias-muntjac/source/sample_design/grts_sample.R](https://github.com/inbo/mias-muntjac/tree/main/source/sample_design/grts_sample.R)

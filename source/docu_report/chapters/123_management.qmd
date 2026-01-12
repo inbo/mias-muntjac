@@ -1,0 +1,22 @@
+## Management {#sec-management}
+
+The Invasive Alien Species Regulation stipulates that the Chinese muntjac must be managed aiming at (rapid) eradication where possible, and control or containment otherwise (see @sec-legislation).
+In Flanders, management of the species primarily consists of **targeted removal through hunting**. 
+Action can be initiated through a rapid response protocol:
+when a new sighting is reported and verified, a hunter is mobilized as quickly as possible to attempt removal.
+Alternatively, in areas where the species has established, dedicated campaigns are organized during the winter months.
+Such management efforts are carried out by ANB wildlife managers and ANB-authorized hunters, including members of the Hubertus-vereniging (@sec-cousers).
+
+Two principal eradication or control methods have been used in Flanders: blind and stalk hunting.
+**Blind hunting**, or hunting from a blind, involves positioning a hunter at a fixed vantage point, a hunting blind, and waiting for an animal to pass by.
+In contrast, **stalk hunting**, or stalking, involves hunters actively and attentively moving through the habitat in search of animals.
+Blind hunting has been used in the past, but remained rather ineffective: due to the species’ small size, crepuscular activity, and preference for dense understory cover, detection and shooting opportunities are generally rare and require long, unproductive waiting periods.
+Nowadays, the more effective, but also more risky, stalking is the preferred method.
+It increases encounter rates and allows hunters to scan undergrowth more thoroughly, particularly in winter when vegetation is sparse.
+Other management techniques involve trapping or netting, for a detailed discussion see @casaer_best_2015.
+
+Although complete eradication of the Chinese muntjac in Flanders has proven difficult, some **successes have been recorded** [cf. @dhondt_monitoring_2023].
+Between January 2019 and July 2023, 53 animals have officially been reported to ANB as removed, most of them in the core distribution area east of Antwerp city (@sec-invasions).
+On the other hand, numbers of sightings have repeatedly recovered rather quickly following control-correlated reductions.
+This might point to successful reproduction and/or immigration of animals from surrounding areas (i.e., source-sink dynamic, see @sec-biology).
+In addition also emigration of animals into surrounding areas can be triggered by management activities.

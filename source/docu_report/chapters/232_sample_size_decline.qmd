@@ -1,0 +1,317 @@
+## Sample size planning for confirming population decline under management {#sec-samplesize-decline}
+
+### Data-generating model
+
+#### Data-generating distribution
+
+##### Poisson distribution
+
+Monitoring to confirm population decline under management concerns, most naturally, abundances of animals as outcomes (i.e., numbers of individuals per location), so we can rely on the **Poisson distribution**, with the parameter of focus being the expected number of observations of animals:
+
+$$
+nobs_{i,t} \sim Pois(\mu_{i,t})
+$$ {#eq-pois}
+with
+
+- $nobs_{i,t} \in \{0,1,2,3, ...\}$: number of observations of animals at location $i$, year $t$, aggregated over days
+- $\mu_{i,t} \in (0, \infty)$: expected number of observations of animals at location $i$, year $t$ 
+
+We assume that $\mu_{i,t}$ is linked to the true abundance or the true population size at location $i$, year $t$, denoted by $\nu_{i,t}$.^[Following the logic of N-mixture modeling, or latent variable modeling, one would rather assume that $nobs_{i,t}$ is linked to the true population size at location $i$, year $t$, $n_{i,t}$; if the link holds at that level then it should also be implied at the level of expectations, but not the reverse.]
+For simplicity, we assume a linear relationship that is invariant across all dimensions considered (i.e., space and time), but also across abundance itself:
+
+$$
+\mu_{i,t} = a * \nu_{i,t}
+$$ {#eq-pois2}
+
+In an ideal case $a = 1$, which means we can make statements about absolute abundances over space, time and abundance.
+If $a \neq 1$, then we can still make statements about relative abundances over space, time and abundance *without having to know* $a$.
+Reasons for $a \neq 1$ can be: an imperfect detection probability; animals being recorded more than once within a day. 
+
+However, the assumption of $\mu_{i,t}$ being linked to $\nu_{i,t}$ in the above way might be problematic if animals are very territorial, with no or little overlap between territories.
+For the Chinese muntjac this seems to be the case (@sec-biology).
+In that case we are most likely repeatedly observing one to a few individuals, with the number of observations being related to the activity of these few specimens during a day.
+Since identification of individual animals via (black and white) camera trap footage is probably rather inaccurate, 
+the information we can retrieve from the count data likely reduces to information on presence and absence.
+
+
+##### Bernoulli distribution
+
+If information retrievable from data concerns presences and absences of animals, we can revert to the **Bernoulli distribution** as the data-generating distribution (see @sec-bernbinom and @eq-bern1):
+
+$$
+obs_{i,t} \sim Bern(\psi_{i,t})
+$$ {#eq-bern2}
+
+- $obs_{i,t}  \in \{0,1\}$: observation of animals at location $i$, year $t$, aggregated over days
+- $\psi_{i,t}  \in [0,1]$: probability of presence at location $i$, year $t$
+
+
+#### Regression model
+
+##### Logistic regression {#sec-logreg}
+
+Starting from the distributional assumption in @eq-bern2, we can use the **logistic regression model** 
+to model $\psi_{i,t}$, the parameter of the Bernoulli distribution, after applying the logit-link function:
+
+
+$$
+logit(\psi_{i,t}) = log(\frac{\psi_{i,t}}{1-\psi_{i,t}}) = \eta_{i,t} \\
+$$ {#eq-logreg1}
+with:
+
+- $logit(\cdot)$: logit-link function (i.e., the log-odds/ logarithm of the odds)
+- $log(\cdot)$: natural logarithm
+- $\frac{\psi_{i,t}}{1-\psi_{i,t}}$: odds of presence
+- $\eta_{i,t}$: linear predictor
+
+The **most simple regression model** variant includes an intercept and a linear effect of year, both location unspecific, so index $i$ is dropped:
+
+$$
+\eta_{i,t} = \beta_{0} + \beta_{1} * year_t^*
+$$ {#eq-logreg2}
+with:
+
+- $\beta_{0}$: intercept; linear predictor if $year_t^*= 0$
+- $\beta_{1}$: slope associated with $year_t^*$
+- $year_t^*$: some linear function of year (e.g., $year_t^* = year_t - year_{t=1}$)
+
+The **parameter of interest** - corresponding to the monitoring of a trend or decline - is obviously the **slope**, $\beta_{1}$.
+It can be interpreted in terms of the linear predictor,
+in terms of the odds of presence ($odds_{i,t}: exp(\eta_{i,t}) = \frac{\psi_{i,t}}{1-\psi_{i,t}}$),
+or in terms of the probability of presence ($\psi_{i,t} = \frac{odds_{i,t}}{1+odds_{i,t}}$).
+
+An interpretation in terms of the linear predictor is the one we are familiar with from simple linear regression:
+$\beta_1$ reflects the absolute change in linear predictor values given a one-unit change in $year^*$.
+An interpretation in terms of the odds of presence needs to incorporate the natural logarithm linking the odds of presence to the linear predictor:
+Here, $exp(\beta_1)$ is the factor by which the odds of presence change given a one-unit change in year (@sec-app-b).
+Also, $(exp(\beta_1)-1)*100$ is the percentage change in the odds.
+An interpretation in terms of the probability of presence needs to incorporate the logit-link and is no longer easily interpretable in a general way.
+See @fig-mlpwr-2 for some concrete results being translated to probabilities of presence.
+
+```{r fig-size-trend-2}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Different effect sizes of the slope in a logistic regression model"
+#| fig-height: 4.5
+
+b0 = 2
+
+data_trend <- data.frame(
+  # size of linear effect of year
+  effect_size = -seq(0, 1, 0.1)
+) |>
+  tidyr::crossing(
+   year_star = seq(0,20)
+) |>
+  dplyr::mutate(
+    eta =  effect_size*year_star + b0,
+    odds = exp(eta),
+    psi = odds / (1 + odds),
+    effect_size = factor(effect_size) |> forcats::fct_rev()
+    ) |>
+  tidyr::pivot_longer(
+    cols = tidyselect::all_of(c("eta", "odds", "psi")),
+    names_to = "out_name",
+    values_to = "out_value"
+  )
+ggplot2::ggplot(
+  data = data_trend, 
+  mapping = ggplot2::aes(x = year_star, y = out_value, group = effect_size)
+  ) + 
+  ggplot2::geom_line(ggplot2::aes(color = effect_size), linewidth = 1.2) +
+  ggplot2::facet_wrap(~ out_name, scales = "free_y", ncol = 3) + 
+  ggplot2::labs(x = "year*", y = "outcome", color = "size beta1") +
+  #ggplot2::scale_x_continuous(breaks = data_trend$year_star |> unique()) + 
+  ggplot2::scale_colour_viridis_d(direction = -1) + 
+  ggplot2::theme_bw() + 
+  ggplot2::theme(
+    strip.background = ggplot2::element_blank(),
+    legend.position = "bottom"
+  ) +
+  ggplot2::guides(color = ggplot2::guide_legend(nrow = 1))
+
+```
+
+@fig-size-trend-2 shows a number of different trends implied by different sizes of $\beta_1$ for the linear predictor, $\eta$, the odds and the probability of presence, $\psi$. 
+$\beta_0$ is set to `r print(b0)`, implying an initial probability of presence of `r {exp(b0)/(1+exp(b0))}`.
+A *critical* slope size needs to be determined from a biological perspective.
+
+
+Finally, relaxing the assumption of a location-unspecific regression model, we can extend the regression model @eq-logreg2 by **random effects across locations**:
+At level 1 (within locations) we have:
+
+$$
+\eta_{i,t} = \beta_{0,i} + \beta_{1,i} * year_t^*
+$$ {#eq-logreg3}
+with:
+
+- $\beta_{0,i}$: location-specific intercept
+- $\beta_{1,i}$: location-specific slope associated with $year_t^*$
+
+
+At level 2 (between locations) we have:
+
+$$
+\beta_{0,i} = \gamma_{00} + u_{0i}\\
+\beta_{1,i} = \gamma_{10} + u_{1i}\\ 
+$$
+with:
+
+- $\gamma_{00}$: fixed part of intercept; mean of intercepts across locations
+- $u_{0i}$: random part of intercept; locations-specific deviations from fixed intercept
+- $\gamma_{10}$: fixed part of slope; mean of slopes across locations;
+- $u_{1i}$: random part of slope; locations-specific deviations from fixed slope
+
+The level-2 errors $u_{0i}$ and $u_{1i}$ are assumed to be jointly normally distributed with zero mean vector and valid covariance matrix.
+
+### Planning scenarios
+
+#### Planning for power
+
+Based on the regression models in @eq-logreg2 and @eq-logreg3, we can - given a zero-slope as the reference - determine the minimal slope we can detect with a high power across a range of relevant number of locations.
+
+We address this via a **simulation-based power analysis**, using the R package *mlpwr* [@zimmer_simulation-based_2023].
+The package provides support for simulation-based power analyses, with the capacity of simultaneously tackling multiple design dimensions (such as the number of sampling units at different levels, the number of time points in a longitudinal study, the spacing in time of repeated measures etc.) as well as budget constraints.
+It can be used to identify a power-optimal design, 
+a power-optimal design among the designs with the desired cost, 
+or a cost-optimal design among the designs with the desired power.
+It combines regular Monte Carlo simulations with a model-driven search of the design space.^[
+The proposed algorithm works as follows:
+In the start-up phase, power is simulated for a number of systematically selected designs.
+This is followed by a prediction and updating phase, which are looped until a certain stopping criterion is reached.
+In the prediction phase a model is estimated based on the initially simulated power data to approximate the general relationship between the design dimensions and power.
+The estimated model covers the entire parameter space and can then be used to search for a (conditionally) optimal solution
+This is done via numerical optimisation based on a loss function for either power or costs.
+In the updating phase newly simulated data are added at the earlier determined optimal location.
+The two phases are iteratively repeated until either the maximum number of iterations is reached, or the model predictions are sufficiently accurate.
+]
+The authors refer to their approach as "surrogate modeling" because the model predictions for power are used as a surrogate for those designs that have not (yet) been simulated.
+The package features different surrogate models depending on the number of design dimensions and the user's choice.
+A search model-based strategy is more efficient than other search methods (e.g., a grid search), 
+particularly if one deals with multiple design dimensions.
+
+Here we slightly re-purpose the package:
+Instead of optimising the number of sampling locations for power, given a certain type-1 error rate and certain effect sizes, we **optimise the parameter of interest, the slope, for power**, given a certain type-1 error rate, certain effect sizes (of the remaining parameters) and a certain sample size.
+This should still lie within the scope of the package as the two tasks are not so different:
+Instead of looking for the minimal sample size that meets the set criteria,
+we look for the minimal effect size that meets the set criteria.
+Also, the relationship between the effect size and power should be of similar nature as the relationship between sample size and power 
+(e.g., power as a smooth, monotonically increasing function of increasing sample or effect size).
+<!--
+In appendix X (ref; HERE: include if time!), we compare the exact results obtained for the binomial test with results obtained via mlpwr.
+-->
+
+```{r get-mlpwr-res}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+
+# load results
+load("../../output/sample_design/mlpwr_logreg/gridpars_20251217-203416.Rda")
+load("../../output/sample_design/mlpwr_logreg/res_list_20251217-203416.Rda")
+  
+```
+
+
+For our simulation-based analysis, we use the following **settings for the design and model parameters** (@eq-logreg3):
+
+- sample sizes are set to: `r grid_pars$n |> unique() |> paste0(collapse = ", ")`
+- the numbers of years across which trends are estimated are set to: `r grid_pars$x_end |> unique() |> paste0(collapse = ", ")`
+  - hence, we for instance have $year_t^* \in \{`r seq(0, grid_pars$x_end[1]) |> paste0(collapse = ", ")`\}$
+  - this reflects the six-year reporting cycle required by the EU Invasive Alien Species Regulation
+- the fixed intercept, $\gamma_{00}$, is set to: `r grid_pars$b0 |> unique() |> paste0(collapse = ", ")`
+  - this corresponds to initial probabilities of the species being present of: `r grid_pars$b0 |> unique() |> purrr::map_vec(.x = _, \(x){exp(x)/(1+exp(x))} |> round(2)) |> paste0(collapse = ", ")`
+  - we have chosen these values as examples of relatively high vs. low initial probabilities of presence
+- the random intercept variance is set to: `r grid_pars$u0_var |> unique() |> paste0(collapse = ", ")`
+- the random slope variance is set to: `r grid_pars$u1_var |> unique() |> paste0(collapse = ", ")`
+- the random intercept-slope covariance is set to: `r grid_pars$u0u1_covar |> unique() |> paste0(collapse = ", ")`
+
+These settings are fully crossed, resulting in `r grid_pars |> nrow()` conditions.
+Across all conditions, power is held at $\pi =`r grid_pars$power |> unique()`$,
+and the type-1 error at $\alpha = `r grid_pars$alpha |> unique()`$.
+
+Concerning the settings of the *mlpwr::find.design()* function we stick to the default settings (e.g., the logistic regression model as the surrogate model) with two important exceptions:
+
+- argument "integer" is set to "FALSE" as we are optimizing the fixed slope size, and thus a real-valued "design" parameter
+- the lower bounds for the design space (cf. argument "boundaries") are set to reasonable values in function of the sample size and size of the fixed intercept^[
+Closer inspection of initial analysis results revealed malperformance of the surrogate model - i.e. relatively large discrepancies between surrogate and simulated power around the solution found as optimal - if lower bounds are chosen too small (i.e., too far below 0). In those cases the relevant variance in the surrogate model predictor (i.e., the logistic regression slope) is then limited to a very narrow value range. 
+Lower bounds should however also not be too close to 0 as then the optimal solution might not be included in the design space.
+@fig-mlpwr-app displays simulated versus surrogate power per condition for the final *mlpwr* results.
+]
+
+Finally, if the random intercept variance is non-zero, then a random intercept fixed slope logistic regression model is estimated, 
+otherwise a fixed effects logistic regression model is estimated.
+
+
+```{r fig-mlpwr-1}
+#| include: true
+#| cache: false
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| fig-cap: "Minimal detectable slope per mlpwr-simulation condition"
+#| fig-height: 8
+
+source("../sample_design/power_mlpwr_logreg_vis.R")
+plot_res
+
+```
+
+```{r fig-mlpwr-2}
+#| include: true
+#| cache: false
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| fig-cap: "Detectable change in probability of presence after X years per mlpwr-simulation condition"
+#| fig-height: 14 
+
+
+plot_res_prob + 
+  ggplot2::ggtitle("") + 
+  ggplot2::theme(legend.position = "bottom")
+
+```
+
+@fig-mlpwr-1 shows the **simulation results in terms of the minimal detectable slope**:
+The minimal detectable slope (y-axis) is displayed as a function of the number of sampling locations (x-axis),
+the study duration (panel rows), the random intercept variance (panel columns) and the fixed intercept (linetype). 
+The point size reflects the size of the standard error estimate of the simulation-based power estimate.
+
+Since the slope reflects yearly change in the linear predictor (@sec-logreg), it is not easily interpretable in terms of probabilities.
+We however briefly review these results with the following, largely expected relationships:
+
+- with more sampling locations, smaller slopes can be detected
+- with a longer study duration, smaller slopes can be detected
+- with a smaller fixed intercept, slopes must be larger to be detected
+- no clear effect of the random intercept variance (comparison also concerns different models fitted)
+
+To ease interpretation @fig-mlpwr-2 shows the **simulation results in terms of the detectable change in probability of presence**.
+We have calculated the detectable change in probability of presence (x-axis) after `r paste(res_prob$xmax |> unique(), collapse = ", ")` years (colour), starting from the two different initial probabilities of presence (vertical lines).
+The amount of change is encoded via the length of the displayed arrows, the numbers printed next to each arrow represent the final probabilities of presence.
+
+Comparing the results at the level of the probability of presence (probability scale) to the ones at the level of the linear predictor (logit scale),
+we notice the following difference: 
+It is no longer true that larger fixed intercepts (implying larger initial probabilities of presence) allow for larger changes to be detected.
+Instead, smaller changes *in the probability of presence* can be detected given the smaller intercept value.
+These seemingly contradictory findings are in fact perfectly compatible between the different scales (i.e., logit and probability) involved.
+@fig-mlpwr-3 [based on @rohrer_precise_2021] visualizes how results at both scales are linked in the context of the logistic regression model:
+Here we see how a larger minimal detectable change on the logit scale (starting from the smaller intercept value, in blue)
+translates into a smaller minimal detectable change on the probability scale. 
+
+
+```{r fig-mlpwr-3}
+#| include: true
+#| cache: true
+#| message: false
+#| warning: false
+#| results: 'hide'
+#| fig-cap: "Minimal detectable changes on the logit versus probability scale"
+#| fig-height: 5.5
+
+plot_logit
+
+```

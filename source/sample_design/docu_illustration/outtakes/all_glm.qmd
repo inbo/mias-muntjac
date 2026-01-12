@@ -1,0 +1,202 @@
+## Data-generating model
+
+We can think about possible data-generating models in the context of the generalized linear (mixed) modeling framework.
+Sticking to the not-too-complex model variants, we can rely on well-known properties/behavior and existing implementations for both data generation and model estimation. 
+(Whether the model is feasible to implement as a data-analysis model should be considered already at this stage to not complicate things later.)
+
+
+### Outcome-generating distribution
+
+Monitoring scopes A and B concern abundances of animals as outcomes (i.e., numbers of individuals per location), so we will rely on the **Poisson regression model** for these cases.
+Monitoring scopes C and D concern presence of animals as outcomes we will thus rely on the **logistic regression model**.
+We thus have:
+
+$$
+nobs_{i,d,t} \sim Pois(\mu_{i,t})
+$$ {#eq-1}
+with
+
+- $nobs_{i,d,t} \in \{0,1,2,3, ...\}$: number of observations of animals at location $i$, day $d$, time $t$
+- $\mu_{i,t} \in (0, \infty)$: expected number of observations of animals at location $i$, time $t$ 
+  - within a location and year, measurements from different days are treated as replicates, all independent realizations from the same Poisson distribution 
+  - HERE: this reflects assumption of some stability over time / population closure in time (what about space?); alternative is to assume variations across days and have day enter the regression model in some way (e.g., random effect, temporal trend of some shape)
+
+and
+
+$$
+obs_{i,d,t} \sim Bern(\psi_{i,t})
+$$ {#eq-2}
+
+
+- $obs_{i,d,t}  \in \{0,1\}$: observation of animals at location $i$, day $d$, time $t$
+- $\psi_{i,d,t}  \in [0,1]$: probability of presence at location $i$, time $t$
+  - within a location and year, measurements from different days are again treated as independent realizations from one Bernoulli distribution 
+ - HERE: this reflects assumption of some stability over time / population closure in time (what about space?)
+
+In the case of @eq-1, we assume that $\mu_{i,t}$ is linked to the expected true population size / the true abundance at location $i$, time $t$, $\nu_{i,t}$.^[Following the logic of N-mixture modeling, or latent variable modeling, one would rather assume that $nobs_{i,d,t}$ is linked to the true population size at location $i$, time $t$, $n_{i,t}$; if the link holds at that level then it should also be implied at the level of expectations, but not the reverse.]
+For simplicity, we assume a linear relationship that is invariant across all dimensions considered (i.e., space and time), but also across abundance itself:
+
+$$
+\mu_{i,t} = a * \nu_{i,t}
+$$ {#eq-3}
+
+In an ideal case $a = 1$, which means we can make statements about absolute abundances over space, time and abundance.
+If $a \neq 1$, then we can make statements about relative abundances over space, time and abundance.
+Reasons for $a \neq 1$ can be: An imperfect detection probability; animals being recorded more than once within a day. 
+
+HERE: Assumption might be problematic if animals are very territorial, with no or little overlap between territoria.
+Then we are most likely only observing a few individuals and the number of observations is more related to their activity during that day.
+
+
+Turning to @eq-2, we ...
+
+### Regression model
+
+#### Link function
+
+In the case of abundances, we linearly decompose $\mu_{i,t}$, the parameter of the Poisson distribution, after applying the log-link function;
+in the case of presence data, we linearly decompose $\psi_{i,t}$, the parameter of the Bernoulli distribution, after applying the logit-link function.
+Hence,
+
+$$
+log(\mu_{i,t}) = \eta_{i,t} \\
+\Leftrightarrow \\
+\mu_{i,t} = exp(\eta_{i,t})
+$$ {#eq-5}
+with:
+
+- $log(\cdot)$: natural logarithm, here the log-link function
+- $\eta_{i,t}$: linear predictor, which is some linear function of a set of predictor variables
+- $exp(\cdot)$: exponential (i.e., inverse of log-link) function
+
+and
+
+
+$$
+logit(\psi_{i,t}) = log(\frac{\psi_{i,t}}{1-\psi_{i,t}}) = \eta_{i,t} \\
+\Leftrightarrow \\
+\frac{\psi_{i,t}}{1-\psi_{i,t}} = exp(\eta_{i,t})
+$$
+with:
+
+- $logit(\cdot)$: logit-link function (i.e., the log-odds/ logarithm of the odds)
+- $log(\cdot)$: natural logarithm
+- $\eta_{i,t}$: linear predictor
+- $exp(\cdot)$: exponential function
+
+
+#### Linear predictor under monitoring scope A (abundance under management - status) 
+
+
+At level 1 (within locations) we assume:
+
+
+$$
+\eta_{i,t} = \beta_{0,i}
+$$
+
+
+#### Linear predictor under monitoring scope B (abundance under management - trend)
+
+
+One model variant assumes stable differences between locations plus a linear effect of year.
+
+At level 1 (within locations) we have:
+
+$$
+\eta_{i,t} = \beta_{0,i} + \beta_{1} \, year_t^*
+$$
+with:
+
+- $\beta_{0,i}$: location-specific intercept; linear predictor if $year_t^*= 0$
+- $\beta_{1}$: slope associated with $year_t*$, which is some deterministic function of year
+
+
+At level 2 (between locations) we have:
+
+$$
+\beta_{0,i} = \gamma_{00} + u_{0i}  \\
+\beta_{1} = \gamma_{10} \\ 
+$$
+with:
+
+- $\gamma_{00}$: fixed part of intercept; mean of intercepts across locations; mean of linear predictor across locations if $t= 0$
+- $u_{0i}$: random part of intercept; locations-specific deviations from fixed intercept
+  - assumed to be normally distributed with zero mean and valid variance
+- $\gamma_{10}$: fixed part of slope; a random part is possible as well, but we leave this out for now
+
+
+##### Effect of interest
+
+In this variant, the parameter of interest is the **fixed slope** (i.e., $\beta_{1}$).
+
+```{r fig-size-trend}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Visualization of different effect sizes of beta_1"
+#| out-width: 150%
+
+
+data_trend <- data.frame(
+  # size of linear effect of year
+  effect_size = -seq(0, 2, 0.2)
+) |>
+  tidyr::crossing(
+   year_star = seq(0,9)
+) |>
+  dplyr::mutate(
+    eta =  effect_size*year_star + 2,
+    mu = exp(eta),
+    effect_size = factor(effect_size) |> forcats::fct_rev()
+    ) |>
+  tidyr::pivot_longer(
+    cols = tidyselect::all_of(c("eta", "mu")),
+    names_to = "out_name",
+    values_to = "out_value"
+  )
+ggplot2::ggplot(
+  data = data_trend, 
+  mapping = ggplot2::aes(x = year_star, y = out_value, group = effect_size)
+  ) + 
+  ggplot2::geom_line(ggplot2::aes(color = effect_size), linewidth = 1.2) +
+  ggplot2::facet_wrap(~ out_name, scales = "free_y", ncol = 2) + 
+  ggplot2::labs(x = "year*", y = "outcome", color = "size beta1") +
+  ggplot2::scale_x_continuous(breaks = data_trend$year_star |> unique()) + 
+  ggplot2::scale_colour_viridis_d(direction = -1) + 
+  ggplot2::theme_bw()
+
+```
+
+Interpretation in terms of $\eta$:
+In verbal terms, $\beta_1$ reflects the absolute difference in linear predictor values given a one-unit difference in year*.
+In formal terms, we can write (leaving out subscripts $i$ and $t$ for simplicity but without loss of generality):
+
+\begin{align}
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= (\beta_0 + \beta_1 * (year^*_1 + 1)) - (\beta_0 + \beta_1 * year^*_1)\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_0 + \beta_1 * year^*_1 + \beta_1 - \beta_0 - \beta_1 * year^*_1\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_1 
+\end{align}
+
+Interpretation in terms of $\mu$:
+In verbal terms, $exp(\beta_1)$ reflects the relative difference (ratio) in expected numbers of observations of animals given a 1-unit difference in year*.
+In formal terms, we can write (leaving out subscripts $i$ and $t$):
+
+\begin{align}
+log(\mu)|(year^*_1 + 1) - log(\mu)|year^*_1 &= \beta_1 \quad\quad|\;exp(\cdot) \\
+exp(log(\mu)|(year^*_1 + 1) - log(\mu)|year^*_1) &= exp(\beta_1) \\
+\frac{exp(log(\mu)|(year^*_1 + 1))}{exp(log(\mu)|year^*_1)} &= exp(\beta_1) \\
+\frac{\mu|(year^*_1 + 1))}{\mu|year^*_1} &= exp(\beta_1)
+\end{align}
+
+So, $exp(\beta_1)$ is the factor by which $\mu|year^*_1$ relates to $\mu|(year^*_1 + 1)$ given a one-unit difference in year
+($\mu|(year^*_1 + 1) = exp(\beta_1)*\mu|year^*_1$).
+And $(exp(\beta_1)-1)*100$ is the percentage difference in $\mu$
+
+
+
+
+#### Linear predictor under monitoring scope C & D (detection under/after management - status)
+
+

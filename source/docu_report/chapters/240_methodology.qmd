@@ -1,0 +1,26 @@
+## Measurement methodology {#sec-methodology}
+
+::: {.callout-note}
+
+This section still needs to be written. 
+The following outline is based on @wouters_ontwerp_2008-1.
+
+:::
+
+This building block is dedicated to the development of a first version of the measurement methodology.
+This involves the following aspects:
+
+- Selecting and locating sampling points in the field
+  - Precise and clear method to avoid introducing bias or additional variability
+  - Clear decision protocol for borderline and doubtful cases, or when practical circumstances prevent sampling
+
+- Selecting and measuring measurement objects and variables
+  - Measurement objects and variables, and analysis variables as some function of measurement variables
+  - Standard measurement methodology based internationally accepted methods and protocols
+
+- Pilot
+  - Sampling and measurement methods are worked out as accurately as possible, based on knowledge or similar monitoring networks
+  - First practice test and quality control 
+
+Useful information can be found in @neeckx_occurrence_2024, @dhondt_muntjac_antwerp_2024, and @bollen_cameravallen_2025. 
+

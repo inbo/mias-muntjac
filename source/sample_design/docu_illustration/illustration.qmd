@@ -1,0 +1,51 @@
+---
+title: "Sample design for the Chinese muntjac<br>[draft version]"
+author: "Janne Adolf"
+format: 
+  html:
+    toc: true
+    toc-location: right-body
+    toc-depth: 3
+    toc-expand: true
+    theme: yeti
+    number-sections: true
+    number-depth: 3
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+lightbox: true
+bibliography: ../../../media/MIAS.bib
+execute: 
+  eval: true
+  echo: true
+
+---
+
+```{r setup}
+
+maplist_3857 <- readRDS("../../../data/gis/sample/sampleframe_maplist_3857.Rds")
+maplist_31370 <- readRDS("../../../data/gis/sample/sampleframe_maplist_31370.Rds")
+mapview::mapviewOptions(basemaps.color.shuffle = FALSE)
+
+```
+
+
+{{< include sections/0_intro.qmd >}}
+
+{{< include sections/1_samplesize_cd.qmd >}}
+
+{{< include sections/2_samplesize_a.qmd >}}
+
+{{< include sections/3_samplesize_b.qmd >}}
+
+{{< include sections/4_sampleframe_sampling.qmd >}}
+
+
+
+# References
+
+::: {#refs}
+:::
+
+
+{{< include sections/5_appendix.qmd >}}
