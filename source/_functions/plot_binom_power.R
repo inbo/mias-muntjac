@@ -87,6 +87,9 @@ plot_binom_power <- function(
     ggplot2::facet_wrap(
       ggplot2::vars(lab_hypothesis),
       ncol = 1
+    ) +
+    ggplot2::theme(
+      strip.background = ggplot2::element_blank()
     )
 
   return(
