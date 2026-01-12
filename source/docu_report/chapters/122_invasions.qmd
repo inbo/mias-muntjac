@@ -6,7 +6,7 @@ The introduction of the species to Europe has primarily occurred through deliber
 
 The species was first introduced to the **UK** in the early 20th century, with individuals released into the wild for aesthetic and sporting (i.e., hunting) reasons.
 Additional introductions and escapes from private estates and zoological collections further contributed to its spread, as the species is relatively easy to keep and breeds readily in captivity.
-In the decades following its introduction, the Chinese muntjac became firmly established in the UK countryside, particularly across central and southern England, where it has since undergone substantial population growth and range expansion (ref section biology).
+In the decades following its introduction, the Chinese muntjac became firmly established in the UK countryside, particularly across central and southern England, where it has since undergone substantial population growth and range expansion (@sec-biology).
 
 Beyond the UK, established populations of the Chinese muntjac have also been reported from several regions in continental Europe, **mainly France, Ireland, and Belgium**.
 
@@ -30,7 +30,7 @@ By 2015, the species had been observed in all Flemish provinces.
 In 2020, the number of number of 1 x 1 km grid cells with sightings reached a maximum (66 grid cells) and has declined since then (to be verified using GBIF data > 2022).
 
 By 2025, the Flemish Chinese muntjac population has established itself in the **province of Antwerp**, including the municipalities of Schoten, Brasschaat, and Wuustwezel.
-The invasion stadium of the species can be considered as 'established to limited extent' [@dhondt_een_2022].
+The invasion stadium of the species can be considered as "established to limited extent" [@dhondt_een_2022].
  
 
 #### Current distribution
@@ -67,7 +67,7 @@ plot_facet +
 
 Finally, @fig-gbif-occ shows occurrences of Chinese muntjac in and around Flanders based on 
 recent data from the Global Biodiversity Information Facility (GBIF) [@gbif_the_global_biodiversity_information_facility_what_2025].
-Occurrences are mapped on an OpenStreetMap tile projected in Web Mercator projection (ref OSM; ref ggspatial).
+Occurrences are mapped on an OpenStreetMap tile projected in Web Mercator projection [@dunnington_ggspatial_2025].
 We include all observations within a bounding box around Flanders, holding a minimum distance of 30 km to the Flemish borders.
 Each point represents a (validated or approved) occurrence. 
 Points are displayed with a certain transparency level, such that overlaying (i.e., spatially clustered) observations 

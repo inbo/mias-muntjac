@@ -1,22 +1,26 @@
-## Measurement methodology
+## Measurement methodology {#sec-methodology}
 
+::: {.callout-note}
 
-Neeckx p. 22:
-A step-by-step guide to install the camera is given in Appendix 3.
+This section still needs to be written. 
+The following outline is based on @wouters_ontwerp_2008-1.
 
+:::
 
-Details in Neeckx and d'Hondt:
-The camera traps (Reconyx, HyperFire 2) were installed at a height of approximately half a metre and aimed roughly northwards to avoid backlighting or triggers from sunlight .
-The sensitivity was set to high.
-A series of ten photos was taken per detection.
-If the movement continued, the series followed each other without pause.
-Every twelve hours, a photo was taken automatically, which served as a check for the proper functioning of the camera.
-The cameras were visited regularly for general inspection and interim readings.
-All images were processed using the online platform Agouti (Casaer et al. 2019).
-Consecutive images are automatically collected in a sequence (i.e. a multiple of ten photos) to which observations can then be linked (of animals, with information about gender and behaviour).
-The resulting datasets were processed in Rstudio (version 2023.03.1, Posit Software), using, among other things, the camera trap-specific packages activity (Rowcliffe 2023) and camtraptor (Oldoni et al. 2023).
-Based on these data, we describe our observations of numbers, sexes, behaviour and day-night rhythm in the muntjac.
-In order to interpret the day-night rhythm correctly, we corrected for the variation in day length within the study period using the method of Vazquez et al. (2019).
-To determine whether day-night patterns differed between species, the probability that both patterns originate from the same distribution is examined (Ridout & Linkie 2009, Rowcliffe 2023; 999 iterations).
-To describe the number of detections over time, we use the number of sequences with muntjac per time unit that a camera was effectively operational (relative abundance index or RAI; Ferretti et al. 2023).
-This corrects for unequal times of installation and dismantling and (possible) temporary defects.
+This building block is dedicated to the development of a first version of the measurement methodology.
+This involves the following aspects:
+
+- Selecting and locating sampling points in the field
+  - Precise and clear method to avoid introducing bias or additional variability
+  - Clear decision protocol for borderline and doubtful cases, or when practical circumstances prevent sampling
+
+- Selecting and measuring measurement objects and variables
+  - Measurement objects and variables, and analysis variables as some function of measurement variables
+  - Standard measurement methodology based internationally accepted methods and protocols
+
+- Pilot
+  - Sampling and measurement methods are worked out as accurately as possible, based on knowledge or similar monitoring networks
+  - First practice test and quality control 
+
+Useful information can be found in @neeckx_occurrence_2024, @dhondt_muntjac_antwerp_2024, and @bollen_cameravallen_2025. 
+

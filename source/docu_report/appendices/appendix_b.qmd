@@ -1,0 +1,121 @@
+# Appendix sample size planning {#sec-app-b}
+
+## Relationship between minimal detectable deviation and the Clopper-Pearson confidence interval
+
+<!-- HERE: recap what we are showing here --->
+
+Let $F(k; n, \psi)$ be the cumulative distribution function of the binomial distribution for $k$ successes - here presences - given $n$ Bernoulli trials with success probability $\psi$:
+
+$$
+F(k; n, \psi) = P(X \le k) = \sum_{i=0}^{\lfloor k\rfloor}\binom{n}{i}\psi^i(1-\psi)^{n - i} 
+$$
+<!-- HERE-->
+For zero successes or presences, $k=0$, we get:
+
+\begin{align}
+F(k=0; n, \psi) = P(X \le k = 0) &= \sum_{i=0}^{\lfloor k = 0\rfloor}\binom{n}{i}\psi^i(1-\psi)^{n - i} \\
+&= \binom{n}{0}\psi^0(1-\psi)^{n - 0} \\
+&= (1-\psi)^n
+\end{align}
+
+<!-- HERE: check -->
+For the null hypothesis of absence, $H_0:\psi = 0$, and type-I error $\alpha = 0.1$, the critical value is 0 
+(i.e., the $(1-\alpha)$-quantile of $Binom(\psi = 0, I)$).
+Hence, the null hypothesis is rejected if $k > 0$.
+
+Under the alternative hypothesis, $H_a:\psi>0$, we can thus express the type-II error, $\beta$, as:
+
+$$
+\beta = F(k=0; n, \psi>0)
+$$
+In case of $k=0$ the upper bound of the one-sided Clopper-Pearson confidence interval (CI) is (based on [@thulin_cost_2014]):
+
+$$
+CI^{upper}_{CP} = 1-\alpha^{1/n}
+$$
+<!-- HERE: Motivation: Starting from our numerical results... -->
+Using this upper bound as the probability of success under the alternative hypothesis in the expression for $\beta$ we get:
+
+\begin{align}
+\beta &= F(k=0; n, \psi=CI^{upper}_{CP}) \\
+&= F(k=0; n, \psi=1-\alpha^{1/n}) 
+\end{align}
+
+Simplifying the equation, we get $\beta = \alpha$:
+
+\begin{align}
+\beta &= F(k=0; n, \psi = 1-\alpha^{1/n}) \\
+&= (1-(1-\alpha^{1/n}))^n \\
+&= (1-1+\alpha^{1/n})^n \\
+&= (\alpha^{1/n})^n \\
+&= \alpha
+\end{align}
+
+Hence, if the alternative probability of success is equal to the upper bound of the one-sided $(1- \alpha)$ Clopper-Pearson CI, 
+then the type-I error is the same as the type-II error.
+The upper bound of the one-sided $(1- \alpha)$ Clopper-Pearson CI can thus be used as the minimal detectable presence with $(1 - \beta)$ statistical power.
+
+<!-- HERE: alpha does not matter for the critical value, but it matters for the CI ... -->
+
+
+## Interpretation of the slope paramter in the logistic regression model
+
+Interpretation in terms of the linear predictor, $\eta$:
+$\beta_1$ reflects the absolute difference in linear predictor values given a one-unit difference in year*.
+Formally, we can write (leaving out subscripts $i$ and $t$ for simplicity but without loss of generality):
+
+\begin{align}
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= (\beta_0 + \beta_1 * (year^*_1 + 1)) - (\beta_0 + \beta_1 * year^*_1)\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_0 + \beta_1 * year^*_1 + \beta_1 - \beta_0 - \beta_1 * year^*_1\\
+\eta|(year^*_1 + 1) - \eta|year^*_1 &= \beta_1 
+\end{align}
+
+Interpretation in terms of the odds of presence, $\frac{\psi_{i,t}}{1-\psi_{i,t}}$:
+$exp(\beta_1)$ is the factor by which the odds change given a one-unit change in year
+(or: $exp(\beta_1)$ reflects the relative difference (ratio) in the odds given a one-unit change in year*).
+We can again derive this as (leaving out subscripts):
+
+\begin{align}
+log(odds)|(year^*_1 + 1) - log(odds)|year^*_1 &= \beta_1 \quad\quad|\;exp(\cdot) \\
+exp(log(odds)|(year^*_1 + 1) - log(odds)|year^*_1) &= exp(\beta_1) \\
+\frac{exp(log(odds)|(year^*_1 + 1))}{exp(log(odds)|year^*_1)} &= exp(\beta_1) \\
+\frac{odds|(year^*_1 + 1))}{odds|year^*_1} &= exp(\beta_1) \\
+odds|(year^*_1 + 1)) &= exp(\beta_1) * odds|year^*_1
+\end{align}
+
+<!-- HERE: add interpretation for prop of presence?/ repeat sentence --->
+
+## Simulation-based power analysis using the mlpwr R package
+
+```{r fig-mlpwr-app}
+#| include: true
+#| cache: true
+#| message: false
+#| results: 'hide'
+#| fig-cap: "Results of the mlpwr-power analysis - simulated vs. surrogate power per condition"
+#| fig-width: 9
+#| fig-height: 14
+#| fig-align: 'center'
+
+# load results
+load("../../output/sample_design/mlpwr_logreg/gridpars_20251217-203416.Rda")
+load("../../output/sample_design/mlpwr_logreg/res_list_20251217-203416.Rda")
+  
+# create figs
+source("../sample_design/power_mlpwr_logreg_vis.R")
+
+library(patchwork)
+
+(plot_res_iter_b0large/plot_res_iter_b0small) + 
+  patchwork::plot_annotation(tag_levels = 'A')
+
+
+
+```
+
+
+## Source code
+
+The R code we used to conduct the simulation-based power analysis using the *mlpwr* R package can be found on github:
+[inbo/mias-muntjac/source/sample_design/power_mlpwr_logreg.R](https://github.com/inbo/mias-muntjac/tree/main/source/sample_design/power_mlpwr_logreg.R)
+

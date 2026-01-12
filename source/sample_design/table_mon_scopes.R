@@ -3,8 +3,8 @@ table_mon_scopes <- data.frame(
   name = c(
     "confirm population decline under management",
     "confirm eradication under management",
-    "detect spread out of distribution area under management",
-    "detect species after management"
+    "detect spread under management",
+    "detect presence after management"
   ),
   description = c(
     "determine decline in population size (or presence) in relation to sustained eradication measures in distribution area",
@@ -13,10 +13,10 @@ table_mon_scopes <- data.frame(
     "detect potential left-over of re-introduced animals in (and possibly around) distribution area after eradication has been completed"
   ),
   sample_frame = c(
-    "distribution area",
-    "distribution area",
-    "buffer area around distribution area",
-    "distribution area and potentially buffer area"
+    "distribution area; subset of potential habitat areas",
+    "distribution area; subset of potential habitat areas",
+    "buffer area around distribution area; subset of potential habitat areas",
+    "distribution area and potentially buffer area; subset of potential habitat areas"
     ),
   outcome = c(
     "abundance (or presence); trend over time",
@@ -25,7 +25,7 @@ table_mon_scopes <- data.frame(
     "presence; status"
   ),
   reference_value = c(
-    "zero change over time; detect (negative) deviation",
+    "zero change over time; detect (negative) deviation, hence (negative) trend",
     "zero abundance or presence; confirm",
     "zero presence; detect deviation",
     "zero presence; detect deviation"

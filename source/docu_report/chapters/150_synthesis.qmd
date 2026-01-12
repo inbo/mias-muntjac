@@ -1,182 +1,115 @@
-# Synthesis phase I
+# Synthesis phase I  {#sec-synthesis-1}
 
-Taken together, the analysis of the demand side - including the IAS legislation at the level of the EU and Flanders and various expert sources - suggests the following monitoring needs for the Chinese muntjac in Flanders.
-Note that demands are multifaceted and so are the corresponding monitoring needs.
-These needs might crystallise into distinct monitoring modules during future planning.
+## Possible monitoring needs
 
-### Monitoring needs (scopes) refined
+Taken together, the analysis of the demand side - including the IAS legislation at the level of the EU and Flanders and various expert sources -
+suggests the following possible monitoring needs for the Chinese muntjac in Flanders.
 
-#### Inventory
 
-**Aim**:
+### Confirm population decline under management
 
--   Locate / confirm the current distribution within the municipalities Schoten, Brasschaat and Wuustwezel (hereafter the “distribution area”) to refine the definitions of distribution and buffer areas in the context of other monitoring needs
+One possible need is to determine and confirm decline (i.e., a negative trend) in population size in relation to sustained eradication measures (@sec-management).
+The monitoring area is the area in which management takes place, which is the currently known distribution area for the Chinese muntjac (@sec-invasions).
+If population size if difficult to assess, a decline in presence can alternatively be considered.
+Planning for this need requires specifying meaningful changes in population size (or presence), which should be detectable over a certain time interval with sufficient probability.
 
-**Issues**:
+This is a natural form of monitoring to accompany and evaluate management actions taken,
+although it is difficult to precisely quantify their effects (see additional considerations in the following).
+It should be flanked by additional monitoring initiatives to accommodate the species' reactions to management, 
+as we explain in the following. 
 
--   Define possible inventory strategies
--   Determine need based on ecological/habitat characteristics
--   Determine costs: inventory + refined monitoring vs. not refined monitoring
 
-#### Abundance under management in distribution/management area
+### Confirm eradication under management
 
-**Aim(s)**:
+Another closely-related monitoring need involves determining population size (or presence) under sustained eradication measures to confirm complete eradication at some point in time, at the latest when there are no more species sightings.
+If it is initiated when there are no more species sightings - a rather natural starting point - 
+then this form of monitoring can be seen as almost interchangeable with monitoring to detect presence under management, which is explained in the following.
+A unique feature of this form of monitoring is however that it would be of limited duration. 
+Yet, a certain minimum monitoring period needs to be defined, to infer eradication with sufficient confidence (or probability).
 
--   Track (changes in) population size in relation to sustained eradication measures in distribution area
--   know when eradication is complete
+Naturally, this form of monitoring should follow up on the above-described monitoring under management.
+It might also be implemented in a more adaptive fashion at locations where rapid eradication took place.
 
-**Issues**:
 
--   Determine monitoring area (see section inventory)
--   Which changes in population size over which time interval should be detectable with sufficient probability
+### Detect spread under management
 
-#### Abundance / presence/absence after management
+Also related is the need to detect specimens potentially spreading into a buffer area around the area where management takes place.
+This accounts for the species' elusive behaviour and its known tendency to evade human interventions (@sec-biology).
+The size of the buffer area should be defined based on species' characteristics such as their mobility (@sec-biology).
 
-**Aim**:
+This form of monitoring should accompany the above-described monitoring under management in the distribution area.
 
--   Confirm complete and permanent eradication with sufficient confidence, in defined area where sustained management took place
--   should follow up on abundance monitoring under management
 
-**Issues**:
+### Detect presence after management
 
--   Define sufficient confidence, e.g., by defining a minimum length of the follow-up period
+The need to detect potential left-over of re-introduced animals in the distribution and potentially a buffer area after eradication has been completed fits into and completes the cluster of connected monitoring needs listed so far.
 
-#### Abundance or presence/absence around distribution/management area / Detection under management
+This form of monitoring can be seen as nearly identical to monitoring for confirming eradication if the latter is implemented as detection monitoring (i.e., initiated when there are no more sightings of Chinese muntjac), but will typically last longer.
+It is also quite similar to monitoring for detecting spread in the sense that both concern detection of species presence.
+In fact, it should form the continuation of detection monitoring under management in the buffer area.
 
-**Aim**:
 
--   Detect potential spread into buffer areas around the distribution areas as movements in response to management are a known phenomenon;\
--   Also detect movements out of buffer into monitoring area; would require abundance monitoring
--   should accompany abundance monitoring under management and post-management monitoring
+### Detect presence in specific areas of interest 
 
-**Issues**:
+Another potential monitoring need revolving around detection is the need for 
+detection in specific areas of interest.
+It is complementary to the previous ones in that it concerns different monitoring areas. 
+Areas of interest could for instance be high-value conservation areas or potential habitat areas near established cross-border populations of Chinese muntjac in neighbouring countries (@sec-invasions) and the Walloon region, especially if these populations are subject to management.
 
--   Determine buffer area (e.g., based on ecological characteristics)
--   How likely are movements from buffer into monitoring area as compared to movements in the other direction (given that the buffer area exceeds the actual distribution area)?
 
-#### Presence/absence after rapid eradication at scale Flanders
+### Mapping the distribution of the species
 
-**Aim**:
+A final monitoring requirement could be to map the distribution of Chinese muntjac.
+It comes in two flavours: 
+first, it might be considered to more precisely locate and possibly confirm the current distribution area within the province of Antwerp to refine the definitions of the distribution and buffer area used in the context of other monitoring needs.
+Second, it might be required to map the distribution over the entire Flemish region.
 
--   Confirm eradication with sufficient confidence, in area where rapid eradication took place; possibly preceded by a verification of the initial observation phase
+Such a mapping of the distribution of a species is usually called "inventory" and applies 
+if the (potential) distribution area is not sufficiently known [@de_knijf_monitoring_2014].
+This is in principle a singular monitoring effort, but might be succeeded by a periodic form of distribution monitoring to track changes in the distribution area. 
 
-**Issues**:
 
--   Ensure/define sufficient confidence (see section XX);
--   requires either continued monitoring at scale Flanders or highly adaptive monitoring, with the feasibility of either of the two appearing unclear at best;
--   monitoring in buffer area around known distribution area can be viewed as a more feasible special case of this need (see section XX)
+## Priority monitoring needs
 
-#### Presence/absence close to known cross-border populations
+We consider the following monitoring needs related to the established population in the Antwerp province as being of primary importance:
 
-**Aim**:
+- Confirm population decline under management
+- Confirm eradication under management
+- Detect spread under management
+- Detect presence after management
 
--   Detect potential spread into cross-border areas close to established distribution areas in neighboring countries and the Walloon region, especially if these established populations are subject to management
+These needs seem the most relevant given the specific situation in Flanders and might crystallise into distinct monitoring modules during future monitoring planning.
 
-**Issues**:
 
--   see section XX;
+## Implications from the supply-side analysis
 
-#### Presence/absence at scale Flanders
+We consider it very unlikely that existing monitoring or opportunistic data are suited to address the above priority monitoring needs. 
+Detailed sampling design and sample size planning will reveal the extent to which initiatives are insufficient.
 
-**Aim**:
 
--   Obtain a distribution map adhering at least to EU requirements
+## Implications from the review of relevant background information
 
-**Issues**:
+The **review of the relevant background information** (@sec-background) revealed a number of aspects relevant for future monitoring design. 
+These include information on habitat preferences, life cycle, activity patterns, social structure, and mobility (@sec-biology),
+as well as the invasion stage and management situation in Flanders (@sec-invasions, @sec-management).
+These aspects have been (see above) or will be (see following sections) considered in the planning process.
 
--   might not be required if selected instances of the above monitoring needs are implemented and cover the most likely locations; complementing such data with opportunistic/existing observations might be sufficient
+Concerning monitoring techniques, camera traps have been reported as the most relevant monitoring technique (@sec-expert-judgement), 
+and INBO has acquired substantial expertise with respect to the technique and its implementation (@sec-monitoring-methods).
+Planning will therefore proceed with this technique in focus.
 
-### Additional considerations
 
--   Above it is assumed that management can take place in the entire known distribution area
--   Camera traps most relevant monitoring technique, and INBO has acquired substantial expertise with respect to the technique and its implementation
--   In general, a high sensitivity is required
+## Additional considerations
 
 
-Causal inference: 
-ref sec 123
-ref sec 112 source sink dynamics
-
-It remains however, unclear to what extent this reflects a genuine local population decline or a redistribution of animals to surrounding areas in response to hunting pressure (ref section expert judgement).
- 
-Immigration and emigration complicate the (indirect) estimation of causal effects of hunting
-
-
-
-
-## Net information needs
-
-Taking demand and supply side into account, which information needs are there and are to be filled in
-
-## Summary of implications for monitoring
-
-## Specifications monitoring scheme
-
-synthesize information from previous “implications for monitoring” sections; refine needs/modules identified in the section ‘analysis of the demand side’; complement with necessary information on effect sizes;
-
-### Monitoring base modules
-
--   *Scope(s) concretized*\
--   *Areas to be monitored (target population)*
-
-### Additional monitoring modules
-
-Additional species
-
-### Additional considerations
-
-## Rough cost estimates
-
-
-
-Supply side
-
-State here why not sufficient, that it only addresses distribution and will likely not allow for detection...
-Becomes clearer with results from phase 2
-
-
-## Limitation due to the preliminary nature of this report
-
-Realistic population size estimates for the Flanders distribution area
-
-More elaborate cost estimates (ref Cartuyvels).
-
-
-## Background: Implications for monitoring design
-
-crepuscular activity: which has direct implications for detection strategies.
-Camera trap deployments—particularly in dense understory habitats preferred by muntjac—should be configured to capture activity during early morning and late evening hours to maximize detection probability.
-
-all-year activity making them amenable to monitoring throughout all seasons.
-However, practical visibility may vary: dense vegetation in spring and summer can obstruct camera views, potentially reducing detection rates even when animals are present.
-Detectability may thus be highest in autumn and early spring, when vegetation is sparse
-
-Barkin: This offers an additional opportunity for detection: passive acoustic monitoring using audio recorders can serve as a complement to camera-based surveillance, particularly in habitats where visual detection is impaired.
-Because barking is loud, repetitive, and species-specific, it may provide a reliable cue including in conditions where camera traps may be less effective.\
-Mobility natural and under control pressure
-
-Effect sizes to be expected?\
-Occurrence probability can be small due to….\
-Detection probability (if present) can be small due to...
-
-Statistical modeling: The most important implications concern replication of observations:\
-The estimation/identification of random effects requires multiple measures within the predictor to be included via a random effect (e.g., repeated measures within a grid cell or measurement site).
-Also, the estimation of the detection probability requires repeated measures at a specific site.
-
-### Additional considerations
-
-Adaptief beheer (zie mail Hans; also Alexander?)
-
-Monitoring to evaluate management:\
-Monitoring in relation to management ranges on a continuum with as end points estimating causal effects (sometimes also called the effectiveness) of measurement actions versus measuring their temporal and spatial correlates.
-The degree of experimental and/or statistical control (in conjunction with more or less strong assumptions) determines the position on this continuum, and thus to what extent observed changes in, for example, population size can directly or indirectly be attributed to actions taken.
-Throughout this report we use the formulation ‘monitoring under management’ to indicate that any monitoring scheme will likely be closer to the ‘temporal and spatial correlates’ endpoint of the above-mentioned continuum than to the ‘effectiveness’ endpoint.
-
-Estimating causal effects of management actions is complicated: The number of shot animals might be relatively easy to assess, but effects can also be less direct.
+Monitoring in relation to management ranges on a continuum with as end points measuring **causal effects of measurement actions versus their temporal and spatial correlates**.
+Estimating causal effects or the effectiveness of management actions is complicated: The number of shot animals might be relatively easy to assess, but effects can also be less direct.
 For instance a population might not be eradicated immediately, but reduced to such a critical extent that this leads to a delayed collapse.
 Such effects are usually mediated through other processes (e.g. if only bucks are left, sexual reproduction is blocked, leading to extinction).
-Also, interactions with additional risk factors such as disease might but need not play a role.
-Talking about additional factors, these can of course also on their own affect more distal variables such as the population size.
-Hence, quantifying the total effect of a management action such as control through shooting on outcome variables such as population size while at the same time ruling out the effects of other factors with sufficient confidence requires experimental and/or statistical control.
-Whereas the first is add odds with EU law and seems unethical, the latter usually draws on study design specifics and/or assumptions to emulate an experimental setup.
+Also, interactions with additional risk factors such as disease might but play a role.
+Talking about additional factors, these can of course also exert independent effect on their own on outcome variables such as the population size or probability of presence.
+Hence, quantifying the total effect of a management action such as control through shooting on outcome variables such as population size while at the same time ruling out the effects of other factors with sufficient confidence requires a high level of experimental and/or statistical control.
+Whereas setting up experiments involving an unmanaged control group is at odds with EU law and can be considered unethical, 
+statistical control usually requires distinct study design specifics and/or strong assumptions to emulate an experimental setup.
+Throughout this report we use the formulation ‘monitoring under management’ to indicate that any monitoring scheme will likely be closer to the ‘temporal and spatial correlates’ endpoint of the above-mentioned continuum than to the ‘effectiveness’ endpoint.
 

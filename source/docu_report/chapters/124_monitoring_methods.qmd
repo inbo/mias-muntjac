@@ -60,8 +60,8 @@ On a more detailed level, the following technical parameters require attention (
 - **Trigger speed**: speed at which the camera takes a photo after detection; should be very fast, i.e., at least < 1 s and preferably < 0.6 s
 - **Recovery time**: time between two subsequent camera activations; should also be as fast as possible, as an image series (see next point) of the same group of animals facilitates the determination of e.g. the species
 - **Burst mode**: upon activation, a series of images of e.g. 10 images is taken instead of a single image; highly recommended and preferred above video mode, which usually comes with slower trigger speeds and longer recovery times, and consumes more electricity
-- **Detection zone**: zone in front of the camera in which animals are detected; has the shape of a circular segment and as such is determined by a detection distance and a detection angle; the detection distance - the radius of the circular segment - is the maximum distance from the camera at which an animal can be detected; the detection angle is the maximum angle within which animals are detected relative to the camera's viewing direction; both should be as large as possible, especially for rare and/or difficult-to-detect species, such as the Chinese muntjac
-- **Flash**: an invisible infrared fash causes minimal interference but also black-and white images only; white flash in case images should be in color to aid identification of individual animals; disturbing, however
+- **Detection zone**: zone in front of the camera in which animals are detected; has the shape of a circular segment and as such is determined by a detection distance and a detection angle; the detection distance - the radius of the circular segment - is the maximum distance from the camera at which an animal can be detected; the detection angle is the maximum angle within which animals are detected relative to the camera's viewing direction; both should be as large as possible, especially for rare and/or difficult-to-detect species, such as the Chinese muntjac; it is recommended to check manufacturer's specifications empirically in the context of a pilot study [@bollen_cameravallen_2025]
+- **Flash**: an invisible infrared fash causes minimal interference but also black and white images only; white flash in case images should be in color to aid identification of individual animals; disturbing, however
 - **Batteries**: especially battery running time and battery life expectancy should be considered.
 - **Camera cases**: cases should ideally be compact, lightweight, water-resistant, and sturdy to protect the camera from impact; a cable lock for attaching cameras to e.g. trees is recommended to mitigate theft.
 - **Programmable operation schedules**: If photos are to be taken at specific times (e.g., only at night), then cameras should be programmable
@@ -71,7 +71,7 @@ On a more detailed level, the following technical parameters require attention (
 
 #### Costs
 
-Initial purchase price for the required equipment (cameras, batteries, storage media, subscriptions for image transfer, lures) can be relatively high:
+The initial purchase price for the required equipment (cameras, batteries, storage media, subscriptions for image transfer, lures) can be relatively high:
 Depending on the above-discussed technical parameters, camera prices range from 150 to 500 EUR per piece.
 Equipment account for additional costs per camera, depending on the duration of use.
 Cameras normally last about five years, but replacement of a 10 - 30 % fraction might be necessary  annually due to theft or malfunction [@dahl_information_2017].
@@ -80,7 +80,7 @@ Of course, deploying the method involves costs beyond equipment, including staff
 However, staff time is less closely tied to monitoring duration, as compared to other methods such as visual surveys, so camera traps become relatively cost efficient in the long run.
 @dahl_information_2017 estimate that a monitoring system with 100 cameras covering 1,000,000 hectares may require two months of labour annually for upkeep.
 
-HERE A more complete consideration/overview of camera trap-related costs can be found in section ref section boundary constraints.
+A more complete analysis of the costs of camera trap-based monitoring is part of phase 2 of the INBO guidelines for monitoring design.
 
 #### Advantages and disadvantages
 

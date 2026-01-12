@@ -55,7 +55,7 @@ The prioritization approach we applied is rather generic and thus of limited nua
 A number of **potential shortcomings** should therefore be considered: It might for instance more often than not be the case that multiple monitoring scopes apply at the same time.
 Especially for the Chinese muntjac, it is expected that management measures not only affect abundance but also the distribution of the species, as it is known to evade human interventions.
 Also, new introductions and thus detection might still be relevant for an established species if it is mainly locally distributed and there are known cross-border populations, as in case of the Chinese muntjac.
-It is the purpose of this report to take such a more differentiated picture into account (ref sections XX).
+It is the purpose of this report to take such a more differentiated picture into account.
 
 #### Focus scenario and potential method synergies
 
@@ -98,7 +98,7 @@ If monitoring is to be conducted in relation to **management of established popu
 More specifically, the species is distributed across a mosaic of habitat patches within these three municipalities; while there are sites at which specimens are regularly observed, there are other sites where their presence is expected but not yet confirmed, and close-by areas that are currently unoccupied but potentially suitable for future colonisation.
 This includes both public lands and privately owned properties.
 Control or eradication measures are carried out in the publicly accessible (nature) areas by hunters authorised by ANB and ANB wildlife managers.
-A more detailed description of the measures taken can be found in sec XX (ref).
+A more detailed description of the measures taken can be found in @sec-management.
 
 The species expert again highlighted the need to **define the monitoring area broadly enough**, for instance by including a sufficiently large buffer area, as the Chinese muntjac is sensitive to disturbance (e.g. by the presence of controllers) and reacts by quickly moving to other suitable areas.
 It is obviously also important to take such effects into account when interpreting population size changes observed at a local level.
@@ -118,7 +118,7 @@ Disruption of other species is a possible side effect, but there are no critical
 As explained in the previous subsection, monitoring under management will likely have to **span several years** tracking reductions in absolute abundance or density.
 Once the population has supposedly been eradicated, a second monitoring phase should follow to make sure eradication is complete and permanent.
 
-Past monitoring initiatives (ref: see section XX) often relied on **one assessment per year as a minimum frequency**.
+Past monitoring initiatives (@sec-supply-side) often relied on **one assessment (phase) per year as a minimum frequency**.
 More frequent assessments (e.g., bi- or triannually) are desirable to provide for closer/more fine-grained monitoring of potential population size changes.
 The reasons for this are twofold: First, the Chinese muntjac reproduces in a non-seasonal pattern throughout the year, with one calf per birth and a minimum of 7-9 months between births.
 Second, management can take place at multiple occasions per year, usually from late autumn to early spring, on the hunter’s own initiative.
@@ -127,9 +127,9 @@ INBO has access to (non-public) data on the times of these occasions.
 #### Monitoring techniques
 
 **Camera traps** are the most relevant monitoring technique.
-Camera trap networks have been used successfully in the past, and are to a limited extent still in place (ref: see monitoring): In Park Vordenstein, INBO maintained a now removed camera trap network [@dhondt_monitoring_2023], while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
+Camera trap networks have been used successfully in the past, and are to a limited extent still in place (@sec-supply-side): In Park Vordenstein, INBO maintained a now removed camera trap network [@dhondt_monitoring_2023], while ANB has placed a limited number of real-time camera traps (i.e., cameras the images of which are continuously transferred to an external server) at non-random locations.
 
 In terms of **potential complications**, it was noted that detection rates of camera traps can vary (e.g. increased vegetation during spring and summer has a negative effect, and moving cameras may then be required).
 Also, relatively few errors in the classification of camera images (i.e., false negative or false positive results) can have large impacts on the images’ further analysis as expected animal counts are relatively small.
-A detailed description of the monitoring technique can be found in sec XX (ref.).
+A detailed description of the monitoring technique can be found in @sec-monitoring-methods.
 

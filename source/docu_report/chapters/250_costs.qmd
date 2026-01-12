@@ -1,2 +1,45 @@
-## Measurement costs
+## Measurement costs {#sec-costs}
+
+::: {.callout-note}
+
+This section still needs to be written.  
+The following outline is based on @wouters_ontwerp_2008-1.
+
+:::
+
+
+This building block is dedicated to an overview over the monitoring costs.
+This involves the following aspects:
+
+- Information from existing monitoring schemes
+  - Main costs associated with the various aspects of a monitoring scheme
+
+- Rough estimate
+  - Mainly based on costs associated with assessing sampling points, taking into account, e.g.,
+    - Cost price of measuring equipment and average lifespan
+    - Time needed to locate and measure sampling points
+    - Number of points per day, number of field workers needed for one point etc.
+    - Number of samples per point, per year
+    - Costs and time required for laboratory analyses
+
+Preliminary information on the costs associated with camera traps are provided in @sec-monitoring-methods.
+A more elaborate account could for instance be based on @kissling_development_2024, who provide a very detailed cost analysis.
+
+
+
+
+<!--
+This section still needs to be completed. It should contain...
+[notebox]
+
+include paper on detailed cost estimation!
+
+- Costs can be included into the analysis by 
+- roughly translating the number of locations into associated costs
+- the trade off between sensitivity and budget becomes explicit 
+- know how much sensitivity we would need to give up for to stick to a certain budget
+- decide whether that is acceptable in terms of sensitivity
+-->
+
+
 

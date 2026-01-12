@@ -67,7 +67,7 @@ flandersqmd:
   year: 2025
   public_report: false
   colophon: false # adapt?
-  floatbarrier: section
+  floatbarrier: subsection
   linenr: false
 
 book:
@@ -112,6 +112,7 @@ book:
     - chapters/999_references.qmd
   appendices:
    - appendices/appendix_a.qmd
+   - appendices/appendix_b.qmd
 
 bibliography: ../../media/MIAS.bib
 

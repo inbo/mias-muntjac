@@ -8,24 +8,13 @@ The Flanders population is one of the few known populations on the European main
 Effective containment and eradication here could prevent further spread into other climatically suitable regions across Europe, aligning Flemish efforts with broader EU biosecurity goals.
 Accordingly, the Flemish population is currently subject to eradication measures coordinated by the Agency for Nature and Forests (Agentschap voor Natuur en Bos; ANB).
 
-HERE 
-Following up on earlier work collecting initial information on the feasibilty, urgency and specific of monitoring...an expert survey aimed at ...
-we now focus on...
-
-HERE def monitoring scheme;
-from expert survey: 
-With “monitoring schemes” we refer to schemes that have been designed following a principled methodology to ensure that data collection is purposeful and optimized to meet numerical quality criteria. 
-Such schemes give rise to objective, reliable and valid results that are fit for informing policy. 
-The INBO guidelines for designing policy-oriented monitoring schemes [@wouters_ontwerp_2008-1] represent such a methodology aimed at tailoring 
-monitoring objectives, data collection, processing and analysis, reporting and quality control to the true information needs.
-
-
-developing a dedicated monitoring scheme tailored to the invasive Chinese muntjac in Flanders.
+Following up on earlier work, in particular an expert survey on the feasibility and urgency of structured monitoring for all invasive alien species (IAS) of Union Concern in Flanders, which revealed high rankings for the Chinese muntjac [@adolf_prioritising_2025],
+we now focus on the design of monitoring schemes dedicated to this species.
 We thereby rely on the **guidelines for designing policy-oriented monitoring schemes** [in short: INBO guidelines for monitoring design; @wouters_ontwerp_2008-1] developed at the Research Institute for Nature and Forest (Instituut voor Natuur- en Bosonderzoek; INBO).
 
 The INBO guidelines for monitoring design have been developed based on the expertise within the institute and the relevant scientific literature.
 Their purpose is, in a nutshell, to support the design of policy‐oriented monitoring schemes with a focus on tailoring a scheme to the actual information needs to produce results of high substantive and numerical quality.
-This means that a scheme design should address the monitoring questions, and it should do so with a high precision and reliability.
+A scheme design should thus address the monitoring questions, and it should do so with a high precision and reliability.
 
 More specifically, the guidelines distinguish five phases of monitoring design:
 
@@ -48,13 +37,51 @@ In the design process the phases are combined in a circular fashion (@fig-guidel
 
 ![Circle of monitoring design [adapted from @wouters_ontwerp_2008-1]](../../../media/img/guidelines.svg){#fig-guidelines height="400"}
 
-The INBO guidelines for monitoring design have successfully been applied, for instance in the context of the EU Habitat Directive and the EU Birds Directive (refs).
+The INBO guidelines for monitoring design have successfully been applied, for instance in the context of the EU Habitat Directive and the EU Birds Directive [@de_knijf_monitoring_2014; @westra_monitoring_2011].
+Here we probe their application to structured monitoring schemes for IAS in Flanders.
 
 <!-- summarize the guidelines: cf. expert report & presentation EU -->
 
-With the current report, we present preliminary results obtained from implementing phases 1 and 2 of the guidelines for the Chinese muntjac in Flanders.
-The remainder of this report is structured accordingly: It consists of 2 parts, dedicated to the two design phases.
-In part 1, we ...recap/list elements including short description...
-in
+## Structure of this report
 
-HERE
+The current report presents preliminary results obtained from implementing phases 1 and 2 of the guidelines for the Chinese muntjac in Flanders.
+The remainder of this report is structured accordingly: 
+it consists of 2 parts, dedicated to the two design phases, "prioritising information needs" and "developing sample design and data collection".
+
+In **part 1**, we cover the following building blocks:
+
+The **analysis of the demand side** (@sec-demand-side) incorporates 
+a description of the relevant legislation on IAS monitoring in Flanders, including provisions at both the EU and Flemish levels,
+a summary of various forms of expert judgement sought, including the above mentioned expert survey,
+and an overview over potential co-users of a dedicated monitoring scheme.
+
+The **review of the relevant background information** (@sec-background) deals with
+species information on aspects such as habitat preferences or activity patterns,
+the invasion history and stage in Europe, but mainly Flanders,
+management of the Chinese muntjac,
+and available monitoring methods.
+
+The **analysis of the supply-side** (@sec-supply-side) presents
+past, present and future monitoring in Flanders, as well as opportunistic data as potential information sources.
+
+The **analysis of boundary conditions** (@sec-boundary-cond) reviews existing budget constraints, 
+reporting obligations and other aspects that need to be considered,
+at the current stage in a very limited account.
+
+We close the first report part with a - for now selective - **synthesis** (@sec-synthesis-1)
+outlining possible monitoring needs in the context of the obtained phase 1 results.
+
+
+In **part 2** we proceed with (preliminary version of) the phase 2 building blocks:
+
+An **overview of monitoring needs and their implementation** is provided (@sec-overview-needs), recapitulating the earlier outline and defining the target population and outcome variables to be assessed per monitoring need.
+
+The **sampling design** (@sec-sampling) for these monitoring needs is discussed, including the sample frame and sampling procedure to draw a random sample of locations for monitoring.
+
+**Sample size planning** (@sec-samplesize) is conducted for the monitoring needs under consideration.
+
+The **Methodology** (@sec-methodology) and **Costs** (@sec-costs) are not yet elaborated on.
+Instead, brief outlines are given.
+This also holds for the **synthesis** closing this phase (@sec-synthesis-2).
+
+Two appendices (@sec-app-a, @sec-app-b) contain supplementary information and results regarding sampling and sample size planning.

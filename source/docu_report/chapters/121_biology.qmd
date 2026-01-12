@@ -61,7 +61,7 @@ Chinese muntjac leave small **droppings** that are distinct from those of other 
 
 Throughout the day, the Chinese muntjac exhibits predominantly **crepuscular activity**, with movement and foraging peaking around dawn and dusk.
 Activity during the day or night is possible, but less pronounced.
-However, if the species is regularily disturbed, activity patterns can shift to the night.
+However, if the species is regularly disturbed, activity patterns can shift to the night.
 
 On a yearly level, the species is **active year-round**.
 In autumn and early spring, when vegetation is sparse, specimens are more likely to forage in open areas such as recently harvested agricultural fields.
@@ -102,7 +102,7 @@ There is thus not only (short-term) emigration in response to control (i.e., ani
 
 The species reaches large population densities in the UK, where it is highly invasive:
 in some UK places, densities of around 1 animal per hectare are reached, which can be considered the **maximum value of the carrying capacity** for this species, also in Flanders.
-Here, however, densities currently remain well below UK numbers and can be considered 'very low' in an absolute sense.
+Here, however, densities currently remain well below UK numbers and can be considered "very low" in an absolute sense.
 Recent estimates in Park Vordenstein, which is an important part of the distribution area of the species in Flanders (@sec-invasions), suggest average densities of around 0.05 animals per hectare and monitoring (i.e., winter) season [@neeckx_occurrence_2024].
 
 Factors that influence population density, and thus account for fluctuations therein, include habitat quality, establishment stage of a population (i.e., young populations fluctuate more), and local management.
