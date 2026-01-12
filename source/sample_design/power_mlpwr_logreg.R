@@ -149,7 +149,7 @@ grid_pars <- data.frame(
 ) |>
   # set lower bound in function of design (important for surrogate model)
   dplyr::mutate(
-    bound_l_tmp = - 1.5, #seq(-5, -0.2, length.out = 9),
+    bound_l_tmp = - 1.3, #seq(-5, -0.2, length.out = 9),
     tmp = log(seq(1,600,length.out = 9)),
     tmp = (tmp - min(tmp)) / (ceiling(max(tmp)) + 0.5 - min(tmp)),
     tmp = 1 - tmp,
@@ -162,7 +162,7 @@ grid_pars <- data.frame(
         get_logreg_pars(P_x0 = x)$b0
       }
     ) |> unlist(),
-    x_end = c(4, 8),
+    x_end = c(6, 12),
     u0_var = c(0, 0.5),
     u1_var = 0,
     u0u1_covar = 0
@@ -177,7 +177,9 @@ grid_pars <- data.frame(
     evaluations = 4000,
     surrogate = "logreg",
     bound_l = dplyr::case_when(
-      (n < 125 & b0 == min(b0)) ~ bound_l_tmp * 2.5,
+      (n < 125 & b0 == min(b0) & x_end == min(x_end)) ~ bound_l_tmp * 1.2,
+      (n < 125 & b0 == max(b0) & x_end == max(x_end)) ~ bound_l_tmp * 0.4,
+      (n < 125 & b0 == min(b0) & x_end == max(x_end)) ~ bound_l_tmp * 0.6,
       TRUE ~ bound_l_tmp
     ),
     index = dplyr::row_number()
@@ -205,11 +207,19 @@ if (FALSE) {
   }
 
 # find designresult objects
+indices <- grid_pars$index # full matrix
+#indices <- grid_pars |> dplyr::filter(n < 150 | n > 225) |> dplyr::pull(index)
+
 res_list <- purrr::map(
-  seq_along(grid_pars |> row.names()), # [1:36]
+  indices,
   \(i) {
-    print(i)
-    set.seed(grid_pars$index[i])
+    sprintf(
+      "parameter combination %i of %i",
+      which(indices %in% i),
+      length(indices)
+      ) |>
+      print()
+    set.seed(i)
     try(
       mlpwr::find.design(
         simfun = \(b1){
@@ -235,6 +245,9 @@ res_list <- purrr::map(
     )
   }
 )
+
+# update grid_pars
+grid_pars <- grid_pars[indices,]
 
 # save designresult objects
 datetime <- format(Sys.time(), "%Y%m%d-%H%M%S")

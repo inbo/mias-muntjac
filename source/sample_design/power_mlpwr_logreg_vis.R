@@ -1,7 +1,9 @@
 if (FALSE){
   rm(list = ls())
-  load("output/sample_design/mlpwr_logreg/gridpars_20251022-133925.Rda")
-  load("output/sample_design/mlpwr_logreg/res_list_20251022-133925.Rda")
+  #load("output/sample_design/mlpwr_logreg/gridpars_20251022-133925.Rda")
+  #load("output/sample_design/mlpwr_logreg/res_list_20251022-133925.Rda")
+  grid_pars <- get(load("output/sample_design/mlpwr_logreg/gridpars_20251217-203416.Rda"))
+  load("output/sample_design/mlpwr_logreg/res_list_20251217-203416.Rda")
 }
 
 # --- extract results -----------------------------------------------
@@ -63,10 +65,10 @@ tmp_mutate <- function(x) {
       b0_char = paste(b0),
       b0_fct = as.factor(b0_char) |> forcats::fct_rev(),
       x_end_char = paste("max(year*_t) =", x_end),
-      u0_var_char = paste("u0_var =", u0_var),
-      #n_fct = as.factor(n),
+      x_end_fct = as.factor(x_end_char) |> forcats::fct_rev(),
+      u0_var_char = paste("VAR_u0 =", u0_var),
       n_fct = paste("n =", n) |> as.factor() |> forcats::fct_reorder(.x = n),
-      cond_char = paste0("b0 =", b0_fct, ",\n", x_end_char,",\n", u0_var_char)
+      cond_char = paste0("b0 =", b0_fct, ",\n", x_end_fct,",\n", u0_var_char)
       # add P_x0, P_x1
     )
 }
@@ -98,14 +100,15 @@ plot_res <- ggplot2::ggplot(
   ggplot2::geom_line() +
   ggplot2::geom_point(ggplot2::aes(size = power_s_se)) +
   ggplot2::facet_grid(
-    rows = ggplot2::vars(x_end_char),
+    rows = ggplot2::vars(x_end_fct),
     cols = ggplot2::vars(u0_var_char)
     ) +
   ggplot2::labs(
     x = "Number of sampling locations",
     y = "Minimal detectable slope (90 % power)",
-    shape = "b0",
-    linetype = "b0"
+    shape = "gamma_00",
+    linetype = "gamma_00",
+    size = "SE_power"
   ) +
   ggplot2::theme_bw() +
   ggplot2::theme(strip.background = ggplot2::element_blank())
@@ -182,7 +185,8 @@ res_prob <- res_vis |>
     p1x0 = exp(b0)/(1 + exp(b0)),
     p1xmax = exp(b0 + mdd * xmax)/(1 + exp(b0 + mdd * xmax)),
     label_p1x0 = dplyr::case_when(
-      n == max(n) ~ paste(p1x0 |> round(digits = 3) |> format(digits = 3, nsmall = 3)),
+      (n == max(n) & xmax == min(xmax)) ~
+        paste(p1x0 |> round(digits = 3) |> format(digits = 3, nsmall = 3)),
       TRUE ~ NA_character_
       ),
     label_p1xmax = paste(p1xmax |> round(digits = 3) |> format(digits = 3, nsmall = 3)),
@@ -202,29 +206,29 @@ plot_res_prob <- ggplot2::ggplot(
     arrow_body_height = grid::unit(2, "mm"),
     arrowhead_width = grid::unit(2, "mm"),
     color = NA,
-    position = ggplot2::position_dodge2(width = .9, preserve = "single")
+    position = ggplot2::position_dodge2(width = .7, preserve = "single")
   ) +
   ggplot2::geom_vline(ggplot2::aes(xintercept = p1x0)) +
   ggplot2::geom_vline(xintercept = 0) +
   ggplot2::geom_text(
-    ggplot2::aes(x = p1x0 + 0.03, label = label_p1x0, y = Inf - 1),
-    size = 3,
-    position = ggplot2::position_dodge2(width = .9, preserve = "single")
+    ggplot2::aes(x = p1x0 + 0.02, label = label_p1x0,
+                 y = (res_prob$n |> unique() |> length()) + 1),
+    size = 3
   ) +
   ggplot2::geom_text(
     ggplot2::aes(x = p1xmax - 0.03, label = label_p1xmax, color = xmax_fct),
     size = 3,
-    position = ggplot2::position_dodge2(width = .9, preserve = "single")
+    position = ggplot2::position_dodge2(width = .7, preserve = "single")
   ) +
   ggplot2::facet_grid(
-    rows = ggplot2::vars(x_end_char),
+    rows = ggplot2::vars(x_end_fct),
     cols = ggplot2::vars(u0_var_char)
   ) +
   ggplot2::labs(
     title = "Detectable change in probability of presence after x years",
     x = "Probability of presence",
     y = "Number of sampling locations",
-    fill = "x years"
+    fill = "Number of years"
   ) +
   ggplot2::expand_limits(y = c(0, length(res_prob$n_fct |> levels()) + 1)) +
   ggplot2::scale_color_manual(values = INBOtheme::inbo_palette(3)) +
@@ -232,7 +236,8 @@ plot_res_prob <- ggplot2::ggplot(
   ggplot2::guides(color = "none") +
   ggplot2::scale_x_reverse() +
   ggplot2::theme_bw() +
-  ggplot2::theme(strip.background = ggplot2::element_blank())
+  ggplot2::theme(strip.background = ggplot2::element_blank()) +
+  ggplot2::coord_cartesian(ylim = c(1, (res_prob$n |> unique() |> length()) + 1))
 
 
 
@@ -243,7 +248,7 @@ data_logit <- data.frame(
   )
 data_tmp <- res_prob |>
   dplyr::mutate(mdd = mdd * xmax) |>
-  dplyr::filter(u0_var == min(u0_var), x_end == min(x_end), n == 75, xmax == 4) |> # min(n)
+  dplyr::filter(u0_var == min(u0_var), x_end == min(x_end), n == 75, xmax == 6) |> # min(n)
   dplyr::select(c("b0", "mdd", "b0_fct", "p1x0", "p1xmax", "b0_fct"))
 
 data_lines <- data_tmp |>
@@ -258,10 +263,7 @@ data_lines <- data_tmp |>
     names_pattern = "(.*)(_min|_max)",
     names_to = c(".value", "type")
   )
-
-
-
-ggplot2::ggplot(
+plot_logit <- ggplot2::ggplot(
   data = data_tmp
 ) +
   ggplot2::geom_line(
@@ -314,3 +316,48 @@ ggplot2::ggplot(
     color = "fixed intercept"
   ) +
   ggplot2::theme_bw()
+
+
+# results in terms of simulated data
+if (FALSE) {
+  source("source/_functions/sim_logreg.R")
+  data_y <- res_vis |>
+    dplyr::mutate(block = rep(seq(1,8), each = 9), .after = index) |>
+    dplyr::filter(!is.na(mdd), x_end == min(x_end), u0_var > 0) |>
+    dplyr::filter(n %in% c(min(n), max(n)), .by = block) |>
+    dplyr::select(c("n", b0_true = "b0", "mdd", "x_end", "VAR_u0")) |>
+    dplyr::mutate(
+      simdata = purrr::pmap(
+        list(
+          b0 = b0_true,
+          b1 = mdd,
+          x_end = x_end, # using seq here causes trouble
+          n = 100,
+          u0_var = u0_var
+        ),
+        \(b0, b1, x_end, n, u0_var) {
+          sim_logreg(b0 = b0, b1 = b1, x = seq(0, x_end), n = n, u0_var = u0_var)
+        }
+      )
+    ) |>
+    tidyr::unnest(simdata)
+  plot_res_data <- data_y |>
+    dplyr::mutate(
+      cond_fct = paste0("b0 = ",b0, ",\nn = ", n, ",\nb1 = ", round(b1, 2)),
+      cond_fct = factor(cond_fct, unique(cond_fct))
+    ) |>
+    ggplot2::ggplot(
+      data = _,
+      mapping = ggplot2::aes(x = x, y = y, group = id)
+    ) +
+    ggplot2::geom_line(ggplot2::aes(y = psi), linetype = "longdash", linewidth = 0.5, alpha = .5) +
+    ggplot2::geom_line(ggplot2::aes(color = id), linewidth = 1, alpha = .2,
+                       position = ggplot2::position_jitter(w = 0.03, h = 0.03)) +
+    ggplot2::facet_wrap(facets = ggplot2::vars(cond_fct), ncol = 2) +
+    ggplot2::labs(x = "year*", y = "outcome", color = "id") +
+    ggplot2::scale_x_continuous(breaks = data_y$x |> unique()) +
+    ggplot2::scale_colour_viridis_d(direction = -1, guide = "none") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(strip.background = ggplot2::element_blank())
+
+}
