@@ -51,7 +51,7 @@ plot_ec <- data_ec |>
   ggplot2::geom_line(ggplot2::aes(y = mdd)) +
   ggplot2::labs(
     x = "Number of sampling locations",
-    y = "Probability of success" #(observed)
+    y = "Probability of success (corresponding to observable effects)" #(observed)
     #title = "Classification of observable effects with respect to target and minimal detectable effect"
   ) +
   ggplot2::theme_bw() +
